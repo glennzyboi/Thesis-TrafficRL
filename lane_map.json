@@ -1,20 +1,17 @@
 {
   "ECOLAND": {
-    "default": {
-      "from": ["EC_N", "EC_S", "EC_E", "EC_W"],
-      "to": ["EC_N_out", "EC_S_out", "EC_E_out", "EC_W_out"]
-    }
+    "traffic_light_id": "JohnPaul_TrafficSignal",
+    "inbound_edges": [],
+    "outbound_edges": []
   },
   "JOHNPAUL": {
-    "default": {
-      "from": ["JP_N", "JP_S", "JP_E", "JP_W"], 
-      "to": ["JP_N_out", "JP_S_out", "JP_E_out", "JP_W_out"]
-    }
+    "traffic_light_id": "Ecoland_TrafficSignal",
+    "inbound_edges": [],
+    "outbound_edges": []
   },
   "SANDAWA": {
-    "default": {
-      "from": ["SD_N", "SD_S", "SD_E", "SD_W"],
-      "to": ["SD_N_out", "SD_S_out", "SD_E_out", "SD_W_out"]
-    }
+    "traffic_light_id": "Sandawa_TrafficSignal",
+    "inbound_edges": [],
+    "outbound_edges": []
   }
 }

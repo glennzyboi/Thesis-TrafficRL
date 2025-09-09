@@ -1,0 +1,8 @@
+<routes>
+    <vType id="car" length="5.0" accel="0.8" decel="4.5" sigma="0.5" minGap="2.5" maxSpeed="100" guiShape="passenger"/>
+    <vType id="motor" length="2.0" accel="1.0" decel="3.0" sigma="0.3" minGap="1.0" maxSpeed="80" guiShape="motorcycle"/>
+    <vType id="jeepney" length="7.0" accel="0.7" decel="4.0" sigma="0.6" minGap="3.0" maxSpeed="60" guiShape="bus"/>
+    <vType id="bus" length="12.0" accel="0.6" decel="4.5" sigma="0.7" minGap="4.0" maxSpeed="60" guiShape="bus"/>
+    <vType id="truck" length="15.0" accel="0.5" decel="5.0" sigma="0.8" minGap="5.0" maxSpeed="50" guiShape="truck"/>
+    <vType id="tricycle" length="3.0" accel="0.9" decel="3.5" sigma="0.4" minGap="2.0" maxSpeed="40" guiShape="motorcycle"/>
+</routes>
