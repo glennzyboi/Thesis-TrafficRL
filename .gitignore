@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.pytest_cache/
+
+# Virtual environments
+venv/
+env/
+.env
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Model files (too large for git)
+models/*.keras
+models/*.h5
+models/*.pkl
+
+# Large output files
+logs/*.png
+logs/*.json
+out/scenarios/*/cycle_*/
+
+# Excel temporary files
+~$*.xlsx
+~$*.xls
