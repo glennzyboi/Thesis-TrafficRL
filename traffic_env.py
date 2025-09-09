@@ -49,14 +49,21 @@ class TrafficEnvironment:
         
         Args:
             net_file: Path to SUMO network file (.net.xml)
-            rou_file: Path to SUMO route file (.rou.xml)
+            rou_file: Path to SUMO route file (.rou.xml) or list of route files for MARL
             use_gui: Whether to show SUMO GUI for visualization
             num_seconds: Total simulation duration
             warmup_time: Time before agent control starts
             step_length: Simulation step size in seconds
         """
         self.net_file = net_file
-        self.rou_file = rou_file
+        
+        # Handle both single route file and multiple route files (for MARL)
+        if isinstance(rou_file, list):
+            self.rou_files = rou_file
+            self.rou_file = rou_file[0] if rou_file else None  # For backward compatibility
+        else:
+            self.rou_files = [rou_file] if rou_file else []
+            self.rou_file = rou_file
         self.use_gui = use_gui
         self.num_seconds = num_seconds
         self.warmup_time = warmup_time
@@ -86,7 +93,12 @@ class TrafficEnvironment:
         
         print(f"🚦 Traffic Environment Initialized:")
         print(f"   Network: {os.path.basename(net_file)}")
-        print(f"   Routes: {os.path.basename(rou_file)}")
+        if isinstance(rou_file, list):
+            print(f"   Routes: {len(rou_file)} files for MARL")
+            for rf in rou_file:
+                print(f"     - {os.path.basename(rf)}")
+        else:
+            print(f"   Routes: {os.path.basename(rou_file)}")
         print(f"   GUI: {'Enabled' if use_gui else 'Disabled'}")
         print(f"   Duration: {num_seconds}s (Warmup: {warmup_time}s)")
         
@@ -100,7 +112,6 @@ class TrafficEnvironment:
         self.sumo_cmd = [
             sumo_binary,
             '-n', self.net_file,
-            '-r', self.rou_file,
             '--step-length', str(self.step_length),
             '--waiting-time-memory', '10000',
             '--time-to-teleport', '-1',
@@ -109,12 +120,21 @@ class TrafficEnvironment:
             '--seed', str(random.randint(0, 100000))
         ]
         
+        # Add route files (support multiple files for MARL)
+        if self.rou_files:
+            # SUMO expects comma-separated route files in a single -r option
+            route_files_str = ','.join(self.rou_files)
+            self.sumo_cmd.extend(['-r', route_files_str])
+        
         # Add GUI-specific options
         if self.use_gui:
             self.sumo_cmd.extend([
                 '--start',  # Start simulation immediately
                 '--delay', '100'  # Delay between steps (ms) for better visualization
             ])
+        
+        # Debug: Print the SUMO command
+        print(f"🔧 SUMO Command: {' '.join(self.sumo_cmd)}")
     
     def reset(self):
         """Reset the environment for a new episode"""

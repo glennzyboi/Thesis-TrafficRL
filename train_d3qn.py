@@ -17,12 +17,12 @@ from traffic_env import TrafficEnvironment
 CONFIG = {
     # Files
     'NET_FILE': 'network/ThesisNetowrk.net.xml',
-    'ROU_FILE': 'data/routes/test_training_routes.rou.xml',
+    'ROU_FILE': 'data/routes/20250828_cycle_1/ECOLAND_20250828_cycle1.rou.xml',
     
     # Environment settings
-    'USE_GUI': True,  # Show SUMO GUI for visualization
-    'EPISODE_DURATION': 1800,  # 30 minutes per episode
-    'WARMUP_TIME': 300,  # 5 minutes warmup
+    'USE_GUI': False,  # Test without GUI first for stability
+    'EPISODE_DURATION': 180,  # 3 minutes per episode for GUI stability
+    'WARMUP_TIME': 30,   # 30 seconds warmup for quicker start
     'STEP_LENGTH': 1.0,  # 1 second per step
     
     # Training parameters
