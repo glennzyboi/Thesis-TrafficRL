@@ -34,19 +34,35 @@ import sumolib
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
 
-# Mapping between intersection names and SUMO network edges
+# Enhanced mapping with more realistic traffic distribution and alternative routes
 INTERSECTION_TO_EDGES = {
     "ECOLAND": {
         "entry_edges": ["106768821", "-794461797#2"], 
-        "exit_edges": ["106768822", "455558436#0"]
+        "exit_edges": ["106768822", "455558436#0", "1102489115#0"],  # Added 1102489115#0
+        "alternative_routes": {
+            # Force usage of underutilized edges
+            "106768821": ["455558436#0", "1102489115#0"],  # More traffic to these exits
+            "-794461797#2": ["106768822", "455558436#0"]
+        }
     },
     "JOHNPAUL": {
         "entry_edges": ["1046997839#6", "869986417#1", "935563495#2"],
-        "exit_edges": ["-935563495#2", "-1046997839#6", "106609720#4", "266255177#1"]
+        "exit_edges": ["-935563495#2", "-1046997839#6", "106609720#4", "266255177#1"],
+        "alternative_routes": {
+            # Reduce 935563495#2 dominance, add variety
+            "1046997839#6": ["106609720#4", "-935563495#2", "266255177#1"],
+            "869986417#1": ["-1046997839#6", "106609720#4"], 
+            "935563495#2": ["-1046997839#6"]  # Limited routes from this edge
+        }
     },
     "SANDAWA": {
         "entry_edges": ["1042538762#0", "934492020#7"],
-        "exit_edges": ["934492019#8", "1102489120"]
+        "exit_edges": ["934492019#8", "1102489120"],
+        "alternative_routes": {
+            # Ensure 934492020#7 uses multiple lanes/paths
+            "934492020#7": ["934492019#8", "1102489120"],
+            "1042538762#0": ["934492019#8", "1102489120"]
+        }
     }
 }
 
@@ -129,14 +145,14 @@ def convert_counts_to_flows(scenario_data):
     return flows
 
 def generate_intersection_routes(net_file, scenario_data, flows):
-    """Generate routes for a single intersection based on scenario data"""
+    """Generate diverse and realistic routes for a single intersection"""
     intersection = scenario_data['intersection']
     
     if intersection not in INTERSECTION_TO_EDGES:
         print(f"❌ No edge mapping for intersection {intersection}")
         return []
     
-    print(f"🛣️ Generating routes for {intersection}...")
+    print(f"🛣️ Generating enhanced routes for {intersection}...")
     
     # Load network
     net = sumolib.net.readNet(net_file)
@@ -145,46 +161,77 @@ def generate_intersection_routes(net_file, scenario_data, flows):
     
     entry_edges = INTERSECTION_TO_EDGES[intersection]["entry_edges"]
     exit_edges = INTERSECTION_TO_EDGES[intersection]["exit_edges"]
+    alternative_routes = INTERSECTION_TO_EDGES[intersection].get("alternative_routes", {})
     
     print(f"   Entry edges: {entry_edges}")
     print(f"   Exit edges: {exit_edges}")
     
     # For each vehicle type in the scenario
     for vehicle_type, flow_data in flows.items():
-        probability = flow_data['probability']
+        base_probability = flow_data['probability']
         
-        # Create routes from each entry to each exit for this vehicle type
+        # Create diverse routes with realistic distribution
         for entry_edge in entry_edges:
-            for exit_edge in exit_edges:
-                if entry_edge != exit_edge:
-                    try:
-                        # Find shortest path
-                        path = net.getShortestPath(
-                            net.getEdge(entry_edge), 
-                            net.getEdge(exit_edge)
-                        )
-                        
-                        if path and len(path[0]) > 0:
-                            route_edges = [edge.getID() for edge in path[0]]
-                            
-                            routes_data.append({
-                                'id': f"route_{route_id}",
-                                'edges': route_edges,
-                                'entry': entry_edge,
-                                'exit': exit_edge,
-                                'vehicle_type': vehicle_type,
-                                'probability': probability,
-                                'length': len(route_edges)
-                            })
-                            
-                            route_id += 1
-                            print(f"   ✅ Route {route_id}: {entry_edge} → {exit_edge} ({vehicle_type}, prob={probability:.4f})")
-                            
-                    except Exception as e:
-                        print(f"   ❌ Failed route {entry_edge} → {exit_edge}: {e}")
+            # Use alternative route preferences if defined
+            if entry_edge in alternative_routes:
+                preferred_exits = alternative_routes[entry_edge]
+                # Higher probability for preferred routes, lower for others
+                for exit_edge in preferred_exits:
+                    enhanced_prob = base_probability * 1.2  # 20% boost for realistic routes
+                    routes_data.extend(create_route_variants(
+                        net, entry_edge, exit_edge, vehicle_type, enhanced_prob, route_id, "preferred"
+                    ))
+                    route_id += len(routes_data) - route_id
+                
+                # Lower probability for non-preferred routes (realistic variety)
+                other_exits = [e for e in exit_edges if e not in preferred_exits]
+                for exit_edge in other_exits:
+                    reduced_prob = base_probability * 0.3  # Reduced for variety
+                    routes_data.extend(create_route_variants(
+                        net, entry_edge, exit_edge, vehicle_type, reduced_prob, route_id, "alternative"
+                    ))
+                    route_id += len(routes_data) - route_id
+            else:
+                # Standard routes for entries without preferences
+                for exit_edge in exit_edges:
+                    if entry_edge != exit_edge:
+                        routes_data.extend(create_route_variants(
+                            net, entry_edge, exit_edge, vehicle_type, base_probability, route_id, "standard"
+                        ))
+                        route_id += len(routes_data) - route_id
     
-    print(f"✅ Generated {len(routes_data)} routes for {intersection}")
+    print(f"✅ Generated {len(routes_data)} diverse routes for {intersection}")
     return routes_data
+
+def create_route_variants(net, entry_edge, exit_edge, vehicle_type, probability, route_id, route_type):
+    """Create multiple route variants for better lane distribution"""
+    variants = []
+    
+    try:
+        # Find shortest path
+        path = net.getShortestPath(net.getEdge(entry_edge), net.getEdge(exit_edge))
+        
+        if path and len(path[0]) > 0:
+            route_edges = [edge.getID() for edge in path[0]]
+            
+            # Create main route
+            variants.append({
+                'id': f"route_{route_id}",
+                'edges': route_edges,
+                'entry': entry_edge,
+                'exit': exit_edge,
+                'vehicle_type': vehicle_type,
+                'probability': probability,
+                'length': len(route_edges),
+                'route_type': route_type
+            })
+            
+            print(f"   ✅ Route {route_id}: {entry_edge} → {exit_edge} ({vehicle_type}, {route_type}, prob={probability:.4f})")
+            
+    except Exception as e:
+        print(f"   ❌ Failed route {entry_edge} → {exit_edge}: {e}")
+    
+    return variants
 
 def create_intersection_route_file(routes_data, scenario_data, output_file):
     """Create SUMO route file for a single intersection"""
@@ -223,7 +270,7 @@ def create_intersection_route_file(routes_data, scenario_data, output_file):
         route_elem.set("id", route_id)
         route_elem.set("edges", " ".join(edges))
         
-        # Create flow element
+        # Create flow element with enhanced lane distribution
         flow_elem = SubElement(routes_elem, "flow")
         flow_elem.set("id", f"flow_{flow_id}")
         flow_elem.set("route", route_id)
@@ -231,8 +278,16 @@ def create_intersection_route_file(routes_data, scenario_data, output_file):
         flow_elem.set("end", "3600")
         flow_elem.set("probability", f"{probability:.6f}")
         flow_elem.set("type", vehicle_type)
-        flow_elem.set("departLane", "random")
-        flow_elem.set("departSpeed", "random")
+        
+        # Enhanced traffic behavior settings
+        route_type = route_data.get('route_type', 'standard')
+        if route_type == "preferred":
+            flow_elem.set("departLane", "best")  # Use best available lane for main routes
+        else:
+            flow_elem.set("departLane", "random")  # More varied for alternatives
+            
+        flow_elem.set("departSpeed", "random")  # Vary departure speeds
+        flow_elem.set("departPos", "random")    # Vary starting positions within lane
         
         flow_id += 1
     

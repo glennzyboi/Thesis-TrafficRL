@@ -8,6 +8,7 @@ import sys
 import random
 import pandas as pd
 import argparse
+import numpy as np
 from train_d3qn import *  # Import everything from the base trainer
 
 def load_scenarios_index():
@@ -158,30 +159,58 @@ def train_with_bundles():
                 # Agent learns
                 agent.remember(state, action, reward, next_state, done)
                 
+                loss = None
                 if len(agent.memory) > episode_config['BATCH_SIZE']:
-                    agent.replay()
+                    loss = agent.replay()
+                
+                # Show learning progress every 25 steps
+                if step % 25 == 0 and step > 0 and loss is not None:
+                    print(f"     >>> Learning: Loss={loss:.4f} | Memory={len(agent.memory)}/{agent.memory_size}")
                 
                 state = next_state
                 total_reward += reward
                 steps += 1
                 
-                # Progress updates every 50 steps
-                if step % 50 == 0 and step > 0:
+                # Detailed progress updates every 25 steps
+                if step % 25 == 0 and step > 0:
                     vehicles = info.get('vehicles', 0) if info else 0
-                    print(f"     Step {step}: Reward={reward:.2f}, Vehicles={vehicles}, ε={agent.epsilon:.3f}")
+                    waiting_time = info.get('waiting_time', 0) if info else 0
+                    avg_speed = info.get('avg_speed', 0) if info else 0
+                    queue_length = info.get('queue_length', 0) if info else 0
+                    
+                    # Get Q-values for current state if agent has memory
+                    q_values_str = "N/A"
+                    if hasattr(agent, 'model') and len(agent.memory) > 0:
+                        try:
+                            q_values = agent.model.predict(state.reshape(1, -1), verbose=0)[0]
+                            q_max = np.max(q_values)
+                            q_min = np.min(q_values)
+                            q_values_str = f"Q[{q_min:.2f}-{q_max:.2f}]"
+                        except:
+                            q_values_str = "N/A"
+                    
+                    print(f"     Step {step:3d}: R={reward:+6.2f} | Vehicles={vehicles:3d} | Wait={waiting_time:5.1f}s | Speed={avg_speed:4.1f}km/h | Queue={queue_length:2d} | {q_values_str} | ε={agent.epsilon:.3f}")
                 
                 if done:
                     break
             
-            # Episode summary
+            # Episode summary with detailed metrics
             episode_rewards.append(total_reward)
             avg_reward = sum(episode_rewards[-10:]) / min(len(episode_rewards), 10)
             
-            print(f"   ✅ Episode completed:")
-            print(f"     Reward: {total_reward:.2f} | Steps: {steps}")
-            print(f"     Avg Reward (last 10): {avg_reward:.2f}")
-            print(f"     Epsilon: {agent.epsilon:.3f}")
-            print(f"     Scenario: {bundle['name']}")
+            # Final episode metrics
+            final_info = info if info else {}
+            final_vehicles = final_info.get('vehicles', 0)
+            final_waiting = final_info.get('waiting_time', 0)
+            final_speed = final_info.get('avg_speed', 0)
+            final_throughput = final_info.get('throughput', 0)
+            
+            print(f"   ✅ Episode {episode + 1} Summary:")
+            print(f"     📊 Reward: {total_reward:+8.2f} | Steps: {steps:3d} | ε: {agent.epsilon:.3f}")
+            print(f"     🚗 Vehicles: {final_vehicles:3d} | Waiting: {final_waiting:5.1f}s | Speed: {final_speed:4.1f}km/h")
+            print(f"     📈 Throughput: {final_throughput:5.1f}veh/h | Memory: {len(agent.memory):4d}/{agent.memory_size}")
+            print(f"     🎯 Avg Reward (last 10): {avg_reward:+8.2f}")
+            print(f"     📍 Scenario: {bundle['name']}")
             
             # Update target network
             if episode % episode_config['TARGET_UPDATE_FREQ'] == 0:

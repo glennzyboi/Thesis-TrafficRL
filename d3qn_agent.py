@@ -14,9 +14,9 @@ class D3QNAgent:
     Dueling Double Deep Q-Network Agent for traffic signal control
     """
     
-    def __init__(self, state_size, action_size, learning_rate=0.001, 
-                 epsilon=1.0, epsilon_min=0.01, epsilon_decay=0.995,
-                 memory_size=10000, batch_size=32):
+    def __init__(self, state_size, action_size, learning_rate=0.0005, 
+                 epsilon=1.0, epsilon_min=0.05, epsilon_decay=0.9995,
+                 memory_size=50000, batch_size=64):
         """
         Initialize the D3QN agent
         
@@ -37,7 +37,10 @@ class D3QNAgent:
         self.epsilon_min = epsilon_min
         self.epsilon_decay = epsilon_decay
         self.memory = deque(maxlen=memory_size)
+        self.memory_size = memory_size
         self.batch_size = batch_size
+        self.gamma = 0.95  # Discount factor optimized for traffic control
+        self.tau = 0.001   # Soft update parameter for target network
         
         # Neural networks
         self.q_network = self._build_model()
@@ -46,11 +49,14 @@ class D3QNAgent:
         # Initialize target network with same weights
         self.update_target_model()
         
-        print(f"D3QN Agent initialized:")
+        print(f"Optimized D3QN Agent initialized:")
         print(f"  State size: {state_size}")
         print(f"  Action size: {action_size}")
-        print(f"  Learning rate: {learning_rate}")
-        print(f"  Memory size: {memory_size}")
+        print(f"  Learning rate: {learning_rate} (reduced for stability)")
+        print(f"  Epsilon decay: {epsilon_decay} (slower for longer exploration)")
+        print(f"  Memory size: {memory_size} (increased for diversity)")
+        print(f"  Batch size: {batch_size} (increased for stability)")
+        print(f"  Gamma: {self.gamma} (optimized for traffic control)")
     
     def _build_model(self):
         """
@@ -148,7 +154,7 @@ class D3QNAgent:
                 targets[i][actions[i]] = rewards[i]
             else:
                 # Double DQN target: Q_target(s', argmax_a Q_main(s', a))
-                targets[i][actions[i]] = rewards[i] + 0.95 * next_q_values[i][next_actions[i]]
+                targets[i][actions[i]] = rewards[i] + self.gamma * next_q_values[i][next_actions[i]]
         
         # Train the model
         history = self.q_network.fit(states, targets, epochs=1, verbose=0)

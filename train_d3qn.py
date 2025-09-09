@@ -26,17 +26,17 @@ CONFIG = {
     'STEP_LENGTH': 1.0,  # 1 second per step
     
     # Training parameters
-    'EPISODES': 50,  # Number of training episodes
+    'EPISODES': 100,  # Increased episodes for better learning
     'TARGET_UPDATE_FREQ': 10,  # Update target network every N episodes
     'SAVE_FREQ': 10,  # Save model every N episodes
     
-    # Agent parameters
-    'LEARNING_RATE': 0.001,
-    'EPSILON': 1.0,
-    'EPSILON_MIN': 0.01,
-    'EPSILON_DECAY': 0.995,
-    'MEMORY_SIZE': 10000,
-    'BATCH_SIZE': 32,
+    # Optimized Agent parameters (based on SUMO+RL research)
+    'LEARNING_RATE': 0.0005,   # Reduced for more stable learning
+    'EPSILON': 1.0,             # Start with full exploration
+    'EPSILON_MIN': 0.05,        # Higher minimum for continued exploration
+    'EPSILON_DECAY': 0.9995,    # Slower decay for longer exploration
+    'MEMORY_SIZE': 50000,       # Larger memory for better experience diversity
+    'BATCH_SIZE': 64,           # Larger batch for more stable gradients
     
     # Directories
     'MODEL_DIR': 'models',

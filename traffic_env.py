@@ -88,7 +88,18 @@ class TrafficEnvironment:
             'total_waiting_time': 0,
             'total_vehicles': 0,
             'avg_speed': 0,
-            'completed_trips': 0
+            'completed_trips': 0,
+            'passenger_throughput': 0
+        }
+        
+        # Vehicle type to passenger capacity mapping (based on field data)
+        self.passenger_capacity = {
+            'car': 1.5,        # Average car occupancy
+            'motor': 1.2,      # Motorcycle + passenger
+            'jeepney': 10.0,   # Public utility vehicle
+            'bus': 30.0,       # Public bus
+            'truck': 1.0,      # Commercial vehicle
+            'tricycle': 2.0    # Tricycle capacity
         }
         
         print(f"🚦 Traffic Environment Initialized:")
@@ -234,12 +245,36 @@ class TrafficEnvironment:
         # Update metrics
         self._update_metrics()
         
-        # Info for debugging
+        # Calculate detailed metrics for training visualization
+        total_vehicles = traci.vehicle.getIDCount()
+        total_waiting = 0
+        total_queue_length = 0
+        avg_speed = 0
+        
+        # Collect metrics from all lanes
+        for tl_id in self.traffic_lights:
+            for lane_id in self.controlled_lanes[tl_id]:
+                total_waiting += traci.lane.getWaitingTime(lane_id)
+                total_queue_length += traci.lane.getLastStepHaltingNumber(lane_id)
+        
+        # Calculate average speed
+        if total_vehicles > 0:
+            speeds = [traci.vehicle.getSpeed(veh_id) for veh_id in traci.vehicle.getIDList()]
+            avg_speed = sum(speeds) / len(speeds) if speeds else 0
+        
+        # Enhanced info for debugging and visualization
         info = {
             'step': self.current_step,
-            'vehicles': traci.vehicle.getIDCount(),
+            'vehicles': total_vehicles,
+            'waiting_time': total_waiting / max(total_vehicles, 1),  # Average waiting per vehicle
+            'avg_speed': avg_speed * 3.6,  # Convert m/s to km/h
+            'queue_length': total_queue_length,
             'reward': reward,
             'total_reward': self.total_reward,
+            'completed_trips': self.metrics.get('completed_trips', 0),
+            'throughput': self.metrics.get('completed_trips', 0) / max(self.current_step * self.step_length / 3600, 0.01),  # Vehicles per hour
+            'passenger_throughput': self.metrics.get('passenger_throughput', 0) / max(self.current_step * self.step_length / 3600, 0.01),  # Passengers per hour - PRIMARY METRIC
+            'total_passenger_throughput': self.metrics.get('passenger_throughput', 0),  # Cumulative passengers
             'metrics': self.metrics.copy()
         }
         
@@ -286,28 +321,144 @@ class TrafficEnvironment:
         return np.array(state[:self.state_size])
     
     def _calculate_reward(self):
-        """Calculate reward based on traffic metrics"""
-        # Calculate total waiting time for all vehicles
-        total_waiting = 0
+        """
+        Calculate optimized reward based on traffic signal control research
+        Designed to outperform fixed-time control with balanced multi-objective optimization
+        """
         total_vehicles = traci.vehicle.getIDCount()
         
         if total_vehicles == 0:
-            return 0.0
+            return 0.5  # Higher baseline for empty traffic management
         
-        # Sum waiting times for all lanes
+        # Collect comprehensive traffic metrics
+        total_waiting = 0
+        total_queue_length = 0
+        lane_count = 0
+        
         for tl_id in self.traffic_lights:
             for lane_id in self.controlled_lanes[tl_id]:
-                total_waiting += traci.lane.getWaitingTime(lane_id)
+                waiting_time = traci.lane.getWaitingTime(lane_id)
+                queue_length = traci.lane.getLastStepHaltingNumber(lane_id)
+                total_waiting += waiting_time
+                total_queue_length += queue_length
+                lane_count += 1
         
-        # Reward is negative waiting time (minimize waiting)
-        reward = -total_waiting / max(total_vehicles, 1)
+        # Get vehicles that completed their journey this step and calculate passenger throughput
+        arrived_vehicles = traci.simulation.getArrivedIDList()
+        step_throughput = len(arrived_vehicles)  # Vehicle throughput
+        step_passenger_throughput = 0            # Passenger throughput (primary objective)
         
-        # Bonus for maintaining traffic flow
+        # Calculate passenger throughput for this step
+        for veh_id in arrived_vehicles:
+            try:
+                veh_type = traci.vehicle.getTypeID(veh_id)
+                passenger_count = self.passenger_capacity.get(veh_type, 1.0)
+                step_passenger_throughput += passenger_count
+            except:
+                step_passenger_throughput += 1.5  # Average passenger fallback
+        
+        # Calculate average speed and collect individual speeds for variance
+        speeds = []
         if total_vehicles > 0:
-            avg_speed = sum(traci.vehicle.getSpeed(veh_id) 
-                          for veh_id in traci.vehicle.getIDList()) / total_vehicles
-            speed_bonus = avg_speed / 13.89  # Normalize to 50 km/h
-            reward += speed_bonus * 0.1
+            for veh_id in traci.vehicle.getIDList():
+                speed = traci.vehicle.getSpeed(veh_id)
+                speeds.append(speed)
+        
+        avg_speed = np.mean(speeds) if speeds else 0
+        speed_variance = np.var(speeds) if len(speeds) > 1 else 0
+        
+        # === OPTIMIZED REWARD COMPONENTS ===
+        
+        # 1. Waiting Time Component (Primary objective - minimize delays)
+        if total_vehicles > 0:
+            avg_waiting_per_vehicle = total_waiting / total_vehicles
+            # Use exponential penalty for high waiting times (research-backed)
+            waiting_penalty = -2.0 * (1 - np.exp(-avg_waiting_per_vehicle / 30.0))
+        else:
+            waiting_penalty = 0.0
+        
+        # 2. Queue Length Component (Congestion management)
+        if lane_count > 0:
+            avg_queue_per_lane = total_queue_length / lane_count
+            # Progressive penalty that increases sharply with queue length
+            queue_penalty = -1.5 * np.tanh(avg_queue_per_lane / 8.0)
+        else:
+            queue_penalty = 0.0
+        
+        # 3. Speed Component (Traffic flow efficiency)
+        # Reward higher speeds but penalize speed variance (smoother flow)
+        target_speed = 11.11  # 40 km/h in m/s
+        speed_efficiency = min(avg_speed / target_speed, 1.0)
+        speed_smoothness = 1.0 / (1.0 + speed_variance / 10.0)  # Penalize high variance
+        speed_reward = 1.0 * speed_efficiency * speed_smoothness
+        
+        # 4. Passenger Throughput Component (PRIMARY OBJECTIVE)
+        # Reward passenger throughput over vehicle throughput - this is our main research objective
+        passenger_throughput_reward = step_passenger_throughput * 0.5  # High weight for passenger throughput
+        vehicle_throughput_bonus = step_throughput * 0.1              # Lower weight for vehicle count
+        
+        # 5. System Efficiency Component (Overall network performance)
+        # Reward balanced utilization across lanes
+        if lane_count > 0 and total_queue_length > 0:
+            queue_distribution = []
+            for tl_id in self.traffic_lights:
+                for lane_id in self.controlled_lanes[tl_id]:
+                    queue = traci.lane.getLastStepHaltingNumber(lane_id)
+                    queue_distribution.append(queue)
+            
+            queue_std = np.std(queue_distribution) if len(queue_distribution) > 1 else 0
+            balance_reward = 0.3 * (1.0 / (1.0 + queue_std / 5.0))
+        else:
+            balance_reward = 0.3
+        
+        # 6. Phase Change Penalty (Discourage frequent switching)
+        phase_change_penalty = 0.0
+        if hasattr(self, 'last_actions') and hasattr(self, 'current_step'):
+            if self.current_step > 0:
+                # Small penalty for changing phases too frequently
+                for tl_id in self.traffic_lights:
+                    current_phase = traci.trafficlight.getPhase(tl_id)
+                    if hasattr(self, f'last_phase_{tl_id}'):
+                        last_phase = getattr(self, f'last_phase_{tl_id}')
+                        if current_phase != last_phase:
+                            phase_change_penalty -= 0.1
+                    setattr(self, f'last_phase_{tl_id}', current_phase)
+        
+        # === WEIGHTED COMBINATION (Passenger-Throughput Optimized) ===
+        reward = (
+            waiting_penalty * 0.25 +              # 25% - Waiting time (reduced)
+            queue_penalty * 0.15 +                # 15% - Congestion control (reduced)
+            speed_reward * 0.15 +                 # 15% - Flow efficiency (reduced)
+            passenger_throughput_reward * 0.35 +  # 35% - PRIMARY OBJECTIVE: Passenger throughput
+            vehicle_throughput_bonus * 0.05 +     # 5% - Vehicle throughput bonus
+            balance_reward * 0.05 +               # 5% - System balance (reduced)
+            phase_change_penalty                  # Variable penalty for stability
+        )
+        
+        # Dynamic baseline that adapts to traffic density
+        traffic_density = total_vehicles / max(lane_count, 1)
+        adaptive_baseline = 0.2 + 0.1 * min(traffic_density / 10.0, 1.0)
+        reward += adaptive_baseline
+        
+        # Store reward components for analysis
+        if not hasattr(self, 'reward_components'):
+            self.reward_components = []
+        
+        self.reward_components.append({
+            'step': self.current_step,
+            'waiting_penalty': waiting_penalty,
+            'queue_penalty': queue_penalty,
+            'speed_reward': speed_reward,
+            'passenger_throughput_reward': passenger_throughput_reward,
+            'vehicle_throughput_bonus': vehicle_throughput_bonus,
+            'balance_reward': balance_reward,
+            'total_reward': reward,
+            'avg_waiting': avg_waiting_per_vehicle if total_vehicles > 0 else 0,
+            'avg_queue': avg_queue_per_lane if lane_count > 0 else 0,
+            'avg_speed': avg_speed,
+            'vehicle_throughput': step_throughput,
+            'passenger_throughput': step_passenger_throughput
+        })
         
         return reward
     
@@ -321,9 +472,33 @@ class TrafficEnvironment:
     
     def _update_metrics(self):
         """Update performance metrics"""
-        self.metrics['total_vehicles'] = traci.vehicle.getIDCount()
+        current_vehicles = traci.vehicle.getIDCount()
+        self.metrics['total_vehicles'] = current_vehicles
         
-        if self.metrics['total_vehicles'] > 0:
+        # Track completed trips (vehicles that have left the simulation)
+        # Get list of vehicles that arrived at their destination this step
+        arrived_vehicles = traci.simulation.getArrivedIDList()
+        if arrived_vehicles:
+            if 'completed_trips' not in self.metrics:
+                self.metrics['completed_trips'] = 0
+            if 'passenger_throughput' not in self.metrics:
+                self.metrics['passenger_throughput'] = 0
+                
+            self.metrics['completed_trips'] += len(arrived_vehicles)
+            
+            # Calculate passenger throughput based on vehicle types
+            for veh_id in arrived_vehicles:
+                try:
+                    # Get vehicle type from SUMO
+                    veh_type = traci.vehicle.getTypeID(veh_id)
+                    # Add passenger capacity for this vehicle type
+                    passenger_count = self.passenger_capacity.get(veh_type, 1.0)
+                    self.metrics['passenger_throughput'] += passenger_count
+                except:
+                    # Fallback to average passenger count if vehicle type not found
+                    self.metrics['passenger_throughput'] += 1.5
+        
+        if current_vehicles > 0:
             # Calculate average speed
             speeds = [traci.vehicle.getSpeed(veh_id) for veh_id in traci.vehicle.getIDList()]
             self.metrics['avg_speed'] = sum(speeds) / len(speeds)
