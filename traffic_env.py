@@ -43,9 +43,9 @@ class TrafficEnvironment:
     """
     
     def __init__(self, net_file, rou_file, use_gui=True, num_seconds=3600, 
-                 warmup_time=300, step_length=1.0):
+                 warmup_time=300, step_length=1.0, min_phase_time=10, max_phase_time=120):
         """
-        Initialize the traffic environment
+        Initialize the traffic environment with realistic traffic signal constraints
         
         Args:
             net_file: Path to SUMO network file (.net.xml)
@@ -54,6 +54,8 @@ class TrafficEnvironment:
             num_seconds: Total simulation duration
             warmup_time: Time before agent control starts
             step_length: Simulation step size in seconds
+            min_phase_time: Minimum green/red phase duration (10s - safety standard)
+            max_phase_time: Maximum green/red phase duration (120s - efficiency standard)
         """
         self.net_file = net_file
         
@@ -69,15 +71,22 @@ class TrafficEnvironment:
         self.warmup_time = warmup_time
         self.step_length = step_length
         
+        # Realistic traffic signal timing constraints (based on traffic engineering standards)
+        self.min_phase_time = min_phase_time  # 10 seconds minimum (safety requirement)
+        self.max_phase_time = max_phase_time  # 120 seconds maximum (efficiency requirement)
+        
         # Simulation state
         self.current_step = 0
         self.warmup_complete = False
         self.total_reward = 0
         
-        # Traffic signal control
+        # Traffic signal control with timing constraints
         self.traffic_lights = []
         self.tl_phases = {}  # Store available phases for each TL
         self.controlled_lanes = {}  # Lanes controlled by each TL
+        self.phase_timers = {}  # Track how long current phase has been active
+        self.last_phase_change = {}  # Track when phase was last changed
+        self.current_phases = {}  # Track current phase for each traffic light
         
         # RL parameters
         self.state_size = None
@@ -281,25 +290,113 @@ class TrafficEnvironment:
         return next_state, reward, done, info
     
     def _apply_action(self, action):
-        """Apply the action to traffic lights"""
+        """Apply the action to traffic lights with realistic timing constraints"""
         # For simplicity, apply same action to all traffic lights
         # In practice, you might want different actions for each intersection
         action = int(action) % self.action_size
         
         for tl_id in self.traffic_lights:
-            # Make sure action is valid for this traffic light
-            max_phase = self.tl_phases[tl_id] - 1
-            phase = min(action, max_phase)
-            traci.trafficlight.setPhase(tl_id, phase)
+            self._apply_action_to_tl(tl_id, action)
     
     def _apply_action_to_tl(self, tl_id, action):
-        """Apply action to a specific traffic light (for MARL)"""
+        """Apply action to a specific traffic light with realistic timing constraints"""
         action = int(action) % self.action_size
         
         # Make sure action is valid for this traffic light
         max_phase = self.tl_phases[tl_id] - 1
-        phase = min(action, max_phase)
-        traci.trafficlight.setPhase(tl_id, phase)
+        desired_phase = min(action, max_phase)
+        
+        # Initialize phase tracking if not exists
+        if tl_id not in self.current_phases:
+            self.current_phases[tl_id] = traci.trafficlight.getPhase(tl_id)
+            self.phase_timers[tl_id] = 0
+            self.last_phase_change[tl_id] = 0
+        
+        current_phase = self.current_phases[tl_id]
+        time_in_current_phase = self.current_step - self.last_phase_change[tl_id]
+        
+        # Apply realistic timing constraints
+        can_change_phase = True
+        
+        # Minimum phase time constraint (safety requirement)
+        if time_in_current_phase < self.min_phase_time:
+            can_change_phase = False
+            
+        # Maximum phase time constraint (efficiency requirement)
+        # Force change if phase has been active too long
+        if time_in_current_phase >= self.max_phase_time:
+            can_change_phase = True
+            # If agent wants same phase, force to next phase for efficiency
+            if desired_phase == current_phase:
+                desired_phase = (current_phase + 1) % (max_phase + 1)
+        
+        # Public transport priority: Check if buses/jeepneys are waiting
+        if self._has_priority_vehicles_waiting(tl_id, desired_phase):
+            # Override constraints for public transport (reduce minimum time)
+            if time_in_current_phase >= max(5, self.min_phase_time // 2):
+                can_change_phase = True
+        
+        # Apply phase change only if constraints allow
+        if can_change_phase and desired_phase != current_phase:
+            # Avoid giving green to empty lanes
+            if not self._is_lane_empty_for_phase(tl_id, desired_phase):
+                traci.trafficlight.setPhase(tl_id, desired_phase)
+                self.current_phases[tl_id] = desired_phase
+                self.last_phase_change[tl_id] = self.current_step
+                self.phase_timers[tl_id] = 0
+            else:
+                # Find next non-empty phase or keep current
+                for next_phase in range(max_phase + 1):
+                    if not self._is_lane_empty_for_phase(tl_id, next_phase) and next_phase != current_phase:
+                        traci.trafficlight.setPhase(tl_id, next_phase)
+                        self.current_phases[tl_id] = next_phase
+                        self.last_phase_change[tl_id] = self.current_step
+                        self.phase_timers[tl_id] = 0
+                        break
+        
+        # Update timer
+        self.phase_timers[tl_id] += 1
+    
+    def _has_priority_vehicles_waiting(self, tl_id, phase):
+        """Check if public transport vehicles (buses/jeepneys) are waiting for this phase"""
+        try:
+            # Get lanes controlled by this phase
+            controlled_lanes = self.controlled_lanes.get(tl_id, [])
+            
+            for lane_id in controlled_lanes:
+                # Get vehicles on this lane
+                vehicles = traci.lane.getLastStepVehicleIDs(lane_id)
+                for veh_id in vehicles:
+                    veh_type = traci.vehicle.getTypeID(veh_id)
+                    # Priority for buses and jeepneys (public transport)
+                    if veh_type in ['bus', 'jeepney']:
+                        # Check if vehicle is stopped/slow (indicating waiting)
+                        speed = traci.vehicle.getSpeed(veh_id)
+                        if speed < 2.0:  # Speed less than 2 m/s indicates waiting
+                            return True
+            return False
+        except:
+            return False
+    
+    def _is_lane_empty_for_phase(self, tl_id, phase):
+        """Check if lanes controlled by this phase are empty (no vehicles waiting)"""
+        try:
+            # Get lanes controlled by this phase
+            controlled_lanes = self.controlled_lanes.get(tl_id, [])
+            
+            if not controlled_lanes:
+                return True
+            
+            total_vehicles = 0
+            for lane_id in controlled_lanes:
+                # Count vehicles on approaching lanes
+                vehicles = traci.lane.getLastStepVehicleIDs(lane_id)
+                total_vehicles += len(vehicles)
+            
+            # Consider empty if less than 2 vehicles total
+            return total_vehicles < 2
+        except:
+            return False
     
     def _get_state(self):
         """Get current state observation"""
@@ -448,13 +545,17 @@ class TrafficEnvironment:
                             phase_change_penalty -= 0.1
                     setattr(self, f'last_phase_{tl_id}', current_phase)
         
-        # === WEIGHTED COMBINATION (Passenger-Throughput Optimized) ===
+        # === PUBLIC TRANSPORT PRIORITY BONUS ===
+        public_transport_bonus = self._calculate_public_transport_bonus()
+        
+        # === WEIGHTED COMBINATION (Passenger-Throughput Optimized with PT Priority) ===
         reward = (
-            waiting_penalty * 0.30 +              # 30% - Waiting time (increased focus)
-            queue_penalty * 0.20 +                # 20% - Congestion control (increased)
-            speed_reward * 0.20 +                 # 20% - Flow efficiency (increased)
-            passenger_throughput_reward * 0.25 +  # 25% - Passenger throughput (optimized)
+            waiting_penalty * 0.25 +              # 25% - Waiting time (reduced to make room for PT)
+            queue_penalty * 0.20 +                # 20% - Congestion control
+            speed_reward * 0.20 +                 # 20% - Flow efficiency
+            passenger_throughput_reward * 0.25 +  # 25% - Passenger throughput (primary metric)
             vehicle_throughput_bonus * 0.05 +     # 5% - Vehicle throughput bonus
+            public_transport_bonus * 0.05 +       # 5% - Public transport priority bonus (NEW)
             balance_reward * 0.00 +               # 0% - System balance (reduced complexity)
             phase_change_penalty                  # Variable penalty for stability
         )
@@ -475,6 +576,7 @@ class TrafficEnvironment:
             'speed_reward': speed_reward,
             'passenger_throughput_reward': passenger_throughput_reward,
             'vehicle_throughput_bonus': vehicle_throughput_bonus,
+            'public_transport_bonus': public_transport_bonus,
             'balance_reward': balance_reward,
             'total_reward': reward,
             'avg_waiting': avg_waiting_per_vehicle if total_vehicles > 0 else 0,
@@ -485,6 +587,57 @@ class TrafficEnvironment:
         })
         
         return reward
+    
+    def _calculate_public_transport_bonus(self):
+        """Calculate bonus reward for efficiently handling public transport vehicles"""
+        bonus = 0.0
+        
+        try:
+            # Get all vehicles in the simulation
+            all_vehicles = traci.vehicle.getIDList()
+            
+            pt_vehicles_served = 0
+            pt_vehicles_waiting = 0
+            
+            for veh_id in all_vehicles:
+                try:
+                    veh_type = traci.vehicle.getTypeID(veh_id)
+                    
+                    # Focus on public transport (buses and jeepneys)
+                    if veh_type in ['bus', 'jeepney']:
+                        speed = traci.vehicle.getSpeed(veh_id)
+                        waiting_time = traci.vehicle.getWaitingTime(veh_id)
+                        
+                        # Bonus for moving public transport
+                        if speed > 5.0:  # Moving well (> 5 m/s = 18 km/h)
+                            bonus += 2.0  # High bonus for moving PT
+                        elif speed > 2.0:  # Moving moderately
+                            bonus += 1.0  # Moderate bonus
+                            pt_vehicles_served += 1
+                        else:  # Waiting or slow
+                            pt_vehicles_waiting += 1
+                            # Penalty for long waiting times
+                            if waiting_time > 30:  # More than 30 seconds waiting
+                                bonus -= 1.5
+                            elif waiting_time > 15:  # More than 15 seconds waiting
+                                bonus -= 0.5
+                
+                except:
+                    continue
+            
+            # Additional bonus for ratio of served vs waiting PT vehicles
+            total_pt = pt_vehicles_served + pt_vehicles_waiting
+            if total_pt > 0:
+                service_ratio = pt_vehicles_served / total_pt
+                bonus += service_ratio * 3.0  # Up to 3.0 bonus for high service ratio
+            
+            # Normalize bonus to reasonable range
+            bonus = max(-5.0, min(10.0, bonus))
+            
+        except:
+            bonus = 0.0
+        
+        return bonus
     
     def _is_done(self):
         """Check if episode should terminate"""

@@ -160,15 +160,28 @@ def train_single_agent():
     # Create directories
     create_directories()
     
-    # Initialize environment
+    # Load available bundles for varied training
+    bundles = load_scenarios_index()
+    
+    if not bundles:
+        print("❌ No training bundles available! Using default route...")
+        route_file = CONFIG['ROU_FILE']
+    else:
+        print(f"✅ Found {len(bundles)} valid traffic bundles for training")
+        # Use first bundle initially
+        route_file = bundles[0]['consolidated_file']
+    
+    # Initialize environment with realistic traffic signal constraints
     print("🏗️ Initializing environment...")
     env = TrafficEnvironment(
         net_file=CONFIG['NET_FILE'],
-        rou_file=CONFIG['ROU_FILE'],
+        rou_file=route_file,
         use_gui=CONFIG['USE_GUI'],
         num_seconds=CONFIG['EPISODE_DURATION'],
         warmup_time=CONFIG['WARMUP_TIME'],
         step_length=CONFIG['STEP_LENGTH'],
+        min_phase_time=10,  # 10 seconds minimum (safety standard)
+        max_phase_time=120  # 120 seconds maximum (efficiency standard)
     )
     
     try:
@@ -344,7 +357,7 @@ def train_marl_agents():
         intersections = ', '.join(bundle['intersections'])
         print(f"   {i}. {bundle['name']} ({intersections})")
     
-    # Initialize environment with first bundle
+    # Initialize environment with first bundle and realistic constraints
     initial_bundle, initial_route_file = select_random_bundle(bundles)
     env = TrafficEnvironment(
         net_file=CONFIG['NET_FILE'],
@@ -352,7 +365,9 @@ def train_marl_agents():
         use_gui=CONFIG['USE_GUI'],
         num_seconds=CONFIG['EPISODE_DURATION'],
         warmup_time=CONFIG['WARMUP_TIME'],
-        step_length=CONFIG['STEP_LENGTH']
+        step_length=CONFIG['STEP_LENGTH'],
+        min_phase_time=10,  # 10 seconds minimum (safety standard)
+        max_phase_time=120  # 120 seconds maximum (efficiency standard)
     )
     
     try:
@@ -392,7 +407,7 @@ def train_marl_agents():
             
             print(f"   🎲 Selected: {bundle['name']}")
             
-            # Close and reinitialize environment with new route
+            # Close and reinitialize environment with new route and constraints
             env.close()
             env = TrafficEnvironment(
                 net_file=CONFIG['NET_FILE'],
@@ -400,7 +415,9 @@ def train_marl_agents():
                 use_gui=CONFIG['USE_GUI'],
                 num_seconds=CONFIG['EPISODE_DURATION'],
                 warmup_time=CONFIG['WARMUP_TIME'],
-                step_length=CONFIG['STEP_LENGTH']
+                step_length=CONFIG['STEP_LENGTH'],
+                min_phase_time=10,  # 10 seconds minimum (safety standard)
+                max_phase_time=120  # 120 seconds maximum (efficiency standard)
             )
             
             # Reset environment and agents
