@@ -37,31 +37,37 @@ PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
 # Enhanced mapping with more realistic traffic distribution and alternative routes
 INTERSECTION_TO_EDGES = {
     "ECOLAND": {
-        "entry_edges": ["106768821", "-794461797#2"], 
-        "exit_edges": ["106768822", "455558436#0", "1102489115#0"],  # Added 1102489115#0
+        "entry_edges": ["106768821", "-794461797#2", "770761758#0", "-24224169#2"],
+        "exit_edges": ["106768822", "455558436#0", "-24224169#2"],  # Removed 1102489115#0 - it's pass-through
         "alternative_routes": {
-            # Force usage of underutilized edges
-            "106768821": ["455558436#0", "1102489115#0"],  # More traffic to these exits
-            "-794461797#2": ["106768822", "455558436#0"]
+            # Balanced routes without forcing pass-through as exit
+            "106768821": ["455558436#0", "106768822"],
+            "-794461797#2": ["106768822", "455558436#0"],
+            "770761758#0": ["455558436#0", "106768822"],
+            "-24224169#2": ["455558436#0", "106768822"]
         }
     },
     "JOHNPAUL": {
-        "entry_edges": ["1046997839#6", "869986417#1", "935563495#2"],
+        "entry_edges": ["1046997839#6", "869986417#1", "935563495#2", "-1046997837#4", "-266255177#0"],
         "exit_edges": ["-935563495#2", "-1046997839#6", "106609720#4", "266255177#1"],
         "alternative_routes": {
-            # Reduce 935563495#2 dominance, add variety
+            # Original routes
             "1046997839#6": ["106609720#4", "-935563495#2", "266255177#1"],
             "869986417#1": ["-1046997839#6", "106609720#4"], 
-            "935563495#2": ["-1046997839#6"]  # Limited routes from this edge
+            "935563495#2": ["-1046997839#6"],  # Limited routes from this edge
+            # Missing entry edges with valid routes
+            "-1046997837#4": ["-935563495#2", "-1046997839#6", "106609720#4"],  # All reachable exits
+            "-266255177#0": ["-1046997839#6", "106609720#4"]  # Only reachable exits
         }
     },
     "SANDAWA": {
-        "entry_edges": ["1042538762#0", "934492020#7"],
+        "entry_edges": ["1042538762#0", "934492020#7", "24224169#8"],  # Added missing entry edge
         "exit_edges": ["934492019#8", "1102489120"],
         "alternative_routes": {
-            # Ensure 934492020#7 uses multiple lanes/paths
+            # Balanced routes across all entry points
+            "1042538762#0": ["934492019#8", "1102489120"],
             "934492020#7": ["934492019#8", "1102489120"],
-            "1042538762#0": ["934492019#8", "1102489120"]
+            "24224169#8": ["934492019#8", "1102489120"]  # Routes from new entry edge
         }
     }
 }
@@ -123,24 +129,56 @@ def load_scenario_data(scenario_csv_path):
         return None
 
 def convert_counts_to_flows(scenario_data):
-    """Convert vehicle counts to SUMO flow probabilities"""
+    """Convert vehicle counts to SUMO flow probabilities with realistic distribution"""
     vehicles = scenario_data['vehicles']
     cycle_time = scenario_data['cycle_time']
+    intersection = scenario_data['intersection']
+    
+    # Entry edge distribution weights based on typical traffic patterns
+    entry_weights = {
+        "ECOLAND": {
+            "106768821": 0.35,      # Main road - heavy traffic
+            "-794461797#2": 0.30,   # Secondary main - medium-heavy
+            "770761758#0": 0.20,    # Side entrance - medium
+            "-24224169#2": 0.15     # Secondary side - light
+        },
+        "JOHNPAUL": {
+            "1046997839#6": 0.25,   # Balanced distribution
+            "869986417#1": 0.25,    
+            "935563495#2": 0.15,    # Lighter traffic
+            "-1046997837#4": 0.20,  # Medium traffic
+            "-266255177#0": 0.15    # Light traffic
+        },
+        "SANDAWA": {
+            "1042538762#0": 0.40,   # Main entrance
+            "934492020#7": 0.35,    # Secondary entrance
+            "24224169#8": 0.25      # New entrance - moderate
+        }
+    }
     
     flows = {}
     for vehicle_type, count in vehicles.items():
         if count > 0:
-            # Calculate flow probability (scale down for SUMO)
-            # Use cycle time to determine realistic probability
-            base_probability = min(0.6, count / cycle_time / 8.0)  # Conservative scaling
+            # Calculate vehicles per hour based on real-world traffic studies
+            # Urban intersections: 300-800 veh/h per approach during peak
+            # Scale count to realistic vehsPerHour values
+            vehicles_per_hour = min(800, count * 4)  # Scale up for realistic traffic
+            
+            # Academic studies show period=2-6 seconds for urban traffic
+            # period = 3600/vehsPerHour (3600 seconds per hour)
+            period = max(4.5, 3600 / vehicles_per_hour)  # Min period=4.5s, realistic range
+            
+            # Apply entry edge weights for realistic distribution
             flows[vehicle_type] = {
                 'count': count,
-                'probability': base_probability
+                'vehicles_per_hour': vehicles_per_hour,
+                'period': period,
+                'entry_weights': entry_weights.get(intersection, {})
             }
     
-    print(f"📈 {scenario_data['intersection']} flows:")
+    print(f"📈 {intersection} flows with realistic traffic density:")
     for vtype, flow_data in flows.items():
-        print(f"   {vtype}: {flow_data['count']} vehicles → prob={flow_data['probability']:.4f}")
+        print(f"   {vtype}: {flow_data['count']} vehicles → {flow_data['vehicles_per_hour']} veh/h (period={flow_data['period']:.1f}s)")
     
     return flows
 
@@ -168,27 +206,32 @@ def generate_intersection_routes(net_file, scenario_data, flows):
     
     # For each vehicle type in the scenario
     for vehicle_type, flow_data in flows.items():
-        base_probability = flow_data['probability']
+        base_period = flow_data['period']
+        entry_weights = flow_data['entry_weights']
         
-        # Create diverse routes with realistic distribution
+        # Create routes with data-driven distribution
         for entry_edge in entry_edges:
+            # Apply entry edge weight for realistic traffic distribution
+            entry_weight = entry_weights.get(entry_edge, 1.0 / len(entry_edges))  # Default to equal if no weight
+            # Scale period based on entry weight (higher weight = lower period = more vehicles)
+            weighted_period = base_period / max(0.1, entry_weight)
+            
             # Use alternative route preferences if defined
             if entry_edge in alternative_routes:
                 preferred_exits = alternative_routes[entry_edge]
-                # Higher probability for preferred routes, lower for others
+                # Create routes to preferred exits
                 for exit_edge in preferred_exits:
-                    enhanced_prob = base_probability * 1.2  # 20% boost for realistic routes
                     routes_data.extend(create_route_variants(
-                        net, entry_edge, exit_edge, vehicle_type, enhanced_prob, route_id, "preferred"
+                        net, entry_edge, exit_edge, vehicle_type, weighted_period, route_id, "weighted"
                     ))
                     route_id += len(routes_data) - route_id
                 
-                # Lower probability for non-preferred routes (realistic variety)
+                # Higher period (lower frequency) for non-preferred routes
                 other_exits = [e for e in exit_edges if e not in preferred_exits]
                 for exit_edge in other_exits:
-                    reduced_prob = base_probability * 0.3  # Reduced for variety
+                    increased_period = weighted_period * 3.0  # Reduced frequency for variety
                     routes_data.extend(create_route_variants(
-                        net, entry_edge, exit_edge, vehicle_type, reduced_prob, route_id, "alternative"
+                        net, entry_edge, exit_edge, vehicle_type, increased_period, route_id, "alternative"
                     ))
                     route_id += len(routes_data) - route_id
             else:
@@ -196,14 +239,14 @@ def generate_intersection_routes(net_file, scenario_data, flows):
                 for exit_edge in exit_edges:
                     if entry_edge != exit_edge:
                         routes_data.extend(create_route_variants(
-                            net, entry_edge, exit_edge, vehicle_type, base_probability, route_id, "standard"
+                            net, entry_edge, exit_edge, vehicle_type, weighted_period, route_id, "weighted"
                         ))
                         route_id += len(routes_data) - route_id
     
     print(f"✅ Generated {len(routes_data)} diverse routes for {intersection}")
     return routes_data
 
-def create_route_variants(net, entry_edge, exit_edge, vehicle_type, probability, route_id, route_type):
+def create_route_variants(net, entry_edge, exit_edge, vehicle_type, period, route_id, route_type):
     """Create multiple route variants for better lane distribution"""
     variants = []
     
@@ -221,12 +264,12 @@ def create_route_variants(net, entry_edge, exit_edge, vehicle_type, probability,
                 'entry': entry_edge,
                 'exit': exit_edge,
                 'vehicle_type': vehicle_type,
-                'probability': probability,
+                'period': period,
                 'length': len(route_edges),
                 'route_type': route_type
             })
             
-            print(f"   ✅ Route {route_id}: {entry_edge} → {exit_edge} ({vehicle_type}, {route_type}, prob={probability:.4f})")
+            print(f"   ✅ Route {route_id}: {entry_edge} → {exit_edge} ({vehicle_type}, {route_type}, period={period:.1f}s)")
             
     except Exception as e:
         print(f"   ❌ Failed route {entry_edge} → {exit_edge}: {e}")
@@ -258,7 +301,7 @@ def create_intersection_route_file(routes_data, scenario_data, output_file):
         route_id = route_data['id']
         edges = route_data['edges']
         vehicle_type = route_data['vehicle_type']
-        probability = route_data['probability']
+        period = route_data['period']
         
         # Track stats
         if vehicle_type not in vehicle_stats:
@@ -270,24 +313,28 @@ def create_intersection_route_file(routes_data, scenario_data, output_file):
         route_elem.set("id", route_id)
         route_elem.set("edges", " ".join(edges))
         
-        # Create flow element with enhanced lane distribution
+        # Create flow element with realistic traffic density (period-based)
         flow_elem = SubElement(routes_elem, "flow")
-        flow_elem.set("id", f"flow_{flow_id}")
+        flow_elem.set("id", f"flow_{vehicle_type}_{flow_id}")  # Include vehicle type in ID
         flow_elem.set("route", route_id)
         flow_elem.set("begin", "0")
         flow_elem.set("end", "3600")
-        flow_elem.set("probability", f"{probability:.6f}")
+        flow_elem.set("period", f"{period:.2f}")  # Use period instead of probability
         flow_elem.set("type", vehicle_type)
         
-        # Enhanced traffic behavior settings
+        # Enhanced traffic behavior settings based on academic studies
         route_type = route_data.get('route_type', 'standard')
         if route_type == "preferred":
             flow_elem.set("departLane", "best")  # Use best available lane for main routes
+            flow_elem.set("departSpeed", "max")  # Higher speeds for main flows
         else:
             flow_elem.set("departLane", "random")  # More varied for alternatives
+            flow_elem.set("departSpeed", "random")  # Vary departure speeds
             
-        flow_elem.set("departSpeed", "random")  # Vary departure speeds
-        flow_elem.set("departPos", "random")    # Vary starting positions within lane
+        # Realistic traffic settings from SUMO studies
+        flow_elem.set("departPos", "random")    # Vary starting positions
+        flow_elem.set("arrivalLane", "current") # Stay in current lane when possible
+        flow_elem.set("departPosLat", "random") # Lateral position variation
         
         flow_id += 1
     

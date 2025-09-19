@@ -292,6 +292,15 @@ class TrafficEnvironment:
             phase = min(action, max_phase)
             traci.trafficlight.setPhase(tl_id, phase)
     
+    def _apply_action_to_tl(self, tl_id, action):
+        """Apply action to a specific traffic light (for MARL)"""
+        action = int(action) % self.action_size
+        
+        # Make sure action is valid for this traffic light
+        max_phase = self.tl_phases[tl_id] - 1
+        phase = min(action, max_phase)
+        traci.trafficlight.setPhase(tl_id, phase)
+    
     def _get_state(self):
         """Get current state observation"""
         state = []
@@ -349,13 +358,28 @@ class TrafficEnvironment:
         step_passenger_throughput = 0            # Passenger throughput (primary objective)
         
         # Calculate passenger throughput for this step
+        # Use vehicle tracking from flow names to avoid querying departed vehicles
         for veh_id in arrived_vehicles:
             try:
-                veh_type = traci.vehicle.getTypeID(veh_id)
-                passenger_count = self.passenger_capacity.get(veh_type, 1.0)
-                step_passenger_throughput += passenger_count
+                # Extract vehicle type from flow ID pattern (flow_vehicletype_X.Y)
+                if 'flow_' in veh_id:
+                    veh_id_lower = veh_id.lower()
+                    if 'bus' in veh_id_lower:
+                        step_passenger_throughput += 15.0  # Bus capacity
+                    elif 'jeepney' in veh_id_lower:
+                        step_passenger_throughput += 12.0  # Jeepney capacity
+                    elif 'truck' in veh_id_lower:
+                        step_passenger_throughput += 1.0   # Truck (goods)
+                    elif 'motor' in veh_id_lower:
+                        step_passenger_throughput += 1.2   # Motorcycle
+                    elif 'car' in veh_id_lower:
+                        step_passenger_throughput += 1.5   # Car
+                    else:
+                        step_passenger_throughput += 1.5   # Default fallback
+                else:
+                    step_passenger_throughput += 1.5  # Default fallback
             except:
-                step_passenger_throughput += 1.5  # Average passenger fallback
+                step_passenger_throughput += 1.5  # Safe fallback
         
         # Calculate average speed and collect individual speeds for variance
         speeds = []
@@ -373,7 +397,7 @@ class TrafficEnvironment:
         if total_vehicles > 0:
             avg_waiting_per_vehicle = total_waiting / total_vehicles
             # Use exponential penalty for high waiting times (research-backed)
-            waiting_penalty = -2.0 * (1 - np.exp(-avg_waiting_per_vehicle / 30.0))
+            waiting_penalty = -4.0 * (1 - np.exp(-avg_waiting_per_vehicle / 20.0))  # More aggressive penalty
         else:
             waiting_penalty = 0.0
         
@@ -381,7 +405,7 @@ class TrafficEnvironment:
         if lane_count > 0:
             avg_queue_per_lane = total_queue_length / lane_count
             # Progressive penalty that increases sharply with queue length
-            queue_penalty = -1.5 * np.tanh(avg_queue_per_lane / 8.0)
+            queue_penalty = -2.5 * np.tanh(avg_queue_per_lane / 6.0)  # More aggressive queue penalty
         else:
             queue_penalty = 0.0
         
@@ -426,12 +450,12 @@ class TrafficEnvironment:
         
         # === WEIGHTED COMBINATION (Passenger-Throughput Optimized) ===
         reward = (
-            waiting_penalty * 0.25 +              # 25% - Waiting time (reduced)
-            queue_penalty * 0.15 +                # 15% - Congestion control (reduced)
-            speed_reward * 0.15 +                 # 15% - Flow efficiency (reduced)
-            passenger_throughput_reward * 0.35 +  # 35% - PRIMARY OBJECTIVE: Passenger throughput
+            waiting_penalty * 0.30 +              # 30% - Waiting time (increased focus)
+            queue_penalty * 0.20 +                # 20% - Congestion control (increased)
+            speed_reward * 0.20 +                 # 20% - Flow efficiency (increased)
+            passenger_throughput_reward * 0.25 +  # 25% - Passenger throughput (optimized)
             vehicle_throughput_bonus * 0.05 +     # 5% - Vehicle throughput bonus
-            balance_reward * 0.05 +               # 5% - System balance (reduced)
+            balance_reward * 0.00 +               # 0% - System balance (reduced complexity)
             phase_change_penalty                  # Variable penalty for stability
         )
         
@@ -465,7 +489,9 @@ class TrafficEnvironment:
     def _is_done(self):
         """Check if episode should terminate"""
         # Episode ends when simulation time is reached or no vehicles remain
-        time_limit = self.current_step * self.step_length >= self.num_seconds
+        # FIXED: Account for warmup time in total episode duration
+        total_episode_time = self.warmup_time + self.num_seconds
+        time_limit = self.current_step * self.step_length >= total_episode_time
         no_vehicles = traci.vehicle.getIDCount() == 0 and self.current_step > self.warmup_time / self.step_length
         
         return time_limit or no_vehicles
@@ -487,15 +513,28 @@ class TrafficEnvironment:
             self.metrics['completed_trips'] += len(arrived_vehicles)
             
             # Calculate passenger throughput based on vehicle types
+            # Use safer vehicle type estimation from flow names
             for veh_id in arrived_vehicles:
                 try:
-                    # Get vehicle type from SUMO
-                    veh_type = traci.vehicle.getTypeID(veh_id)
-                    # Add passenger capacity for this vehicle type
-                    passenger_count = self.passenger_capacity.get(veh_type, 1.0)
-                    self.metrics['passenger_throughput'] += passenger_count
+                    # Extract vehicle type from flow ID pattern (flow_vehicletype_X.Y)
+                    if 'flow_' in veh_id:
+                        veh_id_lower = veh_id.lower()
+                        if 'bus' in veh_id_lower:
+                            self.metrics['passenger_throughput'] += 15.0  # Bus capacity
+                        elif 'jeepney' in veh_id_lower:
+                            self.metrics['passenger_throughput'] += 12.0  # Jeepney capacity
+                        elif 'truck' in veh_id_lower:
+                            self.metrics['passenger_throughput'] += 1.0   # Truck (goods)
+                        elif 'motor' in veh_id_lower:
+                            self.metrics['passenger_throughput'] += 1.2   # Motorcycle
+                        elif 'car' in veh_id_lower:
+                            self.metrics['passenger_throughput'] += 1.5   # Car
+                        else:
+                            self.metrics['passenger_throughput'] += 1.5   # Default
+                    else:
+                        self.metrics['passenger_throughput'] += 1.5   # Default fallback
                 except:
-                    # Fallback to average passenger count if vehicle type not found
+                    # Safe fallback to average passenger count
                     self.metrics['passenger_throughput'] += 1.5
         
         if current_vehicles > 0:
@@ -534,3 +573,147 @@ class TrafficEnvironment:
             'action_size': self.action_size,
             'metrics': self.metrics
         }
+    
+    # MARL Methods
+    def get_marl_states(self):
+        """Get states for all agents in MARL setup"""
+        states = {}
+        for tl_id in self.traffic_lights:
+            states[tl_id] = self._get_agent_state(tl_id)
+        return states
+    
+    def _get_agent_state(self, tl_id):
+        """Get state for a specific agent/intersection"""
+        state = []
+        
+        # Get controlled lanes for this traffic light
+        controlled_lanes = self.controlled_lanes.get(tl_id, [])
+        
+        # Traffic metrics for each lane
+        for lane_id in controlled_lanes:
+            try:
+                queue_length = traci.lane.getLastStepHaltingNumber(lane_id)
+                waiting_time = traci.lane.getWaitingTime(lane_id) / 100.0  # Normalize
+                occupancy = traci.lane.getLastStepOccupancy(lane_id)
+                avg_speed = traci.lane.getLastStepMeanSpeed(lane_id) / 13.89  # Normalize to 0-1
+                
+                state.extend([queue_length, waiting_time, occupancy, avg_speed])
+            except:
+                state.extend([0, 0, 0, 0])
+        
+        # Current signal phase
+        try:
+            current_phase = traci.trafficlight.getPhase(tl_id)
+            phase_duration = traci.trafficlight.getPhaseDuration(tl_id)
+            
+            # One-hot encode phase (assuming max 11 phases)
+            phase_encoded = [0] * 11
+            if current_phase < 11:
+                phase_encoded[current_phase] = 1
+            
+            state.extend(phase_encoded)
+            state.append(phase_duration / 60.0)  # Normalize phase duration
+        except:
+            state.extend([0] * 12)
+        
+        # Pad state to fixed size (159 features)
+        while len(state) < 159:
+            state.append(0)
+        
+        return np.array(state[:159], dtype=np.float32)
+    
+    def step_marl(self, actions):
+        """Step with MARL actions"""
+        # Apply actions for each traffic light
+        for tl_id, action in actions.items():
+            if tl_id in self.traffic_lights:
+                self._apply_action_to_tl(tl_id, action)
+        
+        # Step simulation
+        traci.simulationStep()
+        self.current_step += 1
+        
+        # Calculate rewards and get new states
+        states = self.get_marl_states()
+        rewards = self._calculate_marl_rewards()
+        
+        # Check if episode is done
+        # FIXED: Account for warmup time in total episode duration
+        total_episode_steps = (self.warmup_time + self.num_seconds) / self.step_length
+        done = (self.current_step >= total_episode_steps or 
+                traci.simulation.getMinExpectedNumber() <= 0)
+        
+        # Update metrics
+        self._update_metrics()
+        
+        # Enhanced info for MARL training compatibility
+        info = {
+            'step': self.current_step,
+            'vehicles': self.metrics.get('total_vehicles', 0),  # Match single-agent format
+            'completed_trips': self.metrics.get('completed_trips', 0),  # Match single-agent format
+            'passenger_throughput': self.metrics.get('passenger_throughput', 0),  # Cumulative passengers
+            'total_vehicles': self.metrics.get('total_vehicles', 0),
+            'avg_speed': self.metrics.get('avg_speed', 0),
+            'throughput': self.metrics.get('completed_trips', 0) / max(self.current_step * self.step_length / 3600, 0.01),  # Vehicles per hour
+        }
+        
+        return states, rewards, done, info
+    
+    def _calculate_marl_rewards(self):
+        """Calculate rewards for each agent"""
+        rewards = {}
+        
+        # Calculate passenger throughput based on vehicle origins to avoid double counting
+        passenger_throughput = 0
+        intersection_entry_edges = {
+            'Ecoland_TrafficSignal': ['106768821', '-794461797#2', '770761758#0', '-24224169#2'],
+            'JohnPaul_TrafficSignal': ['1046997839#6', '869986417#1', '935563495#2'], 
+            'Sandawa_TrafficSignal': ['1042538762#0', '934492020#7']
+        }
+        
+        all_vehicles = traci.vehicle.getIDList()
+        for veh_id in all_vehicles:
+            try:
+                route_id = traci.vehicle.getRouteID(veh_id)
+                route_edges = traci.route.getEdges(route_id)
+                if route_edges:
+                    origin_edge = route_edges[0]
+                    for tl_id, entry_edges in intersection_entry_edges.items():
+                        if origin_edge in entry_edges:
+                            veh_type = traci.vehicle.getTypeID(veh_id)
+                            passenger_count = self.passenger_capacity.get(veh_type, 1.5)
+                            passenger_throughput += passenger_count
+                            break
+            except:
+                passenger_throughput += 1.5
+        
+        # Calculate rewards for each traffic light
+        for tl_id in self.traffic_lights:
+            controlled_lanes = self.controlled_lanes.get(tl_id, [])
+            
+            # Calculate local metrics
+            local_queue = sum(traci.lane.getLastStepHaltingNumber(lane) for lane in controlled_lanes)
+            local_waiting = sum(traci.lane.getWaitingTime(lane) for lane in controlled_lanes)
+            local_speed = np.mean([traci.lane.getLastStepMeanSpeed(lane) for lane in controlled_lanes])
+            
+            # Multi-component reward
+            queue_reward = -local_queue * 0.1
+            waiting_reward = -local_waiting * 0.01  
+            speed_reward = local_speed * 0.1
+            throughput_reward = passenger_throughput * 0.001
+            
+            total_reward = queue_reward + waiting_reward + speed_reward + throughput_reward
+            rewards[tl_id] = total_reward
+        
+        return rewards
+    
+    def get_agent_configs(self):
+        """Get configuration for each agent"""
+        configs = {}
+        for tl_id in self.traffic_lights:
+            configs[tl_id] = {
+                'state_size': 159,
+                'action_size': 11,
+                'controlled_lanes': self.controlled_lanes.get(tl_id, [])
+            }
+        return configs

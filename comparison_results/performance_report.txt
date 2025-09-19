@@ -1,0 +1,59 @@
+COMPREHENSIVE PERFORMANCE COMPARISON REPORT
+==================================================
+Generated: 2025-09-15 16:28:58
+Episodes: 3
+
+SUMMARY STATISTICS
+--------------------
+Avg Waiting Time:
+  Fixed-Time: 35.11
+  D3QN:       62.67
+  Improvement: -78.5%
+
+Avg Throughput:
+  Fixed-Time: 3480.00
+  D3QN:       1109.42
+  Improvement: -68.1%
+
+Avg Speed:
+  Fixed-Time: 13.20
+  D3QN:       6.71
+  Improvement: -49.2%
+
+Avg Queue Length:
+  Fixed-Time: 178.15
+  D3QN:       214.81
+  Improvement: +20.6%
+
+Completed Trips:
+  Fixed-Time: 145.00
+  D3QN:       54.33
+  Improvement: -62.5%
+
+Travel Time Index:
+  Fixed-Time: 3.03
+  D3QN:       5.97
+  Improvement: +97.0%
+
+Max Queue Length:
+  Fixed-Time: 244.00
+  D3QN:       284.67
+  Improvement: +16.7%
+
+EPISODE-BY-EPISODE RESULTS
+------------------------------
+Episode 1:
+  Scenario: Day 20250828, Cycle 1
+  Throughput: 3480.0 -> 1107.7 veh/h
+  Waiting: 35.11 -> 61.78s
+
+Episode 2:
+  Scenario: Day 20250828, Cycle 2
+  Throughput: 3480.0 -> 1160.3 veh/h
+  Waiting: 35.11 -> 63.47s
+
+Episode 3:
+  Scenario: Day 20250828, Cycle 3
+  Throughput: 3480.0 -> 1060.2 veh/h
+  Waiting: 35.11 -> 62.75s
+

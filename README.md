@@ -177,8 +177,9 @@ python train_bundle_d3qn.py --episodes 200
 4. Run `python scripts/consolidate_bundle_routes.py`
 5. Train: `python train_bundle_d3qn.py --episodes N`
 
-## 🔬 Key Innovation: True MARL
+## 🔬 Key Innovations
 
+### 1. True MARL (Multi-Agent Reinforcement Learning)
 This system implements **true Multi-Agent Reinforcement Learning** by:
 
 1. **Synchronized Training**: All intersections use traffic data from the same day/cycle
@@ -186,7 +187,22 @@ This system implements **true Multi-Agent Reinforcement Learning** by:
 3. **Realistic Interactions**: Traffic flows naturally between intersections
 4. **Bundle-Based Episodes**: Each training episode represents a complete traffic scenario
 
-Unlike systems that train individual intersections separately, this approach learns **network-wide coordination** patterns from real traffic data.
+### 2. LSTM-Enhanced D3QN Architecture
+The agent incorporates **Long Short-Term Memory (LSTM)** layers for:
+
+- **⏰ Temporal Pattern Recognition**: Learning traffic cycles and recurring patterns
+- **📈 Trend Analysis**: Understanding traffic flow changes over time
+- **🧠 Sequential Memory**: Remembering previous traffic states for better decisions
+- **🔮 Predictive Control**: Anticipating future traffic based on historical patterns
+
+**Architecture:**
+```
+Input Sequence (10 timesteps) → LSTM Layers → Dense Layers → Dueling DQN → Q-Values
+     ↓                           ↓              ↓             ↓           ↓
+State History → Temporal Learning → Feature Extraction → Value/Advantage → Actions
+```
+
+Unlike systems that train individual intersections separately, this approach learns **network-wide coordination** patterns from real traffic data with **temporal awareness**.
 
 ## 📊 Data Sources
 

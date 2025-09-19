@@ -176,7 +176,7 @@ class PerformanceComparator:
         
         # Load pre-trained D3QN model if available
         agent = None
-        model_path = "models/best_bundle_d3qn_model.h5"
+        model_path = "models/best_d3qn_model.keras"
         
         if os.path.exists(model_path):
             # Use trained model
@@ -184,7 +184,11 @@ class PerformanceComparator:
             state_size = len(initial_state)
             action_size = env.action_size
             
-            agent = D3QNAgent(state_size=state_size, action_size=action_size)
+            agent = D3QNAgent(
+                state_size=state_size, 
+                action_size=action_size, 
+                sequence_length=10  # Match training configuration
+            )
             try:
                 agent.load(model_path)
                 agent.epsilon = 0.0  # No exploration for evaluation
@@ -199,7 +203,11 @@ class PerformanceComparator:
             state_size = len(initial_state)
             action_size = env.action_size
             
-            agent = D3QNAgent(state_size=state_size, action_size=action_size)
+            agent = D3QNAgent(
+                state_size=state_size, 
+                action_size=action_size, 
+                sequence_length=10  # Match training configuration
+            )
             print(f"   🆕 Using new agent (no pre-trained model found)")
         
         # Run episode
@@ -329,8 +337,8 @@ class PerformanceComparator:
             for i in range(len(fixed_df)):
                 f.write(f"Episode {i+1}:\n")
                 f.write(f"  Scenario: {fixed_df.iloc[i]['scenario']}\n")
-                f.write(f"  Throughput: {fixed_df.iloc[i]['avg_throughput']:.1f} → {d3qn_df.iloc[i]['avg_throughput']:.1f} veh/h\n")
-                f.write(f"  Waiting: {fixed_df.iloc[i]['avg_waiting_time']:.2f} → {d3qn_df.iloc[i]['avg_waiting_time']:.2f}s\n\n")
+                f.write(f"  Throughput: {fixed_df.iloc[i]['avg_throughput']:.1f} -> {d3qn_df.iloc[i]['avg_throughput']:.1f} veh/h\n")
+                f.write(f"  Waiting: {fixed_df.iloc[i]['avg_waiting_time']:.2f} -> {d3qn_df.iloc[i]['avg_waiting_time']:.2f}s\n\n")
         
         print(f"📄 Performance report saved: {report_file}")
     
@@ -552,7 +560,7 @@ class PerformanceComparator:
                     'd3qn_std': float(np.std(d3qn_data)),
                     't_statistic': float(t_stat),
                     'p_value': float(p_value),
-                    'significant': p_value < 0.05,
+                    'significant': bool(p_value < 0.05),  # Convert numpy bool to Python bool
                     'effect_size': float(abs(t_stat) / np.sqrt(len(fixed_data)))
                 }
         

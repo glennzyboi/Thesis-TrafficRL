@@ -1,0 +1,76 @@
+{
+  "timestamp": "2025-09-15T16:29:00.362211",
+  "sample_size": 3,
+  "metrics_analysis": {
+    "avg_waiting_time": {
+      "fixed_time_mean": 35.1121171167449,
+      "fixed_time_std": 0.0,
+      "d3qn_mean": 62.66546276373481,
+      "d3qn_std": 0.6901099961030723,
+      "t_statistic": -56.46391926325169,
+      "p_value": 0.0003135116531010394,
+      "significant": true,
+      "effect_size": 32.59945898613966
+    },
+    "avg_throughput": {
+      "fixed_time_mean": 3480.0,
+      "fixed_time_std": 0.0,
+      "d3qn_mean": 1109.4195590862353,
+      "d3qn_std": 40.85156104765486,
+      "t_statistic": 82.06557899527584,
+      "p_value": 0.00014845034425365093,
+      "significant": true,
+      "effect_size": 47.38058412412501
+    },
+    "avg_speed": {
+      "fixed_time_mean": 13.200254813747785,
+      "fixed_time_std": 1.7763568394002505e-15,
+      "d3qn_mean": 6.709473281260949,
+      "d3qn_std": 0.23238251847738392,
+      "t_statistic": 39.50104049903852,
+      "p_value": 0.0006402737132683093,
+      "significant": true,
+      "effect_size": 22.8059363653902
+    },
+    "avg_queue_length": {
+      "fixed_time_mean": 178.14666666666668,
+      "fixed_time_std": 0.0,
+      "d3qn_mean": 214.80666666666664,
+      "d3qn_std": 2.795748094411832,
+      "t_statistic": -18.54425629412967,
+      "p_value": 0.0028952885599581777,
+      "significant": true,
+      "effect_size": 10.706531363337177
+    },
+    "completed_trips": {
+      "fixed_time_mean": 145.0,
+      "fixed_time_std": 0.0,
+      "d3qn_mean": 54.333333333333336,
+      "d3qn_std": 4.189935029992179,
+      "t_statistic": 30.602390905187853,
+      "p_value": 0.0010660911906999427,
+      "significant": true,
+      "effect_size": 17.668298626956364
+    },
+    "travel_time_index": {
+      "fixed_time_mean": 3.030244534244963,
+      "fixed_time_std": 4.440892098500626e-16,
+      "d3qn_mean": 5.969048619277707,
+      "d3qn_std": 0.21160795887019196,
+      "t_statistic": -19.64054951619405,
+      "p_value": 0.002582307575026867,
+      "significant": true,
+      "effect_size": 11.33947655020681
+    },
+    "max_queue_length": {
+      "fixed_time_mean": 244.0,
+      "fixed_time_std": 0.0,
+      "d3qn_mean": 284.6666666666667,
+      "d3qn_std": 6.944222218666553,
+      "t_statistic": -8.281899646285993,
+      "p_value": 0.014268130020436825,
+      "significant": true,
+      "effect_size": 4.781556990184685
+    }
+  }
+}

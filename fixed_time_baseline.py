@@ -273,19 +273,37 @@ class FixedTimeController:
             for lane_id in controlled_lanes:
                 total_queue += traci.lane.getLastStepHaltingNumber(lane_id)
         
-        # Completed trips and passenger throughput
+        # Completed trips and passenger throughput (origin-based calculation for consistency with D3QN)
         arrived_vehicles = traci.simulation.getArrivedIDList()
         completed_this_step = len(arrived_vehicles)
         passenger_throughput_this_step = 0
         
-        # Calculate passenger throughput for this step
-        for veh_id in arrived_vehicles:
+        # Calculate passenger throughput based on vehicle origins (same as D3QN for fair comparison)
+        intersection_entry_edges = {
+            'Ecoland_TrafficSignal': ['106768821', '-794461797#2', '770761758#0'],
+            'JohnPaul_TrafficSignal': ['1046997839#6', '869986417#1', '935563495#2'], 
+            'Sandawa_TrafficSignal': ['1042538762#0', '934492020#7']
+        }
+        
+        # Get all vehicles and count passengers by origin
+        all_vehicles = traci.vehicle.getIDList()
+        for veh_id in all_vehicles:
             try:
-                veh_type = traci.vehicle.getTypeID(veh_id)
-                passenger_count = self.passenger_capacity.get(veh_type, 1.0)
-                passenger_throughput_this_step += passenger_count
+                route_id = traci.vehicle.getRouteID(veh_id)
+                route_edges = traci.route.getEdges(route_id)
+                
+                if route_edges:
+                    origin_edge = route_edges[0]
+                    
+                    # Check if this vehicle originated from any intersection
+                    for tl_id, entry_edges in intersection_entry_edges.items():
+                        if origin_edge in entry_edges:
+                            veh_type = traci.vehicle.getTypeID(veh_id)
+                            passenger_count = self.passenger_capacity.get(veh_type, 1.5)
+                            passenger_throughput_this_step += passenger_count
+                            break
             except:
-                passenger_throughput_this_step += 1.5  # Average passenger fallback
+                passenger_throughput_this_step += 1.5
         
         # Store step data
         step_metrics = {
@@ -297,7 +315,7 @@ class FixedTimeController:
             'queue_length': total_queue,
             'completed_trips': completed_this_step,
             'throughput': completed_this_step / self.step_length * 3600,  # veh/h instantaneous
-            'passenger_throughput': passenger_throughput_this_step / self.step_length * 3600  # passengers/h instantaneous - PRIMARY METRIC
+            'passenger_throughput': passenger_throughput_this_step  # passengers instantaneous - PRIMARY METRIC
         }
         
         self.step_data.append(step_metrics)
