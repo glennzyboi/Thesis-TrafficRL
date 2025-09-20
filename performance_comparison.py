@@ -35,7 +35,7 @@ import traci
 
 # Import our controllers
 from fixed_time_baseline import run_fixed_time_baseline
-from train_bundle_d3qn import load_scenarios_index, select_random_bundle_routes
+from train_d3qn import load_scenarios_index, select_random_bundle
 from traffic_env import TrafficEnvironment
 from d3qn_agent import D3QNAgent
 
@@ -107,7 +107,7 @@ class PerformanceComparator:
                 scenario_name = bundle['name']
             else:
                 # Random selection if we run out of bundles
-                bundle, route_file = select_random_bundle_routes(bundles)
+                bundle, route_file = select_random_bundle(bundles)
                 scenario_name = bundle['name']
             
             print(f"🎯 Scenario: {scenario_name}")
@@ -164,14 +164,16 @@ class PerformanceComparator:
     
     def _run_d3qn_episode(self, route_file, episode_num):
         """Run single D3QN episode and extract metrics"""
-        # Initialize environment
+        # Initialize environment with realistic constraints
         env = TrafficEnvironment(
             net_file='network/ThesisNetowrk.net.xml',
             rou_file=route_file,
             use_gui=False,  # Disable GUI for batch comparison
             num_seconds=180,
             warmup_time=30,
-            step_length=1.0
+            step_length=1.0,
+            min_phase_time=8,   # Research-based timing constraints
+            max_phase_time=90   # Optimized for urban arterials
         )
         
         # Load pre-trained D3QN model if available
@@ -239,6 +241,19 @@ class PerformanceComparator:
         # Calculate episode metrics
         metrics = self._calculate_episode_metrics(step_data, total_reward)
         
+        # Extract public transport metrics from environment reward components
+        if hasattr(env, 'reward_components') and env.reward_components:
+            last_reward_data = env.reward_components[-1]
+            metrics.update({
+                'buses_processed': last_reward_data.get('buses_processed', 0),
+                'jeepneys_processed': last_reward_data.get('jeepneys_processed', 0),
+                'pt_passenger_throughput': last_reward_data.get('pt_passenger_throughput', 0.0),
+                'pt_avg_waiting': last_reward_data.get('pt_avg_waiting', 0.0),
+                'pt_service_efficiency': last_reward_data.get('pt_service_efficiency', 1.0)
+            })
+            print(f"   🚌 PT Metrics: {metrics['buses_processed']} buses, {metrics['jeepneys_processed']} jeepneys, "
+                  f"{metrics['pt_passenger_throughput']:.0f} PT passengers")
+        
         env.close()
         return metrics
     
@@ -247,7 +262,7 @@ class PerformanceComparator:
         if not step_data:
             return {}
         
-        # Average metrics over episode
+        # Average metrics over episode  
         metrics = {
             'avg_waiting_time': np.mean([d['waiting_time'] for d in step_data]),
             'avg_speed': np.mean([d['avg_speed'] for d in step_data]),
@@ -256,7 +271,13 @@ class PerformanceComparator:
             'completed_trips': step_data[-1]['completed_trips'],  # Cumulative
             'avg_throughput': np.mean([d['throughput'] for d in step_data if d['throughput'] > 0]),
             'total_reward': total_reward,
-            'travel_time_index': 40.0 / max(np.mean([d['avg_speed'] for d in step_data]), 1.0)
+            'travel_time_index': 40.0 / max(np.mean([d['avg_speed'] for d in step_data]), 1.0),
+            # Public Transport Specific Metrics (Research-Based Enhancement)
+            'buses_processed': 0,  # Will be updated in D3QN test
+            'jeepneys_processed': 0,  # Will be updated in D3QN test  
+            'pt_passenger_throughput': 0.0,  # Will be updated in D3QN test
+            'pt_avg_waiting': 0.0,  # Will be updated in D3QN test
+            'pt_service_efficiency': 1.0  # Will be updated in D3QN test
         }
         
         return metrics

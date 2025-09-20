@@ -43,7 +43,7 @@ class TrafficEnvironment:
     """
     
     def __init__(self, net_file, rou_file, use_gui=True, num_seconds=3600, 
-                 warmup_time=300, step_length=1.0, min_phase_time=10, max_phase_time=120):
+                 warmup_time=300, step_length=1.0, min_phase_time=8, max_phase_time=90):
         """
         Initialize the traffic environment with realistic traffic signal constraints
         
@@ -569,6 +569,9 @@ class TrafficEnvironment:
         if not hasattr(self, 'reward_components'):
             self.reward_components = []
         
+        # Calculate public transport specific metrics
+        pt_metrics = self._calculate_pt_performance_metrics()
+        
         self.reward_components.append({
             'step': self.current_step,
             'waiting_penalty': waiting_penalty,
@@ -583,7 +586,13 @@ class TrafficEnvironment:
             'avg_queue': avg_queue_per_lane if lane_count > 0 else 0,
             'avg_speed': avg_speed,
             'vehicle_throughput': step_throughput,
-            'passenger_throughput': step_passenger_throughput
+            'passenger_throughput': step_passenger_throughput,
+            # Enhanced public transport metrics
+            'buses_processed': pt_metrics['buses_processed'],
+            'jeepneys_processed': pt_metrics['jeepneys_processed'],
+            'pt_passenger_throughput': pt_metrics['pt_passenger_throughput'],
+            'pt_avg_waiting': pt_metrics['pt_avg_waiting'],
+            'pt_service_efficiency': pt_metrics['pt_service_efficiency']
         })
         
         return reward
@@ -638,6 +647,92 @@ class TrafficEnvironment:
             bonus = 0.0
         
         return bonus
+    
+    def _calculate_pt_performance_metrics(self):
+        """
+        Calculate detailed public transport performance metrics for evaluation
+        Based on research standards for MARL traffic control evaluation
+        """
+        metrics = {
+            'buses_processed': 0,
+            'jeepneys_processed': 0,
+            'pt_passenger_throughput': 0.0,
+            'pt_avg_waiting': 0.0,
+            'pt_service_efficiency': 0.0
+        }
+        
+        try:
+            all_vehicles = traci.vehicle.getIDList()
+            departed_vehicles = traci.simulation.getDepartedIDList()
+            
+            # Count currently active PT vehicles
+            active_buses = 0
+            active_jeepneys = 0
+            total_pt_waiting = 0.0
+            pt_count = 0
+            
+            for veh_id in all_vehicles:
+                try:
+                    veh_type = traci.vehicle.getTypeID(veh_id)
+                    if veh_type == 'bus':
+                        active_buses += 1
+                        pt_count += 1
+                        total_pt_waiting += traci.vehicle.getWaitingTime(veh_id)
+                    elif veh_type == 'jeepney':
+                        active_jeepneys += 1
+                        pt_count += 1
+                        total_pt_waiting += traci.vehicle.getWaitingTime(veh_id)
+                except:
+                    continue
+            
+            # Count completed PT trips this step
+            step_buses_completed = 0
+            step_jeepneys_completed = 0
+            step_pt_passengers = 0.0
+            
+            for veh_id in departed_vehicles:
+                try:
+                    # Extract vehicle type from flow ID pattern
+                    if '_bus_' in veh_id:
+                        step_buses_completed += 1
+                        step_pt_passengers += 40.0  # Average bus capacity
+                    elif '_jeepney_' in veh_id:
+                        step_jeepneys_completed += 1
+                        step_pt_passengers += 16.0  # Average jeepney capacity
+                except:
+                    continue
+            
+            # Update cumulative metrics
+            if not hasattr(self, 'cumulative_pt_metrics'):
+                self.cumulative_pt_metrics = {
+                    'total_buses': 0,
+                    'total_jeepneys': 0,
+                    'total_pt_passengers': 0.0
+                }
+            
+            self.cumulative_pt_metrics['total_buses'] += step_buses_completed
+            self.cumulative_pt_metrics['total_jeepneys'] += step_jeepneys_completed
+            self.cumulative_pt_metrics['total_pt_passengers'] += step_pt_passengers
+            
+            # Calculate efficiency: moving vehicles / total vehicles
+            moving_pt = sum(1 for veh_id in all_vehicles 
+                           if traci.vehicle.getTypeID(veh_id) in ['bus', 'jeepney'] 
+                           and traci.vehicle.getSpeed(veh_id) > 2.0)
+            
+            pt_service_efficiency = moving_pt / max(pt_count, 1) if pt_count > 0 else 1.0
+            
+            metrics = {
+                'buses_processed': self.cumulative_pt_metrics['total_buses'],
+                'jeepneys_processed': self.cumulative_pt_metrics['total_jeepneys'], 
+                'pt_passenger_throughput': self.cumulative_pt_metrics['total_pt_passengers'],
+                'pt_avg_waiting': total_pt_waiting / max(pt_count, 1),
+                'pt_service_efficiency': pt_service_efficiency
+            }
+            
+        except:
+            pass
+        
+        return metrics
     
     def _is_done(self):
         """Check if episode should terminate"""

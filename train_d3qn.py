@@ -180,8 +180,8 @@ def train_single_agent():
         num_seconds=CONFIG['EPISODE_DURATION'],
         warmup_time=CONFIG['WARMUP_TIME'],
         step_length=CONFIG['STEP_LENGTH'],
-        min_phase_time=10,  # 10 seconds minimum (safety standard)
-        max_phase_time=120  # 120 seconds maximum (efficiency standard)
+        min_phase_time=8,   # 8 seconds minimum (based on ITE standards & RL research)
+        max_phase_time=90   # 90 seconds maximum (optimized for urban arterials)
     )
     
     try:
@@ -366,8 +366,8 @@ def train_marl_agents():
         num_seconds=CONFIG['EPISODE_DURATION'],
         warmup_time=CONFIG['WARMUP_TIME'],
         step_length=CONFIG['STEP_LENGTH'],
-        min_phase_time=10,  # 10 seconds minimum (safety standard)
-        max_phase_time=120  # 120 seconds maximum (efficiency standard)
+        min_phase_time=8,   # 8 seconds minimum (based on ITE standards & RL research)
+        max_phase_time=90   # 90 seconds maximum (optimized for urban arterials)
     )
     
     try:
