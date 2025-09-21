@@ -654,6 +654,43 @@ class TrafficEnvironment:
         
         return bonus
     
+    def _initialize_flow_type_mapping(self):
+        """
+        Initialize mapping from flow IDs to vehicle types by parsing the current route file.
+        This allows us to determine vehicle types for departed vehicles.
+        """
+        try:
+            import xml.etree.ElementTree as ET
+            
+            # Get current route file from environment
+            route_file = getattr(self, 'rou_file', None)
+            if not route_file:
+                # Fallback - create empty mapping
+                self.flow_to_type_mapping = {}
+                return
+            
+            # Parse the route file to extract flow-to-type mapping
+            self.flow_to_type_mapping = {}
+            
+            tree = ET.parse(route_file)
+            root = tree.getroot()
+            
+            # Find all flow elements and extract their ID and type
+            for flow_elem in root.findall('flow'):
+                flow_id = flow_elem.get('id')
+                flow_type = flow_elem.get('type')
+                if flow_id and flow_type:
+                    self.flow_to_type_mapping[flow_id] = flow_type
+            
+            print(f"🚌 Initialized flow-to-type mapping: {len(self.flow_to_type_mapping)} flows loaded")
+            # Print PT flows for debugging
+            pt_flows = {k: v for k, v in self.flow_to_type_mapping.items() if v in ['bus', 'jeepney']}
+            print(f"🚌 PT flows detected: {pt_flows}")
+            
+        except Exception as e:
+            print(f"⚠️  Warning: Could not initialize flow mapping: {e}")
+            self.flow_to_type_mapping = {}
+
     def _calculate_pt_performance_metrics(self):
         """
         Calculate detailed public transport performance metrics for evaluation
@@ -698,13 +735,30 @@ class TrafficEnvironment:
             
             for veh_id in departed_vehicles:
                 try:
-                    # Extract vehicle type from flow ID pattern
-                    if '_bus_' in veh_id:
-                        step_buses_completed += 1
-                        step_pt_passengers += 40.0  # Average bus capacity
-                    elif '_jeepney_' in veh_id:
-                        step_jeepneys_completed += 1
-                        step_pt_passengers += 16.0  # Average jeepney capacity
+                    # Map flow ID to vehicle type using flow-to-type mapping
+                    # Vehicle IDs are like "flow_21.0", we need to extract the flow number
+                    if 'flow_' in veh_id:
+                        # Get the flow ID (before the dot if it exists)
+                        flow_id = veh_id.split('.')[0]
+                        
+                        # Get vehicle type from TraCI or use mapping
+                        # For departed vehicles, we need to use our stored mapping
+                        # Create flow-to-type mapping from route file data
+                        flow_to_type = getattr(self, 'flow_to_type_mapping', {})
+                        
+                        if not flow_to_type:
+                            # Initialize mapping on first use - parse from current route
+                            self._initialize_flow_type_mapping()
+                            flow_to_type = getattr(self, 'flow_to_type_mapping', {})
+                        
+                        veh_type = flow_to_type.get(flow_id, 'unknown')
+                        
+                        if veh_type == 'bus':
+                            step_buses_completed += 1
+                            step_pt_passengers += 40.0  # Average bus capacity
+                        elif veh_type == 'jeepney':
+                            step_jeepneys_completed += 1
+                            step_pt_passengers += 16.0  # Average jeepney capacity
                 except:
                     continue
             

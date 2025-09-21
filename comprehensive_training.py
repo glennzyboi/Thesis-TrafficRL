@@ -139,10 +139,13 @@ class ComprehensiveTrainer:
         convergence_episode = -1
         
         for episode in range(self.config['episodes']):
-            print(f"\n📺 Episode {episode + 1}/{self.config['episodes']}")
-            
             # Select random training scenario (prevents overfitting)
             bundle, route_file = select_random_bundle(train_bundles)
+            
+            # Enhanced episode header with ML training standards
+            print(f"\n{'='*60}")
+            print(f"📺 Episode {episode + 1:03d}/{self.config['episodes']:03d} | Bundle: {bundle.get('day', 'N/A')}_cycle{bundle.get('cycle', 'N/A')}")
+            print(f"{'='*60}")
             scenario_info = {
                 'bundle_name': bundle['name'],
                 'route_file': route_file,
@@ -200,11 +203,23 @@ class ComprehensiveTrainer:
         training_time = time.time() - start_time
         env.close()
         
-        # Final evaluation
-        print(f"\n🏁 TRAINING COMPLETED!")
-        print(f"   Total time: {training_time/60:.1f} minutes")
-        print(f"   Best reward: {best_reward:.2f}")
-        print(f"   Convergence: Episode {convergence_episode if convergence_episode > 0 else 'Not detected'}")
+        # ML-style training summary
+        print(f"\n{'='*70}")
+        print(f"🏁 TRAINING COMPLETED")
+        print(f"{'='*70}")
+        print(f"📊 Training Summary:")
+        print(f"   • Total Episodes: {self.config['episodes']:3d}")
+        print(f"   • Training Time: {training_time:6.1f}s ({training_time/60:.1f} minutes)")
+        print(f"   • Avg Time/Episode: {training_time/self.config['episodes']:5.1f}s")
+        print(f"   • Best Reward: {best_reward:+8.2f}")
+        print(f"   • Final Exploration Rate: {agent.epsilon:.6f}")
+        print(f"   • Convergence: Episode {convergence_episode if convergence_episode > 0 else 'Not detected'}")
+        
+        # Performance statistics
+        if len(self.training_results) >= 10:
+            recent_rewards = [ep['reward'] for ep in self.training_results[-10:]]
+            print(f"   • Recent Avg Reward (last 10): {np.mean(recent_rewards):+7.2f} ± {np.std(recent_rewards):5.2f}")
+        print(f"{'='*70}")
         
         # Run comprehensive final evaluation
         final_results = self._run_final_evaluation(agent, test_bundles)
@@ -278,21 +293,28 @@ class ComprehensiveTrainer:
             episode_reward += reward
             episode_steps += 1
             
-            # Progress reporting (research-standard format)
-            if episode_steps % 100 == 0:
+            # ML-style progress reporting (inspired by TensorFlow/PyTorch)
+            if episode_steps % 50 == 0:  # More frequent updates for better monitoring
                 avg_loss = np.mean(losses[-10:]) if len(losses) >= 10 else (losses[-1] if losses else 0.0)
                 vehicles = info.get('vehicles', 0)
                 completed = info.get('completed_trips', 0)
                 passenger_throughput = info.get('passenger_throughput', 0)
                 
-                print(f"     Step {episode_steps:3d}: "
-                      f"R={reward:+6.3f} | "
-                      f"ΣR={episode_reward:+8.2f} | "
-                      f"Loss={avg_loss:.6f} | "
-                      f"ε={agent.epsilon:.4f} | "
-                      f"Vehicles={vehicles:3d} | "
-                      f"Completed={completed:3d} | "
-                      f"Passengers={passenger_throughput:6.0f}")
+                # Calculate progress percentage
+                progress_pct = (episode_steps / 300) * 100  # Assuming 300 steps per episode
+                
+                # Create progress bar (similar to Keras)
+                bar_length = 20
+                filled_length = int(bar_length * episode_steps // 300)
+                bar = '█' * filled_length + '░' * (bar_length - filled_length)
+                
+                # Enhanced ML-style logging
+                print(f"Step {episode_steps:03d}/300 [{bar}] {progress_pct:5.1f}% - "
+                      f"loss: {avg_loss:.6f} - reward: {reward:+6.3f} - "
+                      f"cumulative_reward: {episode_reward:+7.2f} - "
+                      f"epsilon: {agent.epsilon:.4f} - "
+                      f"vehicles: {vehicles:3d} - completed: {completed:3d} - "
+                      f"passenger_throughput: {passenger_throughput:4.0f}")
             
             if done:
                 break
@@ -309,18 +331,27 @@ class ComprehensiveTrainer:
         avg_queue = info.get('avg_queue_length', 0)
         avg_speed = info.get('avg_speed', 0)
         
-        # Research-standard episode completion log
-        print(f"   ✅ Episode {episode_num+1:3d} | "
-              f"R={episode_reward:+8.2f} | "
-              f"Steps={episode_steps:3d} | "
-              f"Loss={avg_loss:.6f} | "
-              f"Time={episode_time:5.1f}s")
-        print(f"      Traffic: V={vehicles_served:3d} | "
-              f"C={completed_trips:3d} | "
-              f"P={passenger_throughput:6.0f} | "
-              f"Wait={avg_waiting:5.1f}s | "
-              f"Queue={avg_queue:4.1f} | "
-              f"Speed={avg_speed:4.1f}km/h")
+        # ML-style episode completion summary
+        print(f"\n{'─'*60}")
+        print(f"✅ Episode {episode_num+1:03d} Complete | "
+              f"Duration: {episode_time:5.1f}s | "
+              f"Steps: {episode_steps:3d}/300")
+        print(f"   🎯 Reward: {episode_reward:+8.2f} | "
+              f"Avg Loss: {avg_loss:.6f} | "
+              f"Exploration Rate: {agent.epsilon:.4f}")
+        print(f"   🚦 Traffic Metrics:")
+        print(f"      • Vehicles Served: {vehicles_served:3d} | Completed: {completed_trips:3d}")
+        print(f"      • Passenger Throughput: {passenger_throughput:6.0f} passengers")
+        print(f"      • Avg Waiting Time: {avg_waiting:5.1f}s | Queue Length: {avg_queue:4.1f}")
+        print(f"      • Network Speed: {avg_speed:4.1f} km/h")
+        
+        # Performance indicators (similar to validation metrics in ML)
+        if episode_num > 0 and len(self.training_results) > 0:
+            prev_reward = self.training_results[-1]['reward']
+            reward_improvement = episode_reward - prev_reward
+            print(f"   📈 Performance: {reward_improvement:+6.2f} from previous episode")
+        
+        print(f"{'─'*60}")
         
         # Complete episode in logger
         final_metrics = {
