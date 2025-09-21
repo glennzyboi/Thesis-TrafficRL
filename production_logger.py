@@ -291,9 +291,14 @@ class ProductionLogger:
         self.current_episode += 1
         self.episode_data = self._init_episode_data()
         
+        # Get the actual completed episode data from buffer (last completed episode)
+        completed_episode = self.episode_buffer[-1] if self.episode_buffer else self.episode_data
+        
         print(f"📝 Episode {self.current_episode} logged: "
-              f"Reward={self.episode_data.get('avg_reward', 0):.2f}, "
-              f"Vehicles={self.episode_data.get('vehicles_served', 0)}")
+              f"Reward={completed_episode.get('total_reward', 0):.2f}, "
+              f"Vehicles={completed_episode.get('vehicles_served', 0)}, "
+              f"Completed={completed_episode.get('final_completed_trips', 0)}, "
+              f"Time={completed_episode.get('episode_time', 0):.1f}s")
     
     def _calculate_derived_metrics(self):
         """Calculate research-standard derived metrics"""

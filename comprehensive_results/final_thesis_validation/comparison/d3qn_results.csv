@@ -1,0 +1,2 @@
+avg_waiting_time,avg_speed,avg_queue_length,max_queue_length,completed_trips,avg_throughput,total_reward,travel_time_index,buses_processed,jeepneys_processed,pt_passenger_throughput,pt_avg_waiting,pt_service_efficiency,episode,scenario
+11.19458014930911,17.542060054941437,97.57333333333334,143,177,2352.090837757693,158.00723573116022,2.2802338992524636,0,0,0.0,3.1,0.5333333333333333,1,"Day 20250828, Cycle 1"

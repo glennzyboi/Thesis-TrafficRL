@@ -278,11 +278,21 @@ class ComprehensiveTrainer:
             episode_reward += reward
             episode_steps += 1
             
-            # Progress reporting
+            # Progress reporting (research-standard format)
             if episode_steps % 100 == 0:
-                print(f"     Step {episode_steps}: Reward={reward:.2f}, "
-                      f"Vehicles={info.get('vehicles', 0)}, "
-                      f"Epsilon={agent.epsilon:.3f}")
+                avg_loss = np.mean(losses[-10:]) if len(losses) >= 10 else (losses[-1] if losses else 0.0)
+                vehicles = info.get('vehicles', 0)
+                completed = info.get('completed_trips', 0)
+                passenger_throughput = info.get('passenger_throughput', 0)
+                
+                print(f"     Step {episode_steps:3d}: "
+                      f"R={reward:+6.3f} | "
+                      f"ΣR={episode_reward:+8.2f} | "
+                      f"Loss={avg_loss:.6f} | "
+                      f"ε={agent.epsilon:.4f} | "
+                      f"Vehicles={vehicles:3d} | "
+                      f"Completed={completed:3d} | "
+                      f"Passengers={passenger_throughput:6.0f}")
             
             if done:
                 break
@@ -291,15 +301,39 @@ class ComprehensiveTrainer:
         episode_time = time.time() - episode_start_time
         avg_loss = np.mean(losses) if losses else 0.0
         
+        # Calculate performance metrics for research-standard reporting
+        vehicles_served = info.get('vehicles', 0)
+        completed_trips = info.get('completed_trips', 0) 
+        passenger_throughput = info.get('passenger_throughput', 0)
+        avg_waiting = info.get('avg_waiting_time', 0)
+        avg_queue = info.get('avg_queue_length', 0)
+        avg_speed = info.get('avg_speed', 0)
+        
+        # Research-standard episode completion log
+        print(f"   ✅ Episode {episode_num+1:3d} | "
+              f"R={episode_reward:+8.2f} | "
+              f"Steps={episode_steps:3d} | "
+              f"Loss={avg_loss:.6f} | "
+              f"Time={episode_time:5.1f}s")
+        print(f"      Traffic: V={vehicles_served:3d} | "
+              f"C={completed_trips:3d} | "
+              f"P={passenger_throughput:6.0f} | "
+              f"Wait={avg_waiting:5.1f}s | "
+              f"Queue={avg_queue:4.1f} | "
+              f"Speed={avg_speed:4.1f}km/h")
+        
         # Complete episode in logger
         final_metrics = {
             'episode_reward': episode_reward,
             'episode_steps': episode_steps,
             'episode_time': episode_time,
             'avg_loss': avg_loss,
-            'final_vehicles': info.get('vehicles', 0),
-            'final_completed_trips': info.get('completed_trips', 0),
-            'final_passenger_throughput': info.get('passenger_throughput', 0)
+            'final_vehicles': vehicles_served,
+            'final_completed_trips': completed_trips,
+            'final_passenger_throughput': passenger_throughput,
+            'avg_waiting_time': avg_waiting,
+            'avg_queue_length': avg_queue,
+            'avg_speed': avg_speed
         }
         
         self.logger.complete_episode(scenario_info, final_metrics)

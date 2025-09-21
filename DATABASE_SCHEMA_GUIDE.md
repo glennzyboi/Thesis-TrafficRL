@@ -421,3 +421,4 @@ ORDER BY training_date;
 ---
 
 This schema design supports your complete research pipeline from training through thesis defense to real-world deployment, with special emphasis on your novel public transport optimization contribution.
+

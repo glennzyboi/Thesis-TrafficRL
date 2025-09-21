@@ -1,0 +1,76 @@
+{
+  "timestamp": "2025-09-21T15:45:03.909146",
+  "sample_size": 1,
+  "metrics_analysis": {
+    "avg_waiting_time": {
+      "fixed_time_mean": 35.1121171167449,
+      "fixed_time_std": 0.0,
+      "d3qn_mean": 11.19458014930911,
+      "d3qn_std": 0.0,
+      "t_statistic": NaN,
+      "p_value": NaN,
+      "significant": false,
+      "effect_size": NaN
+    },
+    "avg_throughput": {
+      "fixed_time_mean": 3480.0,
+      "fixed_time_std": 0.0,
+      "d3qn_mean": 2352.090837757693,
+      "d3qn_std": 0.0,
+      "t_statistic": NaN,
+      "p_value": NaN,
+      "significant": false,
+      "effect_size": NaN
+    },
+    "avg_speed": {
+      "fixed_time_mean": 13.200254813747787,
+      "fixed_time_std": 0.0,
+      "d3qn_mean": 17.542060054941437,
+      "d3qn_std": 0.0,
+      "t_statistic": NaN,
+      "p_value": NaN,
+      "significant": false,
+      "effect_size": NaN
+    },
+    "avg_queue_length": {
+      "fixed_time_mean": 178.14666666666668,
+      "fixed_time_std": 0.0,
+      "d3qn_mean": 97.57333333333334,
+      "d3qn_std": 0.0,
+      "t_statistic": NaN,
+      "p_value": NaN,
+      "significant": false,
+      "effect_size": NaN
+    },
+    "completed_trips": {
+      "fixed_time_mean": 145.0,
+      "fixed_time_std": 0.0,
+      "d3qn_mean": 177.0,
+      "d3qn_std": 0.0,
+      "t_statistic": NaN,
+      "p_value": NaN,
+      "significant": false,
+      "effect_size": NaN
+    },
+    "travel_time_index": {
+      "fixed_time_mean": 3.0302445342449635,
+      "fixed_time_std": 0.0,
+      "d3qn_mean": 2.2802338992524636,
+      "d3qn_std": 0.0,
+      "t_statistic": NaN,
+      "p_value": NaN,
+      "significant": false,
+      "effect_size": NaN
+    },
+    "max_queue_length": {
+      "fixed_time_mean": 244.0,
+      "fixed_time_std": 0.0,
+      "d3qn_mean": 143.0,
+      "d3qn_std": 0.0,
+      "t_statistic": NaN,
+      "p_value": NaN,
+      "significant": false,
+      "effect_size": NaN
+    }
+  }
+}
