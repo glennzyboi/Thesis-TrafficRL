@@ -513,10 +513,15 @@ class TrafficEnvironment:
         speed_smoothness = 1.0 / (1.0 + speed_variance / 10.0)  # Penalize high variance
         speed_reward = 1.0 * speed_efficiency * speed_smoothness
         
-        # 4. Passenger Throughput Component (PRIMARY OBJECTIVE)
-        # Reward passenger throughput over vehicle throughput - this is our main research objective
-        passenger_throughput_reward = step_passenger_throughput * 0.5  # High weight for passenger throughput
-        vehicle_throughput_bonus = step_throughput * 0.1              # Lower weight for vehicle count
+        # 4. Balanced Throughput Components (Vehicle + Passenger Optimization)
+        # Balance passenger and vehicle throughput to address degradation issue
+        passenger_throughput_reward = step_passenger_throughput * 0.3  # Reduced weight for passenger throughput
+        
+        # Enhanced vehicle throughput calculation
+        base_vehicle_bonus = step_throughput * 0.5  # Increased base weight
+        # Add throughput rate bonus (vehicles per time step)
+        rate_bonus = min(step_throughput * 0.2, 5.0) if step_throughput > 0 else 0
+        vehicle_throughput_bonus = base_vehicle_bonus + rate_bonus
         
         # 5. System Efficiency Component (Overall network performance)
         # Reward balanced utilization across lanes
@@ -548,14 +553,15 @@ class TrafficEnvironment:
         # === PUBLIC TRANSPORT PRIORITY BONUS ===
         public_transport_bonus = self._calculate_public_transport_bonus()
         
-        # === WEIGHTED COMBINATION (Passenger-Throughput Optimized with PT Priority) ===
+        # === BALANCED WEIGHTED COMBINATION (Vehicle + Passenger Optimized with PT Priority) ===
+        # Rebalanced to address vehicle throughput degradation while maintaining passenger optimization
         reward = (
-            waiting_penalty * 0.25 +              # 25% - Waiting time (reduced to make room for PT)
-            queue_penalty * 0.20 +                # 20% - Congestion control
+            waiting_penalty * 0.20 +              # 20% - Waiting time penalty
+            queue_penalty * 0.15 +                # 15% - Congestion control
             speed_reward * 0.20 +                 # 20% - Flow efficiency
-            passenger_throughput_reward * 0.25 +  # 25% - Passenger throughput (primary metric)
-            vehicle_throughput_bonus * 0.05 +     # 5% - Vehicle throughput bonus
-            public_transport_bonus * 0.05 +       # 5% - Public transport priority bonus (NEW)
+            passenger_throughput_reward * 0.20 +  # 20% - Passenger throughput (balanced)
+            vehicle_throughput_bonus * 0.15 +     # 15% - Vehicle throughput (increased significantly)
+            public_transport_bonus * 0.10 +       # 10% - Public transport priority (doubled weight)
             balance_reward * 0.00 +               # 0% - System balance (reduced complexity)
             phase_change_penalty                  # Variable penalty for stability
         )
