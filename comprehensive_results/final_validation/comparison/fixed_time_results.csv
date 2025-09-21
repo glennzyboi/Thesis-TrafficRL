@@ -1,0 +1,2 @@
+total_waiting_time,total_vehicles,completed_trips,passenger_throughput,avg_speed,total_travel_time,total_fuel_consumption,queue_length_history,waiting_time_history,speed_history,throughput_history,avg_waiting_time,avg_queue_length,max_queue_length,avg_throughput,avg_passenger_throughput,travel_time_index,episode,scenario
+0,0,145,75006.80000000003,13.200254813747787,0,0,[],[],[],[],35.1121171167449,178.14666666666668,244,3480.0,1800163.200000001,3.0302445342449635,1,"Day 20250828, Cycle 1"

@@ -16,6 +16,7 @@ from collections import defaultdict
 
 from d3qn_agent import D3QNAgent
 from traffic_env import TrafficEnvironment
+from production_logger import create_production_logger
 
 # Configuration
 CONFIG = {
@@ -60,8 +61,19 @@ def create_directories():
     for dir_name in [CONFIG['MODEL_DIR'], CONFIG['LOGS_DIR'], CONFIG['PLOTS_DIR']]:
         os.makedirs(dir_name, exist_ok=True)
 
-def load_scenarios_index():
-    """Load available bundles from scenarios_index.csv"""
+def load_scenarios_index(split='train', split_ratio=(0.7, 0.2, 0.1), random_seed=42):
+    """
+    Load available bundles with proper train/validation/test split
+    Addresses Defense Vulnerability: Data leakage prevention
+    
+    Args:
+        split: 'train', 'validation', or 'test'
+        split_ratio: (train, val, test) ratio tuple
+        random_seed: Fixed seed for reproducible splits
+        
+    Returns:
+        List of scenarios for specified split
+    """
     scenarios_file = os.path.join("data", "processed", "scenarios_index.csv")
     
     if not os.path.exists(scenarios_file):
@@ -71,6 +83,7 @@ def load_scenarios_index():
     df = pd.read_csv(scenarios_file)
     bundles = []
     
+    # First, collect all valid bundles
     for _, row in df.iterrows():
         day = row['Day']
         cycle = row['CycleNum']
@@ -85,12 +98,40 @@ def load_scenarios_index():
                 'cycle': cycle,
                 'intersections': [i.strip() for i in intersections],
                 'consolidated_file': consolidated_file,
-                'name': f"Day {day}, Cycle {cycle}"
+                'name': f"Day {day}, Cycle {cycle}",
+                'temporal_id': f"{day}_{cycle}"  # For temporal ordering
             })
         else:
             print(f"⚠️ Missing consolidated route file: {consolidated_file}")
     
-    return bundles
+    if not bundles:
+        return []
+    
+    # Sort by temporal order (day, then cycle) for proper temporal split
+    bundles.sort(key=lambda x: (x['day'], x['cycle']))
+    
+    # Calculate split indices
+    total_scenarios = len(bundles)
+    train_end = int(split_ratio[0] * total_scenarios)
+    val_end = train_end + int(split_ratio[1] * total_scenarios)
+    
+    # Apply temporal split (prevents data leakage)
+    if split == 'train':
+        selected_bundles = bundles[:train_end]
+    elif split == 'validation':
+        selected_bundles = bundles[train_end:val_end]
+    elif split == 'test':
+        selected_bundles = bundles[val_end:]
+    else:
+        selected_bundles = bundles  # Return all if split not specified
+    
+    print(f"📊 Data Split Info:")
+    print(f"   Total scenarios: {total_scenarios}")
+    print(f"   {split.capitalize()} scenarios: {len(selected_bundles)}")
+    print(f"   Split ratio: {split_ratio}")
+    print(f"   Temporal order preserved: {split != 'all'}")
+    
+    return selected_bundles
 
 def select_random_bundle(bundles):
     """Randomly select a bundle for training"""
@@ -160,8 +201,8 @@ def train_single_agent():
     # Create directories
     create_directories()
     
-    # Load available bundles for varied training
-    bundles = load_scenarios_index()
+    # Load training bundles with proper data split
+    bundles = load_scenarios_index(split='train')
     
     if not bundles:
         print("❌ No training bundles available! Using default route...")
@@ -346,7 +387,7 @@ def train_marl_agents():
     create_directories()
     
     # Load available bundles
-    bundles = load_scenarios_index()
+    bundles = load_scenarios_index(split='train')
     
     if not bundles:
         print("❌ No training bundles available!")
