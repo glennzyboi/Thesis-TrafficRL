@@ -1,0 +1,4 @@
+total_waiting_time,total_vehicles,completed_trips,passenger_throughput,avg_speed,total_travel_time,total_fuel_consumption,queue_length_history,waiting_time_history,speed_history,throughput_history,avg_waiting_time,avg_queue_length,max_queue_length,avg_throughput,avg_passenger_throughput,travel_time_index,episode,scenario
+0,0,145,70073.00000000004,13.316319742640307,0,0,[],[],[],[],34.90495020838361,177.12666666666667,239,3480.0,1681752.0000000012,3.003832948822612,1,"Day 20250708, Cycle 1"
+0,0,142,68734.10000000008,13.111773486484678,0,0,[],[],[],[],36.044896386954306,172.62666666666667,223,3408.0,1649618.400000002,3.050693336125056,2,"Day 20250708, Cycle 2"
+0,0,146,69950.59999999995,13.222421673028109,0,0,[],[],[],[],35.78132134715005,178.28,232,3504.0,1678814.3999999987,3.0251644508958906,3,"Day 20250708, Cycle 3"

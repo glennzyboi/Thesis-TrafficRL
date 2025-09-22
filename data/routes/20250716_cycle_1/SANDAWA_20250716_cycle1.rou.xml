@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="car" accel="2.6" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="11.11" guiShape="passenger"/>
+    <vType id="bus" accel="1.2" decel="4.0" sigma="0.5" length="12" minGap="3.0" maxSpeed="11.11" guiShape="bus"/>
+    <vType id="jeepney" accel="1.8" decel="4.2" sigma="0.5" length="8" minGap="2.8" maxSpeed="11.11" guiShape="bus"/>
+    <vType id="motor" accel="3.0" decel="5.0" sigma="0.3" length="2" minGap="1.5" maxSpeed="11.11" guiShape="motorcycle"/>
+    <vType id="truck" accel="1.5" decel="3.5" sigma="0.4" length="10" minGap="3.5" maxSpeed="11.11" guiShape="truck"/>
+    <route id="route_0" edges="1042538762#0 1042538762#1 1042538762#2 1042538762#3 1102489118 1042538759#1 1042538759#2 934492019#0 934492019#1 934492019#2 934492019#3 934492019#4 934492019#5 934492019#6 934492019#7 934492019#8"/>
+    <flow id="flow_car_0" route="route_0" begin="0" end="3600" period="12.23" type="car" departLane="random" departSpeed="random" departPos="random" arrivalLane="current" departPosLat="random"/>
+    <route id="route_1" edges="934492020#7 934492020#9 1042538760#0 1042538760#1 1042538760#2 1102489120"/>
+    <flow id="flow_car_1" route="route_1" begin="0" end="3600" period="13.98" type="car" departLane="random" departSpeed="random" departPos="random" arrivalLane="current" departPosLat="random"/>
+    <route id="route_2" edges="24224169#8 24224169#10 24224169#11 1102489118 1042538759#1 1042538759#2 934492019#0 934492019#1 934492019#2 934492019#3 934492019#4 934492019#5 934492019#6 934492019#7 934492019#8"/>
+    <flow id="flow_car_2" route="route_2" begin="0" end="3600" period="19.57" type="car" departLane="random" departSpeed="random" departPos="random" arrivalLane="current" departPosLat="random"/>
+    <route id="route_3" edges="24224169#8 24224169#10 24224169#11 1102489120"/>
+    <flow id="flow_car_3" route="route_3" begin="0" end="3600" period="19.57" type="car" departLane="random" departSpeed="random" departPos="random" arrivalLane="current" departPosLat="random"/>
+    <route id="route_4" edges="1042538762#0 1042538762#1 1042538762#2 1042538762#3 1102489118 1042538759#1 1042538759#2 934492019#0 934492019#1 934492019#2 934492019#3 934492019#4 934492019#5 934492019#6 934492019#7 934492019#8"/>
+    <flow id="flow_motor_4" route="route_4" begin="0" end="3600" period="16.92" type="motor" departLane="random" departSpeed="random" departPos="random" arrivalLane="current" departPosLat="random"/>
+    <route id="route_5" edges="934492020#7 934492020#9 1042538760#0 1042538760#1 1042538760#2 1102489120"/>
+    <flow id="flow_motor_5" route="route_5" begin="0" end="3600" period="19.33" type="motor" departLane="random" departSpeed="random" departPos="random" arrivalLane="current" departPosLat="random"/>
+    <route id="route_6" edges="24224169#8 24224169#10 24224169#11 1102489118 1042538759#1 1042538759#2 934492019#0 934492019#1 934492019#2 934492019#3 934492019#4 934492019#5 934492019#6 934492019#7 934492019#8"/>
+    <flow id="flow_motor_6" route="route_6" begin="0" end="3600" period="27.07" type="motor" departLane="random" departSpeed="random" departPos="random" arrivalLane="current" departPosLat="random"/>
+    <route id="route_7" edges="24224169#8 24224169#10 24224169#11 1102489120"/>
+    <flow id="flow_motor_7" route="route_7" begin="0" end="3600" period="27.07" type="motor" departLane="random" departSpeed="random" departPos="random" arrivalLane="current" departPosLat="random"/>
+    <route id="route_8" edges="1042538762#0 1042538762#1 1042538762#2 1042538762#3 1102489118 1042538759#1 1042538759#2 934492019#0 934492019#1 934492019#2 934492019#3 934492019#4 934492019#5 934492019#6 934492019#7 934492019#8"/>
+    <flow id="flow_jeepney_8" route="route_8" begin="0" end="3600" period="41.67" type="jeepney" departLane="random" departSpeed="random" departPos="random" arrivalLane="current" departPosLat="random"/>
+    <route id="route_9" edges="934492020#7 934492020#9 1042538760#0 1042538760#1 1042538760#2 1102489120"/>
+    <flow id="flow_jeepney_9" route="route_9" begin="0" end="3600" period="47.62" type="jeepney" departLane="random" departSpeed="random" departPos="random" arrivalLane="current" departPosLat="random"/>
+    <route id="route_10" edges="24224169#8 24224169#10 24224169#11 1102489118 1042538759#1 1042538759#2 934492019#0 934492019#1 934492019#2 934492019#3 934492019#4 934492019#5 934492019#6 934492019#7 934492019#8"/>
+    <flow id="flow_jeepney_10" route="route_10" begin="0" end="3600" period="66.67" type="jeepney" departLane="random" departSpeed="random" departPos="random" arrivalLane="current" departPosLat="random"/>
+    <route id="route_11" edges="24224169#8 24224169#10 24224169#11 1102489120"/>
+    <flow id="flow_jeepney_11" route="route_11" begin="0" end="3600" period="66.67" type="jeepney" departLane="random" departSpeed="random" departPos="random" arrivalLane="current" departPosLat="random"/>
+    <route id="route_12" edges="1042538762#0 1042538762#1 1042538762#2 1042538762#3 1102489118 1042538759#1 1042538759#2 934492019#0 934492019#1 934492019#2 934492019#3 934492019#4 934492019#5 934492019#6 934492019#7 934492019#8"/>
+    <flow id="flow_bus_12" route="route_12" begin="0" end="3600" period="750.00" type="bus" departLane="random" departSpeed="random" departPos="random" arrivalLane="current" departPosLat="random"/>
+    <route id="route_13" edges="934492020#7 934492020#9 1042538760#0 1042538760#1 1042538760#2 1102489120"/>
+    <flow id="flow_bus_13" route="route_13" begin="0" end="3600" period="857.14" type="bus" departLane="random" departSpeed="random" departPos="random" arrivalLane="current" departPosLat="random"/>
+    <route id="route_14" edges="24224169#8 24224169#10 24224169#11 1102489118 1042538759#1 1042538759#2 934492019#0 934492019#1 934492019#2 934492019#3 934492019#4 934492019#5 934492019#6 934492019#7 934492019#8"/>
+    <flow id="flow_bus_14" route="route_14" begin="0" end="3600" period="1200.00" type="bus" departLane="random" departSpeed="random" departPos="random" arrivalLane="current" departPosLat="random"/>
+    <route id="route_15" edges="24224169#8 24224169#10 24224169#11 1102489120"/>
+    <flow id="flow_bus_15" route="route_15" begin="0" end="3600" period="1200.00" type="bus" departLane="random" departSpeed="random" departPos="random" arrivalLane="current" departPosLat="random"/>
+    <route id="route_16" edges="1042538762#0 1042538762#1 1042538762#2 1042538762#3 1102489118 1042538759#1 1042538759#2 934492019#0 934492019#1 934492019#2 934492019#3 934492019#4 934492019#5 934492019#6 934492019#7 934492019#8"/>
+    <flow id="flow_truck_16" route="route_16" begin="0" end="3600" period="375.00" type="truck" departLane="random" departSpeed="random" departPos="random" arrivalLane="current" departPosLat="random"/>
+    <route id="route_17" edges="934492020#7 934492020#9 1042538760#0 1042538760#1 1042538760#2 1102489120"/>
+    <flow id="flow_truck_17" route="route_17" begin="0" end="3600" period="428.57" type="truck" departLane="random" departSpeed="random" departPos="random" arrivalLane="current" departPosLat="random"/>
+    <route id="route_18" edges="24224169#8 24224169#10 24224169#11 1102489118 1042538759#1 1042538759#2 934492019#0 934492019#1 934492019#2 934492019#3 934492019#4 934492019#5 934492019#6 934492019#7 934492019#8"/>
+    <flow id="flow_truck_18" route="route_18" begin="0" end="3600" period="600.00" type="truck" departLane="random" departSpeed="random" departPos="random" arrivalLane="current" departPosLat="random"/>
+    <route id="route_19" edges="24224169#8 24224169#10 24224169#11 1102489120"/>
+    <flow id="flow_truck_19" route="route_19" begin="0" end="3600" period="600.00" type="truck" departLane="random" departSpeed="random" departPos="random" arrivalLane="current" departPosLat="random"/>
+</routes>

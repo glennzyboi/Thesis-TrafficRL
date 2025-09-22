@@ -1,0 +1,12 @@
+{
+  "total_episodes": 40,
+  "mean_reward": 115.75642170756696,
+  "std_reward": 37.958082508917904,
+  "max_reward": 164.66813869275103,
+  "min_reward": -45.413817553676786,
+  "final_reward": 117.01433072385919,
+  "mean_loss": 0.011114685615523662,
+  "convergence_episode": null,
+  "overfitting_detected": true,
+  "stability_score": 0.7530611525412112
+}

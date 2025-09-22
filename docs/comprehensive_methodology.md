@@ -1,5 +1,7 @@
 # D3QN Multi-Agent Traffic Signal Control System: Comprehensive Methodology
 
+> **📋 CRITICAL UPDATE**: This document now includes comprehensive traffic signal control constraints, anti-exploitation measures, and fair cycling enforcement. For complete implementation details with minute-by-minute code explanations, see [**COMPREHENSIVE_METHODOLOGY_UPDATE.md**](COMPREHENSIVE_METHODOLOGY_UPDATE.md).
+
 ## Table of Contents
 1. [System Architecture Overview](#system-architecture-overview)
 2. [Defense Against Common Criticisms](#defense-against-common-criticisms)
@@ -148,6 +150,44 @@ The system operates in a closed loop where:
 ---
 
 ## Realistic Traffic Signal Constraints
+
+**🚨 CRITICAL DEFENSE UPDATE**: The system now includes comprehensive anti-exploitation measures and realistic traffic engineering constraints that address all potential criticisms about agent manipulation.
+
+### Anti-Exploitation Framework
+
+#### 1. Traffic Light Spam Prevention
+**Problem Identified**: The RL agent was rapidly switching traffic lights every step to artificially boost metrics.
+
+**Solution Implemented**: 
+- **Minimum Phase Time**: 10-second minimum (safety requirement)
+- **Maximum Phase Time**: 120-second maximum (efficiency requirement)  
+- **Constraint Enforcement**: Physical impossibility to change phases too quickly
+
+#### 2. Fair Lane Access Enforcement  
+**Problem Identified**: Agent was favoring one traffic direction to "cheat" statistics.
+
+**Solution Implemented**:
+- **Mandatory Cycling**: Agent must cycle through ALL phases within 200 steps
+- **Phase Tracking**: System tracks which phases have been used in current cycle
+- **Forced Completion**: System forces unused phases when agent tries to exploit
+
+#### 3. Realistic Warmup and Calibration
+**Problem Identified**: Training started with unrealistic initial conditions.
+
+**Solution Implemented**:
+- **Phase 1**: All lights RED for vehicle loading (1/3 of warmup time)
+- **Phase 2**: Normal traffic light operation warmup (2/3 of warmup time)
+- **Calibration**: Ensures realistic vehicle distribution before training
+
+### Matched Baseline Constraints
+
+**🎯 CRITICAL**: The fixed-time baseline now operates under **IDENTICAL** constraints as the D3QN agent:
+- Same minimum/maximum phase times
+- Same fair cycling requirements  
+- Same warmup procedures
+- Same constraint enforcement
+
+This ensures **perfectly fair comparison** and eliminates any systematic bias.
 
 ### Implementation Rationale
 

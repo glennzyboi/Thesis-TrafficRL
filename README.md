@@ -1,224 +1,173 @@
-# D3QN Multi-Agent Traffic Signal Control System
+# 🚦 D3QN Traffic Signal Control System
 
-A complete Multi-Agent Reinforcement Learning (MARL) system for traffic signal control using Dueling Double Deep Q-Networks (D3QN) with real traffic data integration.
+A comprehensive implementation of Dueling Double Deep Q-Network (D3QN) with LSTM for intelligent traffic signal control using SUMO. This system provides an academically rigorous framework for reinforcement learning-based traffic optimization.
 
-## 🚀 Overview
-
-This system trains AI agents to control traffic signals at multiple intersections simultaneously using **real field data**. The agents learn to coordinate signal timing across intersections to optimize traffic flow, reduce waiting times, and improve overall network performance.
-
-### Key Features
-
-- **🤖 Multi-Agent Reinforcement Learning**: D3QN agents control multiple intersections
-- **📊 Real Data Integration**: Train on actual traffic observations from field studies
-- **🔄 Bundle-Based Training**: Synchronized scenarios across all intersections
-- **🖥️ SUMO Integration**: Full traffic simulation with GUI visualization
-- **📈 Performance Tracking**: Comprehensive training metrics and model saving
-
-## Project Structure
+## 📁 Current Project Structure
 
 ```
 D3QN/
-├── data/
-│   ├── raw/                        # Raw Excel files from field observations
-│   ├── processed/                  # Processed CSV bundles and scenarios
-│   └── routes/
-│       └── consolidated/           # MARL-ready route files (bundle_day_cycle.rou.xml)
-├── scripts/
-│   ├── compile_bundles.py          # Process Excel → CSV bundles
-│   ├── generate_scenario_routes.py # Generate routes from real data
-│   └── consolidate_bundle_routes.py # Merge routes for MARL
-├── network/                        # SUMO network files (.net.xml)
-├── models/                         # Trained D3QN models
-├── *.py                           # Core training and environment files
-├── train_bundle_d3qn.py           # Main MARL training script
-├── train_d3qn.py                  # Single-agent training script
-├── traffic_env.py                 # SUMO environment wrapper
-├── d3qn_agent.py                  # D3QN agent implementation
-└── requirements.txt               # Python dependencies
+├── algorithms/                    # Core RL algorithms and baselines
+│   ├── __init__.py               # Package initialization
+│   ├── d3qn_agent.py            # Main D3QN+LSTM agent implementation
+│   └── fixed_time_baseline.py   # Fixed-time baseline controller
+├── core/                         # Core environment and simulation
+│   ├── __init__.py              # Package initialization
+│   └── traffic_env.py           # SUMO traffic environment wrapper
+├── evaluation/                   # Performance analysis and validation
+│   ├── __init__.py              # Package initialization
+│   ├── performance_comparison.py # Enhanced statistical comparison framework
+│   ├── results_analysis.py      # Comprehensive result analysis
+│   ├── hyperparameter_validation.py # Hyperparameter optimization
+│   └── reward_function_validation.py # Reward function validation
+├── experiments/                  # Training scripts and configurations
+│   ├── __init__.py              # Package initialization
+│   ├── comprehensive_training.py # Main hybrid training orchestrator
+│   └── train_d3qn.py            # Basic training implementation
+├── utils/                        # Utilities and supporting functions
+│   ├── __init__.py              # Package initialization
+│   └── production_logger.py     # Production-grade logging system
+├── scripts/                      # Data processing and route generation
+│   ├── compile_bundles.py       # Process Excel → CSV bundles
+│   ├── generate_scenario_routes.py # Generate SUMO routes from data
+│   └── consolidate_bundle_routes.py # Merge routes for training
+├── data/                         # Training data and scenarios
+│   ├── raw/                     # Original Excel data files (108 files)
+│   ├── processed/               # Processed CSV scenarios
+│   └── routes/                  # Generated SUMO route files (24 scenarios)
+├── docs/                         # Comprehensive documentation
+│   ├── comprehensive_methodology.md    # Complete methodology
+│   ├── DEFENSE_PREPARATION_COMPLETE.md # Academic defense prep
+│   ├── TECHNICAL_IMPLEMENTATION_GUIDE.md # Technical details
+│   └── [other documentation files]
+├── network/                      # SUMO network definition
+│   └── ThesisNetowrk.net.xml    # Main intersection network
+├── comprehensive_results/        # Training results and analysis
+├── models/                       # Trained model checkpoints
+├── production_logs/             # Production logging outputs
+├── requirements.txt             # Python dependencies (enhanced)
+└── __init__.py                  # Package root initialization
 ```
 
-## 🔧 Setup & Installation
+## 🚀 Key Features
 
-### 1. Install Dependencies
+- **Advanced D3QN + LSTM**: Temporal pattern learning for traffic control
+- **Hybrid Training**: Combines offline pre-training with online fine-tuning
+- **Statistical Rigor**: Academic-grade statistical validation (power analysis, effect sizes, confidence intervals)
+- **Multi-Agent Support**: Distributed intersection control
+- **Production Logging**: Comprehensive performance tracking
+- **Real-World Data**: Validated on Davao City traffic patterns
 
+## 🔬 Academic Framework
+
+### Statistical Methodology
+- **Power Analysis**: Ensures adequate sample sizes (n ≥ 20)
+- **Effect Size Calculation**: Cohen's d with magnitude interpretation
+- **Confidence Intervals**: 95% CI for mean differences
+- **Multiple Comparison Correction**: Bonferroni correction for multiple metrics
+- **Assumption Testing**: Normality (Shapiro-Wilk) and equal variance (Levene's test)
+- **Non-parametric Alternatives**: Wilcoxon signed-rank when assumptions violated
+
+### Training Paradigms
+1. **Offline Pre-training** (70% episodes): Stable learning from replay buffer
+2. **Online Fine-tuning** (30% episodes): Real-time adaptation to new scenarios
+3. **Hybrid Approach**: Best of both worlds for robust performance
+
+## 🛠️ Quick Start
+
+### Prerequisites
+- Python 3.8+
+- SUMO (Simulation of Urban Mobility)
+- TensorFlow 2.x
+
+### Installation
 ```bash
+# Install dependencies
 pip install -r requirements.txt
+
+# Set SUMO_HOME environment variable
+export SUMO_HOME="/path/to/sumo"
 ```
 
-### 2. Install SUMO
-
-Download and install SUMO from [https://www.eclipse.org/sumo/](https://www.eclipse.org/sumo/)
-
-Ensure `SUMO_HOME` environment variable is set (the system will auto-detect common installation paths).
-
-## 📊 Data Pipeline
-
-### 1. Raw Data Collection
-
-Place Excel files with traffic observations in `data/raw/`:
-- Format: `INTERSECTION_YYYYMMDD_cycleN.xlsx`
-- Contains vehicle counts by type (car, motor, jeepney, bus, truck, tricycle)
-- Includes cycle times and passenger throughput data
-
-### 2. Process Raw Data
-
+### Basic Training
 ```bash
-python scripts/compile_bundles.py
+# Run comprehensive training with hybrid mode (default)
+python experiments/comprehensive_training.py --experiment_name test_run --episodes 5
+
+# Run full training with hybrid mode
+python experiments/comprehensive_training.py --experiment_name my_experiment --episodes 500
+
+# Run statistical comparison (requires 20+ episodes for validity)
+python evaluation/performance_comparison.py --num_episodes 25
 ```
 
-This creates:
-- `data/processed/master_bundles.csv` - Combined dataset
-- `data/processed/scenarios_index.csv` - Bundle index
-- `out/scenarios/` - Individual scenario CSV files
+### Training Modes
 
-### 3. Generate Routes
-
+**Hybrid Training (Recommended - matches study framework)**:
 ```bash
-python scripts/generate_scenario_routes.py
+python experiments/comprehensive_training.py --experiment_name hybrid_500ep --episodes 500
 ```
 
-Creates intersection-specific route files from real traffic data.
-
-### 4. Consolidate for MARL
-
+**Pure Online Learning**:
 ```bash
-python scripts/consolidate_bundle_routes.py
+python experiments/comprehensive_training.py --experiment_name online_500ep --episodes 500 --training_mode online
 ```
 
-Merges individual intersection routes into synchronized bundle files for true MARL training.
-
-## 🤖 Training
-
-### Multi-Agent Training (Recommended)
-
-Train agents on synchronized traffic scenarios across all intersections:
-
+**Pure Offline Learning**:
 ```bash
-python train_bundle_d3qn.py --episodes 100
+python experiments/comprehensive_training.py --experiment_name offline_500ep --episodes 500 --training_mode offline
 ```
 
-Features:
-- **True MARL**: All intersections active simultaneously
-- **Bundle Selection**: Random sampling from real traffic scenarios
-- **Synchronized Traffic**: Agents learn to coordinate across intersections
-- **GUI Visualization**: Watch agents learn in real-time
-
-### Single-Agent Training
-
-Train on individual scenarios:
-
+**Quick Test (5 episodes)**:
 ```bash
-python train_d3qn.py --episodes 50
+python experiments/comprehensive_training.py --experiment_name test_5ep --episodes 5
 ```
 
-## 🎯 System Architecture
+## 📊 Performance Evaluation
 
-### Multi-Agent Reinforcement Learning
+The system includes comprehensive evaluation tools:
 
+- **Statistical Comparison**: Rigorous paired t-tests with effect sizes
+- **Training Analysis**: Overfitting detection and convergence monitoring
+- **Performance Visualization**: Publication-ready plots and charts
+- **Academic Reporting**: Detailed statistical summaries
+
+## 🏛️ Academic Validation
+
+This implementation follows best practices from traffic signal control literature:
+
+- **Sample Size**: Minimum 20 episodes for statistical power
+- **Data Splitting**: Temporal train/validation/test splits (70/20/10)
+- **Multiple Metrics**: Throughput, waiting time, speed, queue length
+- **Baseline Comparison**: Fixed-time controllers with realistic timing
+- **Real-World Data**: Field-collected traffic counts from Davao City
+
+## 📖 Documentation
+
+Complete documentation is available in the `docs/` folder:
+
+- `comprehensive_methodology.md`: Detailed methodology documentation
+- `DEFENSE_PREPARATION_COMPLETE.md`: Academic defense preparation
+- `TECHNICAL_IMPLEMENTATION_GUIDE.md`: Technical implementation details
+
+## 🔧 Configuration
+
+Key configuration options in training scripts:
+
+```python
+config = {
+    'training_mode': 'hybrid',      # hybrid/online/offline
+    'episodes': 500,                # Total training episodes
+    'learning_rate': 0.0005,        # Optimized learning rate
+    'memory_size': 50000,           # Experience replay buffer
+    'sequence_length': 10,          # LSTM temporal window
+    'validation_freq': 25,          # Validation interval
+}
 ```
-Bundle Selection → Consolidated Route File → SUMO Simulation → Agent Actions
-     ↓                       ↓                      ↓              ↓
-Real Traffic Data → All Intersections → State Observation → Signal Control
-     ↑                       ↑                      ↑              ↑
-Field Observations ← Traffic Lights ← Reward Calculation ← Performance Metrics
-```
-
-### State Space (per intersection)
-- Queue lengths per lane
-- Waiting times per vehicle
-- Current signal phase
-- Phase duration
-- Traffic flow rates
-
-### Action Space
-- Signal phase selection for each intersection
-- Coordinated timing decisions across network
-
-### Reward Function
-- Minimizes total waiting time
-- Reduces queue lengths
-- Optimizes passenger throughput
-- Balances network-wide performance
-
-## 📈 Current Performance
-
-### Traffic Scenarios
-Your system currently includes:
-- **6 Traffic Bundles**: 2 days × 3 cycles per day
-- **3 Intersections**: ECOLAND, JOHNPAUL, SANDAWA
-- **Realistic Traffic**: 20-160 vehicles per scenario
-- **Synchronized Data**: True multi-intersection coordination
-
-### Vehicle Types & Parameters
-- **Car**: Length 5m, Max Speed 40 km/h
-- **Motor**: Length 2m, Max Speed 40 km/h  
-- **Jeepney**: Length 8m, Max Speed 40 km/h
-- **Bus**: Length 12m, Max Speed 40 km/h
-- **Truck**: Length 10m, Max Speed 40 km/h
-
-## 🎮 Usage Examples
-
-### Quick Training Run
-```bash
-# Train for 5 episodes with visualization
-python train_bundle_d3qn.py --episodes 5
-```
-
-### Production Training
-```bash
-# Train for 100+ episodes for optimal performance
-python train_bundle_d3qn.py --episodes 200
-```
-
-### Add New Traffic Data
-1. Place Excel files in `data/raw/`
-2. Run `python scripts/compile_bundles.py`
-3. Run `python scripts/generate_scenario_routes.py`
-4. Run `python scripts/consolidate_bundle_routes.py`
-5. Train: `python train_bundle_d3qn.py --episodes N`
-
-## 🔬 Key Innovations
-
-### 1. True MARL (Multi-Agent Reinforcement Learning)
-This system implements **true Multi-Agent Reinforcement Learning** by:
-
-1. **Synchronized Training**: All intersections use traffic data from the same day/cycle
-2. **Coordinated Decision Making**: Agents observe and influence each other's performance
-3. **Realistic Interactions**: Traffic flows naturally between intersections
-4. **Bundle-Based Episodes**: Each training episode represents a complete traffic scenario
-
-### 2. LSTM-Enhanced D3QN Architecture
-The agent incorporates **Long Short-Term Memory (LSTM)** layers for:
-
-- **⏰ Temporal Pattern Recognition**: Learning traffic cycles and recurring patterns
-- **📈 Trend Analysis**: Understanding traffic flow changes over time
-- **🧠 Sequential Memory**: Remembering previous traffic states for better decisions
-- **🔮 Predictive Control**: Anticipating future traffic based on historical patterns
-
-**Architecture:**
-```
-Input Sequence (10 timesteps) → LSTM Layers → Dense Layers → Dueling DQN → Q-Values
-     ↓                           ↓              ↓             ↓           ↓
-State History → Temporal Learning → Feature Extraction → Value/Advantage → Actions
-```
-
-Unlike systems that train individual intersections separately, this approach learns **network-wide coordination** patterns from real traffic data with **temporal awareness**.
-
-## 📊 Data Sources
-
-- **Field Observations**: Manual vehicle counting at intersections
-- **Traffic Patterns**: Real demand variations by time and location  
-- **Vehicle Mix**: Authentic Philippine traffic composition
-- **Cycle Times**: Actual signal timing from field measurements
-
-## 🚀 Future Enhancements
-
-- **Expand Network**: Add more intersections to the MARL system
-- **Temporal Learning**: Include time-of-day and day-of-week patterns
-- **Adaptive Signals**: Real-time adjustment to traffic conditions
-- **Performance Analysis**: Compare against fixed-time and actuated control
-- **Deployment**: Integration with real traffic management systems
 
 ## 📄 License
 
-This project implements research methodologies for traffic signal optimization using reinforcement learning and real traffic data integration.
+This project is developed for academic research purposes. Please cite appropriately if used in academic work.
+
+## 🤝 Contributing
+
+This is a research implementation. For questions or collaboration opportunities, please refer to the documentation or contact the development team.
