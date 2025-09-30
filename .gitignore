@@ -38,6 +38,11 @@ models/*.pkl
 logs/*.png
 logs/*.json
 out/scenarios/*/cycle_*/
+comprehensive_results/
+production_logs/
+comparison_results/
+plots/
+archive/
 
 # Excel temporary files
 ~$*.xlsx
