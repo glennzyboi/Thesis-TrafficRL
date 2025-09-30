@@ -123,8 +123,8 @@ class D3QNAgent:
         q_values = tf.keras.layers.Add(name='q_values')([value, advantage_normalized])
         
         model = tf.keras.Model(inputs=inputs, outputs=q_values)
-        model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=self.learning_rate),
-                     loss='mean_squared_error')
+        optimizer = tf.keras.optimizers.Adam(learning_rate=self.learning_rate, clipnorm=5.0)
+        model.compile(optimizer=optimizer, loss='mean_squared_error')
         
         return model
     
@@ -229,6 +229,13 @@ class D3QNAgent:
         
         # Train the model
         history = self.q_network.fit(states, targets, epochs=1, verbose=0)
+        # Soft update target network each training step for stability
+        main_weights = self.q_network.get_weights()
+        target_weights = self.target_network.get_weights()
+        new_weights = []
+        for tw, mw in zip(target_weights, main_weights):
+            new_weights.append(self.tau * mw + (1.0 - self.tau) * tw)
+        self.target_network.set_weights(new_weights)
         
         # Decay epsilon
         if self.epsilon > self.epsilon_min:

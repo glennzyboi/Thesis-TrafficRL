@@ -79,6 +79,9 @@ class TrafficEnvironment:
         self.cycle_tracking = {}  # Track phase cycles for fairness
         self.steps_since_last_cycle = {}  # Steps since complete cycle
         self.max_steps_per_cycle = 200  # Maximum steps before forced cycle completion
+        # Phase-change stability controls
+        self.phase_cooldown_steps = 3  # Minimal cooldown to reduce oscillations
+        self.max_phase_change_penalty = 0.5  # Cap per-step penalty magnitude
         
         # Simulation state
         self.current_step = 0
@@ -381,6 +384,10 @@ class TrafficEnvironment:
         # Check minimum phase time constraint
         if self.phase_timers[tl_id] < self.min_phase_time:
             return  # Don't change phase too quickly
+        # Cooldown to prevent rapid oscillation
+        time_since_change = self.current_step - self.last_phase_change.get(tl_id, 0)
+        if time_since_change < self.phase_cooldown_steps:
+            return
         
         # Check for PT vehicles and prioritize
         if self._has_pt_vehicles_waiting(tl_id):
@@ -692,39 +699,43 @@ class TrafficEnvironment:
         
         # Apply phase change only if constraints allow
         if can_change_phase and desired_phase != current_phase:
-            # Avoid giving green to empty lanes
-            if not self._is_lane_empty_for_phase(tl_id, desired_phase):
-                traci.trafficlight.setPhase(tl_id, desired_phase)
-                self.current_phases[tl_id] = desired_phase
-                self.last_phase_change[tl_id] = self.current_step
-                self.phase_timers[tl_id] = 0
-                
-                # Track phase usage for fairness
-                cycle_info['phases_used'].add(desired_phase)
-                
-                # Reset cycle if all phases have been used
-                if len(cycle_info['phases_used']) >= max_phase + 1:
-                    cycle_info['phases_used'] = set()
-                    self.steps_since_last_cycle[tl_id] = 0
-                    cycle_info['current_cycle_start'] = self.current_step
+            # Additional cooldown constraint to reduce oscillations
+            if time_in_current_phase < self.phase_cooldown_steps:
+                pass
             else:
-                # Find next non-empty phase or keep current
-                for next_phase in range(max_phase + 1):
-                    if not self._is_lane_empty_for_phase(tl_id, next_phase) and next_phase != current_phase:
-                        traci.trafficlight.setPhase(tl_id, next_phase)
-                        self.current_phases[tl_id] = next_phase
-                        self.last_phase_change[tl_id] = self.current_step
-                        self.phase_timers[tl_id] = 0
-                        
-                        # Track phase usage for fairness
-                        cycle_info['phases_used'].add(next_phase)
-                        
-                        # Reset cycle if all phases have been used
-                        if len(cycle_info['phases_used']) >= max_phase + 1:
-                            cycle_info['phases_used'] = set()
-                            self.steps_since_last_cycle[tl_id] = 0
-                            cycle_info['current_cycle_start'] = self.current_step
-                        break
+            # Avoid giving green to empty lanes
+                if not self._is_lane_empty_for_phase(tl_id, desired_phase):
+                    traci.trafficlight.setPhase(tl_id, desired_phase)
+                    self.current_phases[tl_id] = desired_phase
+                    self.last_phase_change[tl_id] = self.current_step
+                    self.phase_timers[tl_id] = 0
+                
+                    # Track phase usage for fairness
+                    cycle_info['phases_used'].add(desired_phase)
+                
+                    # Reset cycle if all phases have been used
+                    if len(cycle_info['phases_used']) >= max_phase + 1:
+                        cycle_info['phases_used'] = set()
+                        self.steps_since_last_cycle[tl_id] = 0
+                        cycle_info['current_cycle_start'] = self.current_step
+                else:
+                    # Find next non-empty phase or keep current
+                    for next_phase in range(max_phase + 1):
+                        if not self._is_lane_empty_for_phase(tl_id, next_phase) and next_phase != current_phase:
+                            traci.trafficlight.setPhase(tl_id, next_phase)
+                            self.current_phases[tl_id] = next_phase
+                            self.last_phase_change[tl_id] = self.current_step
+                            self.phase_timers[tl_id] = 0
+                            
+                            # Track phase usage for fairness
+                            cycle_info['phases_used'].add(next_phase)
+                            
+                            # Reset cycle if all phases have been used
+                            if len(cycle_info['phases_used']) >= max_phase + 1:
+                                cycle_info['phases_used'] = set()
+                                self.steps_since_last_cycle[tl_id] = 0
+                                cycle_info['current_cycle_start'] = self.current_step
+                            break
         
         # Update timer
         self.phase_timers[tl_id] += 1
@@ -962,7 +973,7 @@ class TrafficEnvironment:
         else:
             waiting_reward = -5.0  # Poor performance
         
-        # 2. THROUGHPUT REWARD (20% weight) - FIXED: Use cumulative throughput instead of instantaneous
+        # 2. THROUGHPUT REWARD (normalized) - Use cumulative throughput with normalization
         # Target: > 5,000 veh/h (fixed-time baseline: 5,328 veh/h)
         # CRITICAL FIX: Use cumulative throughput over episode, not instantaneous step
         if not hasattr(self, 'cumulative_throughput'):
@@ -970,15 +981,10 @@ class TrafficEnvironment:
         
         self.cumulative_throughput += step_throughput
         throughput_rate = (self.cumulative_throughput / max(self.current_step, 1)) * 12  # Average hourly rate
-        
-        if throughput_rate >= 5000:
-            throughput_reward = 8.0  # Excellent
-        elif throughput_rate >= 4000:
-            throughput_reward = 5.0 * (throughput_rate - 4000) / 1000  # Good
-        elif throughput_rate >= 3000:
-            throughput_reward = 2.0 * (throughput_rate - 3000) / 1000  # Acceptable
-        else:
-            throughput_reward = -2.0  # Poor
+        # Normalize to a 0..1 target range to improve gradient quality
+        throughput_norm = min(throughput_rate / 5500.0, 1.0)
+        # Map to reward in [-2, +8] similar scale but smooth
+        throughput_reward = (throughput_norm * 10.0) - 2.0
         
         # 3. SPEED REWARD (20% weight) - Traffic flow efficiency
         # Target: > 20 km/h (fixed-time baseline: 20.60 km/h)
@@ -1012,16 +1018,36 @@ class TrafficEnvironment:
         else:
             passenger_bonus = 0.5 * passenger_rate / 5000
         
+        # 6. PRESSURE TERM (5-10% weight) - Relieve imbalance, reduce oscillations
+        # Proxy: penalize queues and reward throughput trend using a bounded function with EMA smoothing
+        pressure_proxy = -avg_queue + (throughput_rate / 5000.0)
+        if not hasattr(self, 'pressure_ema'):
+            self.pressure_ema = pressure_proxy
+        else:
+            self.pressure_ema = 0.7 * self.pressure_ema + 0.3 * pressure_proxy
+        pressure_term = float(np.tanh(self.pressure_ema))  # Bound to [-1, 1]
+
         # === COMBINE REWARDS ===
         # CRITICAL FIX: Rebalance weights based on actual performance analysis
         # Waiting time works well (+35.8%), throughput fails (-30.1%), speed works (+9.3%)
         reward = (
-            waiting_reward * 0.40 +      # 40% - Waiting time (INCREASED - works well)
-            throughput_reward * 0.20 +   # 20% - Throughput (DECREASED - not working)
-            speed_reward * 0.20 +        # 20% - Speed efficiency (INCREASED - works well)
-            queue_reward * 0.15 +        # 15% - Queue management (INCREASED - works)
-            passenger_bonus * 0.05       # 5% - Passenger throughput (maintained)
+            waiting_reward * 0.37 +      # 37% - Waiting time
+            throughput_reward * 0.25 +   # 25% - Throughput (normalized)
+            speed_reward * 0.20 +        # 20% - Speed efficiency
+            queue_reward * 0.13 +        # 13% - Queue management
+            passenger_bonus * 0.05 +     # 5% - Passenger throughput
+            pressure_term * 0.10         # 10% - Pressure stabilization (EMA)
         )
+
+        # 7. Density guardrail: discourage policies that trap vehicles (very high load)
+        try:
+            total_vehicles_now = traci.vehicle.getIDCount()
+            total_lanes = max(sum(len(lanes) for lanes in self.controlled_lanes.values()), 1)
+            system_load = min(total_vehicles_now / 300.0, 1.0)
+            if system_load > 0.7:
+                reward -= 0.1
+        except Exception:
+            pass
         
         # === STABILITY PENALTIES ===
         # Phase change penalty (prevent excessive switching)
@@ -1035,7 +1061,11 @@ class TrafficEnvironment:
                         phase_change_penalty -= 0.2
                 setattr(self, f'last_phase_{tl_id}', current_phase)
         
-        reward += phase_change_penalty
+        # Cap total phase-change penalty per step
+        reward += max(-self.max_phase_change_penalty, phase_change_penalty)
+
+        # Reward clipping for numerical stability
+        reward = float(np.clip(reward, -10.0, 10.0))
         
         # === STORE METRICS FOR ANALYSIS ===
         if not hasattr(self, 'reward_components'):
@@ -1048,18 +1078,20 @@ class TrafficEnvironment:
             'speed_reward': speed_reward,
             'queue_reward': queue_reward,
             'passenger_bonus': passenger_bonus,
+            'pressure_term': pressure_term,
             'phase_change_penalty': phase_change_penalty,
             'total_reward': reward,
             'avg_waiting': avg_waiting,
             'avg_queue': avg_queue,
             'avg_speed': speed_kmh,
             'throughput_rate': throughput_rate,
+            'throughput_norm': throughput_norm,
             'passenger_rate': passenger_rate,
             'reward_weights': {
-                'waiting': 0.40,
-                'throughput': 0.20,
+                'waiting': 0.37,
+                'throughput': 0.25,
                 'speed': 0.20,
-                'queue': 0.15,
+                'queue': 0.13,
                 'passenger': 0.05
             }
         })
