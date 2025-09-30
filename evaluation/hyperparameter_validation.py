@@ -70,14 +70,14 @@ class HyperparameterValidator:
         Returns:
             Sensitivity analysis results
         """
-        print("🔬 HYPERPARAMETER SENSITIVITY ANALYSIS")
+        print("HYPERPARAMETER SENSITIVITY ANALYSIS")
         print("=" * 60)
         
         # Test each parameter individually
         sensitivity_results = {}
         
         for param_name, param_values in self.parameter_ranges.items():
-            print(f"\n📊 Testing parameter: {param_name}")
+            print(f"\nTesting parameter: {param_name}")
             param_results = []
             
             for value in param_values:
@@ -99,13 +99,13 @@ class HyperparameterValidator:
                 result['value'] = value
                 param_results.append(result)
                 
-                print(f"      Result: {result['avg_test_reward']:.2f} ± {result['test_reward_std']:.2f}")
+                print(f"      Result: {result['avg_test_reward']:.2f} +/- {result['test_reward_std']:.2f}")
             
             sensitivity_results[param_name] = param_results
             
             # Find optimal value for this parameter
             best_result = max(param_results, key=lambda x: x['avg_test_reward'])
-            print(f"   🏆 Best {param_name}: {best_result['value']} "
+            print(f"   Best {param_name}: {best_result['value']} "
                   f"(reward: {best_result['avg_test_reward']:.2f})")
         
         # Save sensitivity results
@@ -133,7 +133,7 @@ class HyperparameterValidator:
         if key_parameters is None:
             key_parameters = ['learning_rate', 'batch_size', 'sequence_length']
         
-        print(f"🎯 GRID SEARCH ON: {key_parameters}")
+        print(f"GRID SEARCH ON: {key_parameters}")
         print("=" * 60)
         
         # Generate all combinations
@@ -147,7 +147,7 @@ class HyperparameterValidator:
             
             param_combinations.append((combination, config))
         
-        print(f"🔍 Testing {len(param_combinations)} configurations")
+        print(f"Testing {len(param_combinations)} configurations")
         
         grid_results = []
         for i, (combination, config) in enumerate(param_combinations):
@@ -166,14 +166,14 @@ class HyperparameterValidator:
                 result[param] = combination[j]
             
             grid_results.append(result)
-            print(f"   Result: {result['avg_test_reward']:.2f} ± {result['test_reward_std']:.2f}")
+            print(f"   Result: {result['avg_test_reward']:.2f} +/- {result['test_reward_std']:.2f}")
         
         # Find best configuration
         best_config = max(grid_results, key=lambda x: x['avg_test_reward'])
-        print(f"\n🏆 BEST CONFIGURATION:")
+        print(f"\nBEST CONFIGURATION:")
         for param in key_parameters:
             print(f"   {param}: {best_config[param]}")
-        print(f"   Reward: {best_config['avg_test_reward']:.2f} ± {best_config['test_reward_std']:.2f}")
+        print(f"   Reward: {best_config['avg_test_reward']:.2f} +/- {best_config['test_reward_std']:.2f}")
         
         # Save grid search results
         grid_file = os.path.join(self.output_dir, "grid_search_results.json")
@@ -377,7 +377,7 @@ class HyperparameterValidator:
             f.write("- `grid_search_results.json`: Grid search outcomes\n")
             f.write("- Individual experiment logs in experiment directories\n\n")
         
-        print(f"📋 Validation report generated: {report_path}")
+        print(f"Validation report generated: {report_path}")
         return report_path
 
 
@@ -387,7 +387,7 @@ def run_comprehensive_validation():
     """
     validator = HyperparameterValidator()
     
-    print("🔬 COMPREHENSIVE HYPERPARAMETER VALIDATION")
+    print("COMPREHENSIVE HYPERPARAMETER VALIDATION")
     print("=" * 70)
     print("Addressing defense vulnerabilities through systematic validation")
     print()
@@ -405,10 +405,10 @@ def run_comprehensive_validation():
     # Generate defense report
     report_path = validator.generate_validation_report()
     
-    print(f"\n✅ VALIDATION COMPLETE")
-    print(f"📊 Sensitivity analysis: {len(sensitivity_results)} parameters tested")
-    print(f"🎯 Grid search: {len(grid_results)} configurations evaluated")
-    print(f"📋 Defense report: {report_path}")
+    print(f"\nVALIDATION COMPLETE")
+    print(f"Sensitivity analysis: {len(sensitivity_results)} parameters tested")
+    print(f"Grid search: {len(grid_results)} configurations evaluated")
+    print(f"Defense report: {report_path}")
     
     return validator, sensitivity_results, grid_results
 

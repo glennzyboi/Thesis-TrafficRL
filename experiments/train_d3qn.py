@@ -81,7 +81,7 @@ def load_scenarios_index(split='train', split_ratio=(0.7, 0.2, 0.1), random_seed
     scenarios_file = os.path.join("data", "processed", "scenarios_index.csv")
     
     if not os.path.exists(scenarios_file):
-        print(f"❌ Scenarios index not found: {scenarios_file}")
+        print(f"Scenarios index not found: {scenarios_file}")
         return []
     
     df = pd.read_csv(scenarios_file)
@@ -106,7 +106,7 @@ def load_scenarios_index(split='train', split_ratio=(0.7, 0.2, 0.1), random_seed
                 'temporal_id': f"{day}_{cycle}"  # For temporal ordering
             })
         else:
-            print(f"⚠️ Missing consolidated route file: {consolidated_file}")
+            print(f"Missing consolidated route file: {consolidated_file}")
     
     if not bundles:
         return []
@@ -129,7 +129,7 @@ def load_scenarios_index(split='train', split_ratio=(0.7, 0.2, 0.1), random_seed
     else:
         selected_bundles = bundles  # Return all if split not specified
     
-    print(f"📊 Data Split Info:")
+    print(f"Data Split Info:")
     print(f"   Total scenarios: {total_scenarios}")
     print(f"   {split.capitalize()} scenarios: {len(selected_bundles)}")
     print(f"   Split ratio: {split_ratio}")
@@ -191,11 +191,11 @@ def plot_training_progress(episode_rewards, episode_lengths, losses, save_path):
 def train_agent():
     """Main training function - supports both single-agent and MARL modes"""
     if CONFIG['MARL_MODE']:
-        print("🤝 MARL D3QN TRAFFIC SIGNAL CONTROL TRAINING")
-        print("🚦 Training separate agents for each intersection")
+        print("MARL D3QN TRAFFIC SIGNAL CONTROL TRAINING")
+        print("Training separate agents for each intersection")
         return train_marl_agents()
     else:
-        print("🚀 SINGLE-AGENT D3QN TRAFFIC SIGNAL CONTROL TRAINING")
+        print("SINGLE-AGENT D3QN TRAFFIC SIGNAL CONTROL TRAINING")
         return train_single_agent()
 
 def train_single_agent():
@@ -262,7 +262,7 @@ def train_single_agent():
         start_time = time.time()
         
         for episode in range(CONFIG['EPISODES']):
-            print(f"📺 Episode {episode + 1}/{CONFIG['EPISODES']}")
+            print(f"Episode {episode + 1}/{CONFIG['EPISODES']}")
             
             # Reset environment and agent state history
             state = env.reset()

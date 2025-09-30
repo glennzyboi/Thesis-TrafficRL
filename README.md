@@ -1,6 +1,6 @@
-# 🚦 D3QN Traffic Signal Control System
+# 🚦 D3QN Traffic Signal Control with Public Transport Priority
 
-A comprehensive implementation of Dueling Double Deep Q-Network (D3QN) with LSTM for intelligent traffic signal control using SUMO. This system provides an academically rigorous framework for reinforcement learning-based traffic optimization.
+A comprehensive implementation of enhanced Dueling Double Deep Q-Network (D3QN) with LSTM for **public transport priority** traffic signal control using SUMO. This system provides an academically rigorous framework for reinforcement learning-based traffic optimization with specific focus on maximizing passenger throughput through bus and jeepney priority.
 
 ## 📁 Current Project Structure
 
@@ -48,14 +48,31 @@ D3QN/
 └── __init__.py                  # Package root initialization
 ```
 
-## 🚀 Key Features
+## 🚀 Enhanced Key Features
 
-- **Advanced D3QN + LSTM**: Temporal pattern learning for traffic control
-- **Hybrid Training**: Combines offline pre-training with online fine-tuning
-- **Statistical Rigor**: Academic-grade statistical validation (power analysis, effect sizes, confidence intervals)
-- **Multi-Agent Support**: Distributed intersection control
-- **Production Logging**: Comprehensive performance tracking
-- **Real-World Data**: Validated on Davao City traffic patterns
+### **🚌 Public Transport Priority System (Ma et al., 2020)**
+- **Lane-Level PT Detection**: Real-time counting of buses and jeepneys in each lane
+- **Passenger Load Estimation**: Dynamic capacity calculation (Bus: 40, Jeepney: 14 passengers)
+- **Priority Urgency Metrics**: PT vehicle waiting times for intelligent priority decisions
+- **System-Wide PT Context**: Global public transport load monitoring
+
+### **🧠 Advanced D3QN + LSTM Architecture**
+- **Enhanced State Space**: 12 features per lane (638 total dimensions) with PT priority
+- **Temporal Dynamics**: Velocity features capture traffic buildup/dissipation patterns (Liang et al., 2019)
+- **Granular Control**: 18-action space with phase selection + timing variations
+- **LSTM Sequence Learning**: 10-timestep temporal memory for pattern recognition
+
+### **🎓 Academic Standards & Research Foundation**
+- **Realistic Timing**: FHWA/Webster standards (15-75s) based on traffic engineering research
+- **Literature Implementation**: Genders & Razavi (2016), Wei et al. (2019), Ma et al. (2020)
+- **Statistical Rigor**: Academic-grade validation with proper data splits and significance testing
+- **Working Phase Analysis**: Network debugging identified functional vs. non-functional phases
+
+### **🔬 Production-Grade Implementation**
+- **Hybrid Training**: Research-optimized 70-30 offline/online split for extended learning
+- **Overfitting Prevention**: Early stopping, reward stability monitoring, enhanced regularization
+- **Real-World Data**: 198 raw Excel files → 66 processed traffic scenarios from Davao City
+- **Defense-Ready**: Comprehensive logging, reproducibility, and academic documentation
 
 ## 🔬 Academic Framework
 
@@ -149,18 +166,104 @@ Complete documentation is available in the `docs/` folder:
 - `DEFENSE_PREPARATION_COMPLETE.md`: Academic defense preparation
 - `TECHNICAL_IMPLEMENTATION_GUIDE.md`: Technical implementation details
 
-## 🔧 Configuration
+## 🔧 Current Stable Configuration
 
-Key configuration options in training scripts:
+The system has been stabilized with the following production-ready configuration:
 
+### **Traffic Light Control**
+```python
+# Working phases only (fixes SUMO network issues)
+working_phases = {
+    'Ecoland_TrafficSignal': [0, 2, 4, 6],      # 4 functional phases
+    'JohnPaul_TrafficSignal': [0, 5, 8],        # 3 functional phases  
+    'Sandawa_TrafficSignal': [0, 2]             # 2 functional phases
+}
+
+# Enhanced action space: Granular control with timing variations
+actions_per_tl = {
+    'Ecoland_TrafficSignal': 8,      # 4 phases + 4 timing variations
+    'JohnPaul_TrafficSignal': 6,     # 3 phases + 3 timing variations  
+    'Sandawa_TrafficSignal': 4       # 2 phases + 2 timing variations
+}
+
+# Timing constraints (Academic Standards)
+min_phase_time = 15  # seconds (FHWA safety standard)
+max_phase_time = 75  # seconds (Webster's optimal range)
+```
+
+### **Training Parameters**
 ```python
 config = {
-    'training_mode': 'hybrid',      # hybrid/online/offline
-    'episodes': 500,                # Total training episodes
-    'learning_rate': 0.0005,        # Optimized learning rate
-    'memory_size': 50000,           # Experience replay buffer
-    'sequence_length': 10,          # LSTM temporal window
-    'validation_freq': 25,          # Validation interval
+    'training_mode': 'hybrid',          # 70% offline + 30% online
+    'episodes': 200,                    # Recommended for stability
+    'learning_rate': 0.0001,            # Reduced for stability
+    'memory_size': 50000,               # Experience replay buffer
+    'batch_size': 64,                   # Balanced batch size
+    'sequence_length': 10,              # LSTM temporal window
+    'epsilon_decay': 0.999,             # Gradual exploration decay
+}
+```
+
+### **Enhanced State Representation (Public Transport Priority)**
+```python
+# Based on Ma et al. (2020) and transit priority literature
+state_features_per_lane = [
+    # Core traffic metrics (5 features)
+    'queue_length', 'waiting_time', 'avg_speed', 'flow_rate', 'occupancy',
+    
+    # PUBLIC TRANSPORT PRIORITY (3 features) - CRITICAL ENHANCEMENT
+    'pt_vehicles_count',     # Buses/jeepneys in lane
+    'pt_passenger_load',     # Estimated passenger capacity  
+    'pt_waiting_time',       # Priority urgency metric
+    
+    # TEMPORAL DYNAMICS (4 features) - Liang et al. (2019)
+    'vel_queue',             # Rate of change in queue length
+    'vel_waiting',           # Rate of change in waiting time
+    'vel_flow',              # Rate of change in flow rate
+    'vel_pt'                 # Rate of change in PT vehicles
+]
+
+# Global context: time_context + pt_system_load
+# Total: 53 lanes × 12 features + 2 global = 638 state dimensions
+```
+
+### **🕒 Temporal Dynamics Explained**
+
+**Academic Foundation**: Based on Liang et al. (2019) "Temporal traffic pattern learning for urban signal control"
+
+**What are Temporal Dynamics?**
+- **Definition**: Rate of change (velocity) of traffic metrics over time
+- **Purpose**: Capture traffic buildup and dissipation patterns
+- **Benefit**: Agent learns trends, not just current state
+
+**Implementation**:
+```python
+# Example: Queue length temporal dynamics
+current_queue = 15 vehicles
+previous_queue = 10 vehicles
+vel_queue = current_queue - previous_queue = +5 vehicles/step
+
+# Interpretation:
+# +5: Queue building up (congestion forming)
+# -3: Queue dissipating (traffic clearing)  
+#  0: Stable queue (equilibrium state)
+```
+
+**Real-World Application**:
+- **Predictive Control**: Agent anticipates traffic buildup before it becomes severe
+- **Proactive Decisions**: Changes signals before congestion peaks
+- **Pattern Recognition**: LSTM learns recurring traffic patterns (rush hour, etc.)
+- **PT Priority**: Detects when PT vehicles are accumulating, triggering priority
+
+### **Reward Function Weights**
+```python
+reward_weights = {
+    'waiting_penalty': 0.20,        # 20% - Minimize delays
+    'queue_penalty': 0.15,          # 15% - Congestion control  
+    'speed_reward': 0.20,           # 20% - Flow efficiency
+    'passenger_throughput': 0.20,   # 20% - Urban planning priority
+    'vehicle_throughput': 0.15,     # 15% - Enhanced for balance
+    'public_transport_bonus': 0.10, # 10% - PT priority
 }
 ```
 

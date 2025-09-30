@@ -38,7 +38,7 @@ class FixedTimeController:
     Implements standard urban traffic signal timing patterns
     """
     
-    def __init__(self, net_file, rou_file, use_gui=True, num_seconds=180, 
+    def __init__(self, net_file, rou_file, use_gui=True, num_seconds=300, 
                  warmup_time=30, step_length=1.0):
         """
         Initialize fixed-time controller
@@ -58,9 +58,9 @@ class FixedTimeController:
         self.warmup_time = warmup_time
         self.step_length = step_length
         
-        # Traffic signal timing constraints (matching D3QN constraints)
-        self.min_phase_time = 10  # 10 seconds minimum (safety requirement)
-        self.max_phase_time = 120  # 120 seconds maximum (efficiency requirement)
+        # TRUE FIXED-TIME: No dynamic timing constraints needed
+        # Fixed-time signals just follow their predetermined schedule
+        print(f"   TRUE FIXED-TIME: Following predetermined timing plans only")
         
         # Fair cycling enforcement (matching D3QN fairness)
         self.cycle_tracking = {}  # Track complete cycles for each TL
@@ -68,42 +68,31 @@ class FixedTimeController:
         self.current_phases = {}  # Track current phase
         self.last_phase_change = {}  # Track when phase was last changed
         
-        # Fixed timing plans (based on standard urban practice)
+        # Fixed timing plans using ONLY working phases (from network analysis)
+        # CRITICAL: These phases actually provide green lights in the SUMO network
         self.timing_plans = {
             'Ecoland_TrafficSignal': {
                 'cycle_length': 90,  # seconds
                 'phases': [
-                    {'duration': 25, 'phase': 0},  # North-South green
-                    {'duration': 5, 'phase': 1},   # North-South yellow
-                    {'duration': 25, 'phase': 2},  # East-West green  
-                    {'duration': 5, 'phase': 3},   # East-West yellow
-                    {'duration': 20, 'phase': 4},  # Left turn phases
-                    {'duration': 5, 'phase': 5},   # All red
-                    {'duration': 5, 'phase': 6}    # Pedestrian
+                    {'duration': 30, 'phase': 0},  # Working phase 0
+                    {'duration': 30, 'phase': 2},  # Working phase 2
+                    {'duration': 15, 'phase': 4},  # Working phase 4
+                    {'duration': 15, 'phase': 6}   # Working phase 6
                 ]
             },
             'JohnPaul_TrafficSignal': {
                 'cycle_length': 120,  # Main arterial - longer cycle
                 'phases': [
-                    {'duration': 35, 'phase': 0},  # Main direction green
-                    {'duration': 5, 'phase': 1},   # Main direction yellow
-                    {'duration': 25, 'phase': 2},  # Cross direction green
-                    {'duration': 5, 'phase': 3},   # Cross direction yellow
-                    {'duration': 30, 'phase': 4},  # Left turn phases
-                    {'duration': 5, 'phase': 5},   # All red
-                    {'duration': 15, 'phase': 6}   # Minor movements
+                    {'duration': 40, 'phase': 0},  # Working phase 0
+                    {'duration': 40, 'phase': 5},  # Working phase 5
+                    {'duration': 40, 'phase': 8}   # Working phase 8
                 ]
             },
             'Sandawa_TrafficSignal': {
                 'cycle_length': 75,   # Residential area - shorter cycle
                 'phases': [
-                    {'duration': 20, 'phase': 0},  # North-South green
-                    {'duration': 4, 'phase': 1},   # North-South yellow
-                    {'duration': 20, 'phase': 2},  # East-West green
-                    {'duration': 4, 'phase': 3},   # East-West yellow
-                    {'duration': 15, 'phase': 4},  # Left turn phases
-                    {'duration': 4, 'phase': 5},   # All red
-                    {'duration': 8, 'phase': 6}    # Pedestrian
+                    {'duration': 37, 'phase': 0},  # Working phase 0
+                    {'duration': 38, 'phase': 2}   # Working phase 2
                 ]
             }
         }
@@ -139,7 +128,7 @@ class FixedTimeController:
         self.traffic_lights = []
         self.phase_timers = {}
         
-        print(f"🚦 Fixed-Time Controller Initialized:")
+        print(f"Fixed-Time Controller Initialized:")
         print(f"   Network: {os.path.basename(net_file)}")
         print(f"   Routes: {os.path.basename(rou_file)}")
         print(f"   GUI: {'Enabled' if use_gui else 'Disabled'}")
@@ -174,7 +163,7 @@ class FixedTimeController:
     
     def run_simulation(self):
         """Run complete fixed-time simulation and collect metrics"""
-        print(f"\n🔄 Starting Fixed-Time Baseline Simulation...")
+        print(f"\nStarting Fixed-Time Baseline Simulation...")
         
         # Start SUMO
         traci.start(self.sumo_cmd)
@@ -190,16 +179,16 @@ class FixedTimeController:
         print(f"   Found {len(self.traffic_lights)} traffic lights: {list(self.traffic_lights)}")
         
         # Warmup period
-        print(f"   🔥 Warming up simulation ({self.warmup_time}s)...")
+        print(f"   Warming up simulation ({self.warmup_time}s)...")
         for _ in range(int(self.warmup_time / self.step_length)):
             self._apply_fixed_timing()
             traci.simulationStep()
             self.current_step += 1
         
-        print(f"   ✅ Warmup complete - {traci.vehicle.getIDCount()} vehicles active")
+        print(f"   Warmup complete - {traci.vehicle.getIDCount()} vehicles active")
         
         # Main simulation with data collection
-        print(f"   📊 Collecting performance data...")
+        print(f"   Collecting performance data...")
         data_collection_steps = 0
         
         while self.current_step * self.step_length < self.num_seconds:
@@ -232,6 +221,18 @@ class FixedTimeController:
         """Apply fixed timing to all traffic lights with realistic constraints"""
         current_time = self.current_step * self.step_length
         
+        # CRITICAL: During warmup (first 30 steps), set ALL lights to RED
+        # This matches the D3QN agent's warmup behavior exactly
+        if current_time < self.warmup_time:
+            for tl_id in self.traffic_lights:
+                # Set all traffic lights to RED during warmup (typically phase 1 or 3)
+                # This ensures no vehicles move during warmup, just like D3QN agent
+                try:
+                    traci.trafficlight.setPhase(tl_id, 1)  # RED phase
+                except:
+                    traci.trafficlight.setPhase(tl_id, 0)  # Fallback
+            return
+        
         for tl_id in self.traffic_lights:
             # Initialize tracking if not exists
             if tl_id not in self.current_phases:
@@ -244,55 +245,29 @@ class FixedTimeController:
                 timing_plan = self.timing_plans[tl_id]
                 cycle_length = timing_plan['cycle_length']
                 
-                # Calculate position in cycle
-                cycle_position = current_time % cycle_length
+                # Calculate position in cycle (start timing AFTER warmup)
+                cycle_position = (current_time - self.warmup_time) % cycle_length
                 
-                # Apply realistic timing constraints (matching D3QN agent)
-                time_in_current_phase = self.current_step - self.last_phase_change[tl_id]
-                current_phase = self.current_phases[tl_id]
+                # TRUE FIXED-TIME: Follow the exact timing plan, NO dynamic constraints
+                # This is how real fixed-time traffic signals work - they just follow a schedule
                 
-                # Check available phases first
-                try:
-                    num_phases = traci.trafficlight.getPhaseNumber(tl_id)
-                    max_phase = min(num_phases - 1, 3)  # Limit to available phases
+                # Calculate which phase should be active based on timing plan
+                cumulative_time = 0
+                desired_phase = 0  # Default phase
+                
+                for phase_info in timing_plan['phases']:
+                    phase_duration = phase_info['duration']
+                    phase_number = phase_info['phase']
                     
-                    # Calculate which phase should be active (respecting constraints)
-                    phase_duration = max(self.min_phase_time, cycle_length / (max_phase + 1))
-                    desired_phase = int(cycle_position / phase_duration) % (max_phase + 1)
-                    
-                    # Apply timing constraints (minimum/maximum phase time)
-                    can_change_phase = True
-                    if time_in_current_phase < self.min_phase_time:
-                        can_change_phase = False
-                    elif time_in_current_phase >= self.max_phase_time:
-                        can_change_phase = True  # Force change
-                    
-                    # Ensure fair cycling through all phases
-                    cycle_info = self.cycle_tracking[tl_id]
-                    
-                    # Apply phase change with constraints
-                    if can_change_phase and desired_phase != current_phase:
-                        traci.trafficlight.setPhase(tl_id, desired_phase)
-                        self.current_phases[tl_id] = desired_phase
-                        self.last_phase_change[tl_id] = self.current_step
-                        
-                        # Track completed phases for fairness
-                        cycle_info['phases_completed'].add(desired_phase)
-                        
-                        # Reset cycle tracking if all phases completed
-                        if len(cycle_info['phases_completed']) >= max_phase + 1:
-                            cycle_info['phases_completed'] = set()
-                            cycle_info['cycle_start'] = self.current_step
-                    else:
-                        # Keep current phase
-                        traci.trafficlight.setPhase(tl_id, current_phase)
-                except Exception as e:
-                    # Ultimate fallback to simple 2-phase operation
-                    simple_phase = 0 if (current_time // 30) % 2 == 0 else 1
-                    try:
-                        traci.trafficlight.setPhase(tl_id, simple_phase)
-                    except:
-                        pass  # Skip if even this fails
+                    if cycle_position < cumulative_time + phase_duration:
+                        desired_phase = phase_number
+                        break
+                    cumulative_time += phase_duration
+                
+                # Apply the phase directly - NO timing constraints, NO min/max checks!
+                # This is TRUE fixed-time behavior
+                traci.trafficlight.setPhase(tl_id, desired_phase)
+                self.current_phases[tl_id] = desired_phase
     
     def _collect_step_metrics(self):
         """Collect detailed metrics for current step"""
@@ -358,7 +333,7 @@ class FixedTimeController:
             'avg_waiting': total_waiting / total_vehicles if total_vehicles > 0 else 0,
             'queue_length': total_queue,
             'completed_trips': completed_this_step,
-            'throughput': completed_this_step / self.step_length * 3600,  # veh/h instantaneous
+            'throughput': self.metrics['completed_trips'] / max((self.current_step - self.warmup_time) * self.step_length / 3600, 0.01),  # veh/h cumulative (matching D3QN)
             'passenger_throughput': passenger_throughput_this_step  # passengers instantaneous - PRIMARY METRIC
         }
         
@@ -398,8 +373,8 @@ class FixedTimeController:
         # Travel time efficiency (speed-based proxy)
         self.metrics['travel_time_index'] = 40.0 / max(self.metrics['avg_speed'], 1.0)  # Relative to 40 km/h
         
-        print(f"\n✅ Fixed-Time Simulation Complete!")
-        print(f"   📊 Performance Summary:")
+        print(f"\nFixed-Time Simulation Complete!")
+        print(f"   Performance Summary:")
         print(f"     Completed Trips: {self.metrics['completed_trips']}")
         print(f"     Avg Vehicle Throughput: {self.metrics['avg_throughput']:.1f} veh/h")
         print(f"     Avg Passenger Throughput: {self.metrics['avg_passenger_throughput']:.1f} pass/h (PRIMARY METRIC)")
@@ -414,8 +389,8 @@ def run_fixed_time_baseline(route_file, episodes=1):
     controller = FixedTimeController(
         net_file='network/ThesisNetowrk.net.xml',
         rou_file=route_file,
-        use_gui=True,
-        num_seconds=180,
+        use_gui=False,
+        num_seconds=300,
         warmup_time=30,
         step_length=1.0
     )
@@ -423,7 +398,7 @@ def run_fixed_time_baseline(route_file, episodes=1):
     all_metrics = []
     
     for episode in range(episodes):
-        print(f"\n📺 Fixed-Time Episode {episode + 1}/{episodes}")
+        print(f"\nFixed-Time Episode {episode + 1}/{episodes}")
         metrics = controller.run_simulation()
         all_metrics.append(metrics)
         
@@ -438,8 +413,8 @@ if __name__ == "__main__":
     route_file = "data/routes/consolidated/bundle_20250828_cycle_1.rou.xml"
     
     if os.path.exists(route_file):
-        print("🚦 Running Fixed-Time Baseline Test")
+        print("Running Fixed-Time Baseline Test")
         metrics = run_fixed_time_baseline(route_file, episodes=1)
-        print(f"✅ Baseline test completed!")
+        print(f"Baseline test completed!")
     else:
-        print(f"❌ Route file not found: {route_file}")
+        print(f"ERROR: Route file not found: {route_file}")

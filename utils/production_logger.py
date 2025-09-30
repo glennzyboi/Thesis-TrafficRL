@@ -101,7 +101,7 @@ class ProductionLogger:
         self.episode_log_file = os.path.join(output_dir, f"{self.experiment_name}_episodes.jsonl")
         self.summary_file = os.path.join(output_dir, f"{self.experiment_name}_summary.json")
         
-        print(f"🗂️ Production Logger Initialized:")
+        print(f"Production Logger Initialized:")
         print(f"   Experiment: {self.experiment_name}")
         print(f"   Log Interval: {log_interval}s")
         print(f"   Output: {output_dir}")
@@ -294,7 +294,7 @@ class ProductionLogger:
         # Get the actual completed episode data from buffer (last completed episode)
         completed_episode = self.episode_buffer[-1] if self.episode_buffer else self.episode_data
         
-        print(f"📝 Episode {self.current_episode} logged: "
+        print(f"Episode {self.current_episode} logged: "
               f"Reward={completed_episode.get('total_reward', 0):.2f}, "
               f"Vehicles={completed_episode.get('vehicles_served', 0)}, "
               f"Completed={completed_episode.get('final_completed_trips', 0)}, "
@@ -497,7 +497,7 @@ class ProductionLogger:
         # Generate final summary
         summary = self.generate_summary()
         
-        print(f"📊 Production Logger Summary:")
+        print(f"Production Logger Summary:")
         print(f"   Experiment: {self.experiment_name}")
         print(f"   Episodes: {summary.get('total_episodes', 0)}")
         print(f"   Avg Reward: {summary.get('performance_metrics', {}).get('avg_reward', 0):.2f}")

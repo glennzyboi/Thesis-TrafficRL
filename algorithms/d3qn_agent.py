@@ -15,9 +15,9 @@ class D3QNAgent:
     Includes temporal memory for learning traffic patterns over time
     """
     
-    def __init__(self, state_size, action_size, learning_rate=0.001, 
-                 epsilon=1.0, epsilon_min=0.02, epsilon_decay=0.9990,
-                 memory_size=100000, batch_size=128, sequence_length=15):
+    def __init__(self, state_size, action_size, learning_rate=0.0005,  # OPTIMIZED: Balanced learning rate for stability
+                 epsilon=1.0, epsilon_min=0.01, epsilon_decay=0.9995,
+                 memory_size=75000, batch_size=128, sequence_length=10):  # OPTIMIZED: Better parameters for convergence
         """
         Initialize the D3QN agent with LSTM for temporal learning
         
@@ -41,8 +41,8 @@ class D3QNAgent:
         self.memory = deque(maxlen=memory_size)
         self.memory_size = memory_size
         self.batch_size = batch_size
-        self.gamma = 0.98  # Higher discount factor for long-term rewards
-        self.tau = 0.001   # Soft update parameter for target network
+        self.gamma = 0.95  # OPTIMIZED: Balanced discount factor for immediate and long-term rewards
+        self.tau = 0.005   # OPTIMIZED: Faster target network updates for better learning
         
         # LSTM-specific parameters
         self.sequence_length = sequence_length
@@ -55,15 +55,15 @@ class D3QNAgent:
         # Initialize target network with same weights
         self.update_target_model()
         
-        print(f"Optimized D3QN Agent with LSTM initialized:")
-        print(f"  State size: {state_size}")
-        print(f"  Action size: {action_size}")
-        print(f"  Learning rate: {learning_rate} (reduced for stability)")
-        print(f"  Epsilon decay: {epsilon_decay} (slower for longer exploration)")
-        print(f"  Memory size: {memory_size} (increased for diversity)")
-        print(f"  Batch size: {batch_size} (increased for stability)")
-        print(f"  Gamma: {self.gamma} (optimized for traffic control)")
-        print(f"  LSTM sequence length: {sequence_length} (temporal memory)")
+        print(f"Simplified D3QN Agent with Core State Representation:")
+        print(f"  State size: {state_size} (4 core metrics per lane + 4 global context)")
+        print(f"  Action size: {action_size} (6 actions: 2 phases × 3 traffic lights)")
+        print(f"  Learning rate: {learning_rate} (optimized for faster convergence)")
+        print(f"  Epsilon decay: {epsilon_decay} (balanced exploration)")
+        print(f"  Memory size: {memory_size} (diverse experience replay)")
+        print(f"  Batch size: {batch_size} (stable learning)")
+        print(f"  Gamma: {self.gamma} (long-term reward focus)")
+        print(f"  LSTM sequence length: {sequence_length} (temporal pattern learning for date-based traffic)")
     
     def _build_model(self):
         """
@@ -73,30 +73,54 @@ class D3QNAgent:
         # Input layer for sequences: (batch_size, sequence_length, state_size)
         inputs = tf.keras.Input(shape=(self.sequence_length, self.state_size))
         
-        # LSTM layers for temporal pattern learning
-        lstm1 = tf.keras.layers.LSTM(128, return_sequences=True, dropout=0.2)(inputs)
-        lstm2 = tf.keras.layers.LSTM(64, return_sequences=False, dropout=0.2)(lstm1)
+        # LSTM layers for temporal pattern learning with enhanced regularization
+        lstm1 = tf.keras.layers.LSTM(128, return_sequences=True, dropout=0.3, recurrent_dropout=0.2)(inputs)
+        lstm2 = tf.keras.layers.LSTM(64, return_sequences=False, dropout=0.3, recurrent_dropout=0.2)(lstm1)
         
-        # Shared dense layers after LSTM
-        dense1 = tf.keras.layers.Dense(128, activation='relu')(lstm2)
-        dense2 = tf.keras.layers.Dense(64, activation='relu')(dense1)
+        # Shared dense layers with dropout and L2 regularization
+        dense1 = tf.keras.layers.Dense(128, activation='relu', 
+                                      kernel_regularizer=tf.keras.regularizers.l2(0.001))(lstm2)
+        dropout1 = tf.keras.layers.Dropout(0.3)(dense1)
+        dense2 = tf.keras.layers.Dense(64, activation='relu',
+                                      kernel_regularizer=tf.keras.regularizers.l2(0.001))(dropout1)
         
-        # Value stream
-        value_stream = tf.keras.layers.Dense(32, activation='relu')(dense2)
-        value = tf.keras.layers.Dense(1, activation='linear', name='value')(value_stream)
+        # Value stream with regularization
+        value_stream = tf.keras.layers.Dense(32, activation='relu',
+                                            kernel_regularizer=tf.keras.regularizers.l2(0.001))(dense2)
+        value_dropout = tf.keras.layers.Dropout(0.2)(value_stream)
+        value = tf.keras.layers.Dense(1, activation='linear', name='value')(value_dropout)
         
-        # Advantage stream  
-        advantage_stream = tf.keras.layers.Dense(32, activation='relu')(dense2)
-        advantage = tf.keras.layers.Dense(self.action_size, activation='linear', name='advantage')(advantage_stream)
+        # Advantage stream with regularization
+        advantage_stream = tf.keras.layers.Dense(32, activation='relu',
+                                                kernel_regularizer=tf.keras.regularizers.l2(0.001))(dense2)
+        advantage_dropout = tf.keras.layers.Dropout(0.2)(advantage_stream)
+        advantage = tf.keras.layers.Dense(self.action_size, activation='linear', name='advantage')(advantage_dropout)
         
         # Combine value and advantage to get Q-values using Dueling DQN formula
         # Q(s,a) = V(s) + A(s,a) - mean(A(s,a))
         # Use a custom layer to avoid Lambda serialization issues
         
-        # Simplified approach: directly combine value and advantage
-        # For now, use simple addition to avoid serialization issues
-        # This is less theoretically correct but will work for training/evaluation
-        q_values = tf.keras.layers.Add()([value, advantage])
+        # Dueling DQN: Q(s,a) = V(s) + A(s,a) - mean(A(s,a))
+        # Using standard Keras layers for perfect serialization
+        
+        # Use a simpler approach without Lambda layers
+        # Compute mean using GlobalAveragePooling1D equivalent
+        
+        # Reshape advantage to (batch, actions, 1) for pooling
+        advantage_reshaped = tf.keras.layers.Reshape((self.action_size, 1))(advantage)
+        
+        # Compute mean advantage across actions
+        advantage_mean = tf.keras.layers.GlobalAveragePooling1D()(advantage_reshaped)
+        
+        # Reshape back and repeat to match advantage shape
+        advantage_mean = tf.keras.layers.RepeatVector(self.action_size)(advantage_mean)
+        advantage_mean = tf.keras.layers.Flatten()(advantage_mean)
+        
+        # Normalize advantage by subtracting mean
+        advantage_normalized = tf.keras.layers.Subtract(name='advantage_normalized')([advantage, advantage_mean])
+        
+        # Combine value and normalized advantage
+        q_values = tf.keras.layers.Add(name='q_values')([value, advantage_normalized])
         
         model = tf.keras.Model(inputs=inputs, outputs=q_values)
         model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=self.learning_rate),
@@ -110,7 +134,20 @@ class D3QNAgent:
     
     def remember(self, state, action, reward, next_state, done):
         """Store experience in replay buffer and update state history for LSTM"""
-        # Add current state to history for LSTM
+        # Ensure state has correct shape and type
+        if isinstance(state, np.ndarray):
+            state = state.astype(np.float32)
+        else:
+            state = np.array(state, dtype=np.float32)
+        
+        if isinstance(next_state, np.ndarray):
+            next_state = next_state.astype(np.float32)
+        else:
+            next_state = np.array(next_state, dtype=np.float32)
+        
+        # Add current state to history for LSTM (ensure it's 1D)
+        if state.ndim > 1:
+            state = state.flatten()
         self.state_history.append(state)
         
         # Create sequences for LSTM input
@@ -159,15 +196,17 @@ class D3QNAgent:
         batch = random.sample(self.memory, self.batch_size)
         
         # Extract sequences (already prepared for LSTM)
+        # Each memory entry contains: (state_sequence, action, reward, next_state_sequence, done)
+        # where state_sequence and next_state_sequence are lists of states
+        
         states = np.array([e[0] for e in batch])  # Shape: (batch_size, sequence_length, state_size)
         actions = np.array([e[1] for e in batch])
         rewards = np.array([e[2] for e in batch])
         next_states = np.array([e[3] for e in batch])  # Shape: (batch_size, sequence_length, state_size)
         dones = np.array([e[4] for e in batch])
         
-        # Reshape data for LSTM input: (batch_size, sequence_length, state_size)
-        states = states.reshape(self.batch_size, self.sequence_length, self.state_size)
-        next_states = next_states.reshape(self.batch_size, self.sequence_length, self.state_size)
+        # Data is already in correct shape for LSTM input
+        # No reshaping needed since sequences are already prepared
         
         # Get current Q-values with LSTM input
         current_q_values = self.q_network.predict(states, verbose=0)
@@ -242,13 +281,31 @@ class D3QNAgent:
         
         # Ensure all states have the correct shape and type
         normalized_sequence = []
-        for state in recent_sequence:
+        for i, state in enumerate(recent_sequence):
             if isinstance(state, np.ndarray):
+                # Ensure state is 1D and has correct size
+                if state.ndim > 1:
+                    state = state.flatten()
+                if len(state) != self.state_size:
+                    # Pad or truncate to correct size
+                    if len(state) < self.state_size:
+                        state = np.pad(state, (0, self.state_size - len(state)), 'constant')
+                    else:
+                        state = state[:self.state_size]
                 normalized_sequence.append(state.astype(np.float32))
             else:
-                normalized_sequence.append(np.array(state, dtype=np.float32))
+                state = np.array(state, dtype=np.float32)
+                if state.ndim > 1:
+                    state = state.flatten()
+                if len(state) != self.state_size:
+                    if len(state) < self.state_size:
+                        state = np.pad(state, (0, self.state_size - len(state)), 'constant')
+                    else:
+                        state = state[:self.state_size]
+                normalized_sequence.append(state.astype(np.float32))
+            
         
-        return normalized_sequence
+        return np.array(normalized_sequence, dtype=np.float32)
     
     def _get_next_state_sequence(self, next_state):
         """Get next state sequence for LSTM training"""
@@ -265,11 +322,28 @@ class D3QNAgent:
         normalized_sequence = []
         for state in recent_sequence:
             if isinstance(state, np.ndarray):
+                # Ensure state is 1D and has correct size
+                if state.ndim > 1:
+                    state = state.flatten()
+                if len(state) != self.state_size:
+                    # Pad or truncate to correct size
+                    if len(state) < self.state_size:
+                        state = np.pad(state, (0, self.state_size - len(state)), 'constant')
+                    else:
+                        state = state[:self.state_size]
                 normalized_sequence.append(state.astype(np.float32))
             else:
-                normalized_sequence.append(np.array(state, dtype=np.float32))
+                state = np.array(state, dtype=np.float32)
+                if state.ndim > 1:
+                    state = state.flatten()
+                if len(state) != self.state_size:
+                    if len(state) < self.state_size:
+                        state = np.pad(state, (0, self.state_size - len(state)), 'constant')
+                    else:
+                        state = state[:self.state_size]
+                normalized_sequence.append(state.astype(np.float32))
         
-        return normalized_sequence
+        return np.array(normalized_sequence, dtype=np.float32)
     
     def reset_state_history(self):
         """Reset state history at the beginning of each episode"""
@@ -303,7 +377,7 @@ class MARLAgentManager:
             self.agents[agent_id] = D3QNAgent(
                 state_size=config['state_size'],
                 action_size=config['action_size'],
-                learning_rate=0.0005,
+                learning_rate=0.0001,  # FIXED: Reduced for stability
                 sequence_length=10,
                 memory_size=50000,
                 batch_size=64

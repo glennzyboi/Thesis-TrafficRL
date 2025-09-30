@@ -83,24 +83,24 @@ class RewardFunctionValidator:
         Returns:
             Ablation study results
         """
-        print("🔬 REWARD FUNCTION ABLATION STUDY")
+        print("REWARD FUNCTION ABLATION STUDY")
         print("=" * 60)
         
         ablation_results = {}
         
         # Test full reward function first
-        print("📊 Testing full reward function...")
+        print("Testing full reward function...")
         full_result = self._evaluate_reward_config(
             self.base_weights,
             episodes_per_config,
             "full_reward"
         )
         ablation_results['full'] = full_result
-        print(f"   Full reward: {full_result['avg_reward']:.2f} ± {full_result['reward_std']:.2f}")
+        print(f"   Full reward: {full_result['avg_reward']:.2f} +/- {full_result['reward_std']:.2f}")
         
         # Test removing each component
         for component in self.base_weights.keys():
-            print(f"\n📊 Testing without {component}...")
+            print(f"\nTesting without {component}...")
             
             # Create config without this component
             ablated_weights = self.base_weights.copy()
@@ -121,7 +121,7 @@ class RewardFunctionValidator:
             
             # Calculate impact
             impact = full_result['avg_reward'] - result['avg_reward']
-            print(f"   Without {component}: {result['avg_reward']:.2f} ± {result['reward_std']:.2f}")
+            print(f"   Without {component}: {result['avg_reward']:.2f} +/- {result['reward_std']:.2f}")
             print(f"   Impact: {impact:+.2f} (negative = component helps)")
         
         # Save ablation results
@@ -141,13 +141,13 @@ class RewardFunctionValidator:
         Returns:
             Weight optimization results
         """
-        print("\n🎯 REWARD WEIGHT OPTIMIZATION")
+        print("\nREWARD WEIGHT OPTIMIZATION")
         print("=" * 60)
         
         weight_results = {}
         
         for config_name, weights in self.weight_variants.items():
-            print(f"\n📊 Testing {config_name} configuration...")
+            print(f"\nTesting {config_name} configuration...")
             
             result = self._evaluate_reward_config(
                 weights,
@@ -156,13 +156,13 @@ class RewardFunctionValidator:
             )
             weight_results[config_name] = result
             
-            print(f"   {config_name}: {result['avg_reward']:.2f} ± {result['reward_std']:.2f}")
+            print(f"   {config_name}: {result['avg_reward']:.2f} +/- {result['reward_std']:.2f}")
             print(f"   Passenger throughput: {result['avg_passenger_throughput']:.1f}")
             print(f"   Average waiting: {result['avg_waiting_time']:.2f}s")
         
         # Find best configuration
         best_config = max(weight_results.items(), key=lambda x: x[1]['avg_reward'])
-        print(f"\n🏆 BEST WEIGHT CONFIGURATION: {best_config[0]}")
+        print(f"\nBEST WEIGHT CONFIGURATION: {best_config[0]}")
         print(f"   Reward: {best_config[1]['avg_reward']:.2f}")
         
         # Save weight results
@@ -176,21 +176,21 @@ class RewardFunctionValidator:
         """
         Analyze correlations between reward components
         """
-        print("\n📈 REWARD COMPONENT CORRELATION ANALYSIS")
+        print("\nREWARD COMPONENT CORRELATION ANALYSIS")
         print("=" * 60)
         
         # Load recent training data to analyze correlations
         correlation_data = self._collect_correlation_data()
         
         if not correlation_data:
-            print("❌ No training data available for correlation analysis")
+            print("ERROR: No training data available for correlation analysis")
             return {}
         
         # Calculate correlations
         df = pd.DataFrame(correlation_data)
         correlation_matrix = df.corr()
         
-        print("📊 Component Correlations:")
+        print("Component Correlations:")
         print(correlation_matrix.round(3))
         
         # Identify potential conflicts
@@ -203,11 +203,11 @@ class RewardFunctionValidator:
                         conflicts.append((comp1, comp2, corr))
         
         if conflicts:
-            print("\n⚠️ Potential Component Conflicts:")
+            print("\nPotential Component Conflicts:")
             for comp1, comp2, corr in conflicts:
                 print(f"   {comp1} vs {comp2}: {corr:.3f}")
         else:
-            print("\n✅ No significant component conflicts detected")
+            print("\nNo significant component conflicts detected")
         
         # Save correlation analysis
         correlation_file = os.path.join(self.output_dir, "component_correlations.json")
@@ -448,7 +448,7 @@ class RewardFunctionValidator:
             f.write("- **Innovation justified** by addressing research gaps\n")
             f.write("- **Performance optimized** through rigorous validation\n\n")
         
-        print(f"📋 Reward validation report generated: {report_path}")
+        print(f"Reward validation report generated: {report_path}")
         return report_path
 
 
@@ -458,7 +458,7 @@ def run_comprehensive_reward_validation():
     """
     validator = RewardFunctionValidator()
     
-    print("🔬 COMPREHENSIVE REWARD FUNCTION VALIDATION")
+    print("COMPREHENSIVE REWARD FUNCTION VALIDATION")
     print("=" * 70)
     
     # Run ablation study
@@ -473,11 +473,11 @@ def run_comprehensive_reward_validation():
     # Generate defense report
     report_path = validator.generate_validation_report()
     
-    print(f"\n✅ REWARD FUNCTION VALIDATION COMPLETE")
-    print(f"📊 Ablation study: {len(ablation_results)} configurations tested")
-    print(f"🎯 Weight optimization: {len(weight_results)} weight schemes evaluated")
-    print(f"📈 Correlation analysis completed")
-    print(f"📋 Defense report: {report_path}")
+    print(f"\nREWARD FUNCTION VALIDATION COMPLETE")
+    print(f"Ablation study: {len(ablation_results)} configurations tested")
+    print(f"Weight optimization: {len(weight_results)} weight schemes evaluated")
+    print(f"Correlation analysis completed")
+    print(f"Defense report: {report_path}")
     
     return validator, ablation_results, weight_results
 

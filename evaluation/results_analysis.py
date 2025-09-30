@@ -22,7 +22,7 @@ class ResultsAnalyzer:
     Comprehensive analysis of D3QN training results and performance comparison
     """
     
-    def __init__(self, results_dir="comprehensive_results/final_validation"):
+    def __init__(self, results_dir="comprehensive_results/main_training_run"):
         self.results_dir = Path(results_dir)
         self.comparison_dir = self.results_dir / "comparison"
         self.plots_dir = self.results_dir / "analysis_plots"
@@ -70,12 +70,12 @@ class ResultsAnalyzer:
             self.training_df = pd.DataFrame(self.complete_results['training_results'])
             self.validation_df = pd.DataFrame(self.complete_results['validation_results'])
             
-            print(f"✅ Loaded results from {self.results_dir}")
+            print(f"Loaded results from {self.results_dir}")
             print(f"   Training episodes: {len(self.training_df)}")
             print(f"   Validation points: {len(self.validation_df)}")
             
         except Exception as e:
-            print(f"❌ Error loading results: {e}")
+            print(f"ERROR: Error loading results: {e}")
             self.complete_results = {}
             self.statistical_analysis = {}
             self.training_df = pd.DataFrame()
@@ -83,11 +83,11 @@ class ResultsAnalyzer:
     
     def analyze_training_performance(self):
         """Comprehensive training performance analysis"""
-        print("\n📊 TRAINING PERFORMANCE ANALYSIS")
+        print("\nTRAINING PERFORMANCE ANALYSIS")
         print("=" * 60)
         
         if self.training_df.empty:
-            print("❌ No training data available")
+            print("ERROR: No training data available")
             return
         
         # Basic statistics
@@ -96,25 +96,25 @@ class ResultsAnalyzer:
         avg_reward = self.training_df['reward'].mean()
         reward_std = self.training_df['reward'].std()
         
-        print(f"🎯 Training Summary:")
+        print(f"Training Summary:")
         print(f"   Episodes: {len(self.training_df)}")
         print(f"   Final reward: {final_reward:.2f}")
         print(f"   Best reward: {best_reward:.2f}")
-        print(f"   Average reward: {avg_reward:.2f} ± {reward_std:.2f}")
+        print(f"   Average reward: {avg_reward:.2f} +/- {reward_std:.2f}")
         
         # Learning analysis
         early_rewards = self.training_df['reward'][:10].mean()
         late_rewards = self.training_df['reward'][-10:].mean()
         improvement = ((late_rewards - early_rewards) / abs(early_rewards)) * 100
         
-        print(f"📈 Learning Progress:")
+        print(f"Learning Progress:")
         print(f"   Early episodes (1-10): {early_rewards:.2f}")
         print(f"   Late episodes (-10): {late_rewards:.2f}")
         print(f"   Improvement: {improvement:+.1f}%")
         
         # Convergence analysis
         convergence_episode = self.analyze_convergence()
-        print(f"🎯 Convergence: Episode {convergence_episode if convergence_episode > 0 else 'Not detected'}")
+        print(f"Convergence: Episode {convergence_episode if convergence_episode > 0 else 'Not detected'}")
         
         # Traffic metrics analysis
         self.analyze_traffic_metrics()
@@ -143,7 +143,7 @@ class ResultsAnalyzer:
     
     def analyze_traffic_metrics(self):
         """Analyze traffic-specific metrics"""
-        print(f"\n🚦 Traffic Metrics Analysis:")
+        print(f"\nTraffic Metrics Analysis:")
         
         if 'vehicles' in self.training_df.columns:
             avg_vehicles = self.training_df['vehicles'].mean()
@@ -159,17 +159,17 @@ class ResultsAnalyzer:
     
     def analyze_performance_vs_baseline(self):
         """Analyze performance against fixed-time baseline"""
-        print("\n🏆 PERFORMANCE VS BASELINE ANALYSIS")
+        print("\nPERFORMANCE VS BASELINE ANALYSIS")
         print("=" * 60)
         
         if not self.statistical_analysis or 'metrics_analysis' not in self.statistical_analysis:
-            print("❌ No comparison data available")
+            print("ERROR: No comparison data available")
             return {}
         
         metrics = self.statistical_analysis['metrics_analysis']
         improvements = {}
         
-        print(f"📊 Performance Comparison (D3QN vs Fixed-Time):")
+        print(f"Performance Comparison (D3QN vs Fixed-Time):")
         
         # Waiting time (lower is better)
         if 'avg_waiting_time' in metrics:
@@ -177,7 +177,7 @@ class ResultsAnalyzer:
             d3qn_wait = metrics['avg_waiting_time']['d3qn_mean']
             wait_improvement = ((fixed_wait - d3qn_wait) / fixed_wait) * 100
             improvements['waiting_time'] = wait_improvement
-            print(f"   ⏱️  Waiting Time: {fixed_wait:.1f}s → {d3qn_wait:.1f}s ({wait_improvement:+.1f}%)")
+            print(f"   Waiting Time: {fixed_wait:.1f}s -> {d3qn_wait:.1f}s ({wait_improvement:+.1f}%)")
         
         # Speed (higher is better)
         if 'avg_speed' in metrics:
@@ -185,7 +185,7 @@ class ResultsAnalyzer:
             d3qn_speed = metrics['avg_speed']['d3qn_mean']
             speed_improvement = ((d3qn_speed - fixed_speed) / fixed_speed) * 100
             improvements['speed'] = speed_improvement
-            print(f"   🏃 Average Speed: {fixed_speed:.1f}km/h → {d3qn_speed:.1f}km/h ({speed_improvement:+.1f}%)")
+            print(f"   Average Speed: {fixed_speed:.1f}km/h -> {d3qn_speed:.1f}km/h ({speed_improvement:+.1f}%)")
         
         # Queue length (lower is better)
         if 'avg_queue_length' in metrics:
@@ -193,7 +193,7 @@ class ResultsAnalyzer:
             d3qn_queue = metrics['avg_queue_length']['d3qn_mean']
             queue_improvement = ((fixed_queue - d3qn_queue) / fixed_queue) * 100
             improvements['queue_length'] = queue_improvement
-            print(f"   🚗 Queue Length: {fixed_queue:.0f} → {d3qn_queue:.0f} ({queue_improvement:+.1f}%)")
+            print(f"   Queue Length: {fixed_queue:.0f} -> {d3qn_queue:.0f} ({queue_improvement:+.1f}%)")
         
         # Completed trips (higher is better)
         if 'completed_trips' in metrics:
@@ -201,7 +201,7 @@ class ResultsAnalyzer:
             d3qn_trips = metrics['completed_trips']['d3qn_mean']
             trips_improvement = ((d3qn_trips - fixed_trips) / fixed_trips) * 100
             improvements['completed_trips'] = trips_improvement
-            print(f"   ✅ Completed Trips: {fixed_trips:.0f} → {d3qn_trips:.0f} ({trips_improvement:+.1f}%)")
+            print(f"   Completed Trips: {fixed_trips:.0f} -> {d3qn_trips:.0f} ({trips_improvement:+.1f}%)")
         
         # Throughput analysis (need to check if this is vehicle or passenger based)
         if 'avg_throughput' in metrics:
@@ -209,13 +209,13 @@ class ResultsAnalyzer:
             d3qn_throughput = metrics['avg_throughput']['d3qn_mean']
             throughput_improvement = ((d3qn_throughput - fixed_throughput) / fixed_throughput) * 100
             improvements['throughput'] = throughput_improvement
-            print(f"   📈 Throughput: {fixed_throughput:.0f} → {d3qn_throughput:.0f} ({throughput_improvement:+.1f}%)")
+            print(f"   Throughput: {fixed_throughput:.0f} -> {d3qn_throughput:.0f} ({throughput_improvement:+.1f}%)")
         
         # Overall assessment
         positive_improvements = [v for v in improvements.values() if v > 0]
         avg_improvement = np.mean(list(improvements.values()))
         
-        print(f"\n🎯 Overall Assessment:")
+        print(f"\nOverall Assessment:")
         print(f"   Metrics improved: {len(positive_improvements)}/{len(improvements)}")
         print(f"   Average improvement: {avg_improvement:+.1f}%")
         
@@ -223,41 +223,41 @@ class ResultsAnalyzer:
     
     def compare_with_research_standards(self, improvements):
         """Compare with established research benchmarks"""
-        print("\n📚 COMPARISON WITH RESEARCH STANDARDS")
+        print("\nCOMPARISON WITH RESEARCH STANDARDS")
         print("=" * 60)
         
         if not improvements:
-            print("❌ No improvement data available")
+            print("ERROR: No improvement data available")
             return
         
         # Compare waiting time improvement
         if 'waiting_time' in improvements:
             our_wait_improvement = improvements['waiting_time']
-            print(f"🔬 Waiting Time Improvement Comparison:")
+            print(f"Waiting Time Improvement Comparison:")
             print(f"   Our Result: {our_wait_improvement:.1f}%")
             
             for study, bench in self.research_benchmarks.items():
-                comparison = "✅" if our_wait_improvement >= bench['waiting_time_improvement'] else "❌"
+                comparison = "PASS" if our_wait_improvement >= bench['waiting_time_improvement'] else "FAIL"
                 print(f"   {comparison} {study}: {bench['waiting_time_improvement']:.1f}% ({bench['description']})")
         
         # Compare throughput improvement
         if 'throughput' in improvements or 'completed_trips' in improvements:
             # Use completed trips as proxy if throughput is negative
             our_throughput_improvement = improvements.get('completed_trips', improvements.get('throughput', 0))
-            print(f"\n📊 Throughput Improvement Comparison:")
+            print(f"\nThroughput Improvement Comparison:")
             print(f"   Our Result: {our_throughput_improvement:.1f}%")
             
             for study, bench in self.research_benchmarks.items():
-                comparison = "✅" if our_throughput_improvement >= bench['throughput_improvement'] else "❌"
+                comparison = "PASS" if our_throughput_improvement >= bench['throughput_improvement'] else "FAIL"
                 print(f"   {comparison} {study}: {bench['throughput_improvement']:.1f}% ({bench['description']})")
     
     def create_training_visualizations(self):
         """Create comprehensive training visualizations"""
-        print(f"\n📈 CREATING TRAINING VISUALIZATIONS")
+        print(f"\nCREATING TRAINING VISUALIZATIONS")
         print("=" * 60)
         
         if self.training_df.empty:
-            print("❌ No training data for visualization")
+            print("ERROR: No training data for visualization")
             return
         
         # 1. Training Progress Overview
@@ -311,7 +311,7 @@ class ResultsAnalyzer:
         # 3. Research Comparison
         self.create_research_comparison_plot()
         
-        print(f"✅ Visualizations saved to {self.plots_dir}")
+        print(f"Visualizations saved to {self.plots_dir}")
     
     def create_performance_comparison_plot(self):
         """Create performance comparison visualization"""
@@ -448,7 +448,7 @@ class ResultsAnalyzer:
     
     def generate_comprehensive_report(self):
         """Generate comprehensive analysis report"""
-        print(f"\n📝 GENERATING COMPREHENSIVE REPORT")
+        print(f"\nGENERATING COMPREHENSIVE REPORT")
         print("=" * 60)
         
         # Run all analyses
@@ -478,7 +478,7 @@ class ResultsAnalyzer:
             f.write("## Performance vs Baseline\n\n")
             if improvements:
                 for metric, improvement in improvements.items():
-                    status = "✅" if improvement > 0 else "❌"
+                    status = "PASS" if improvement > 0 else "FAIL"
                     f.write(f"- **{metric.replace('_', ' ').title()}**: {improvement:+.1f}% {status}\n")
                 f.write("\n")
             
@@ -488,7 +488,7 @@ class ResultsAnalyzer:
             if 'waiting_time' in improvements:
                 f.write(f"**Waiting Time Improvement**: {improvements['waiting_time']:.1f}%\n")
                 for study, bench in self.research_benchmarks.items():
-                    status = "✅" if improvements['waiting_time'] >= bench['waiting_time_improvement'] else "❌"
+                    status = "PASS" if improvements['waiting_time'] >= bench['waiting_time_improvement'] else "FAIL"
                     f.write(f"- {study}: {bench['waiting_time_improvement']:.1f}% {status}\n")
                 f.write("\n")
             
@@ -512,19 +512,19 @@ class ResultsAnalyzer:
             
             f.write("## Conclusion\n\n")
             if improvements and improvements.get('waiting_time', 0) > 20:
-                f.write("🎉 **EXCELLENT RESULTS**: Our D3QN system demonstrates superior performance ")
+                f.write("**EXCELLENT RESULTS**: Our D3QN system demonstrates superior performance ")
                 f.write("compared to both fixed-time control and many established research benchmarks.\n\n")
             elif improvements and sum(v > 0 for v in improvements.values()) >= len(improvements) // 2:
-                f.write("✅ **GOOD RESULTS**: Our D3QN system shows promising improvements ")
+                f.write("**GOOD RESULTS**: Our D3QN system shows promising improvements ")
                 f.write("over fixed-time control in key metrics.\n\n")
             else:
-                f.write("⚠️ **MIXED RESULTS**: The system shows improvements in some areas ")
+                f.write("**MIXED RESULTS**: The system shows improvements in some areas ")
                 f.write("but may need further optimization.\n\n")
             
             f.write("The results validate our approach and provide strong evidence for the ")
             f.write("effectiveness of LSTM-enhanced D3QN with public transport prioritization.\n")
         
-        print(f"✅ Comprehensive report saved: {report_file}")
+        print(f"Comprehensive report saved: {report_file}")
         
         return {
             'training_analysis': training_analysis,
@@ -535,7 +535,7 @@ class ResultsAnalyzer:
 
 def main():
     """Run comprehensive results analysis"""
-    print("🔬 D3QN TRAFFIC CONTROL - COMPREHENSIVE RESULTS ANALYSIS")
+    print("D3QN TRAFFIC CONTROL - COMPREHENSIVE RESULTS ANALYSIS")
     print("=" * 80)
     
     # Initialize analyzer
@@ -544,10 +544,10 @@ def main():
     # Generate comprehensive analysis
     results = analyzer.generate_comprehensive_report()
     
-    print(f"\n🎉 ANALYSIS COMPLETE!")
-    print(f"📊 Results analyzed and visualized")
-    print(f"📋 Report available: {results['report_file']}")
-    print(f"📈 Plots available: {analyzer.plots_dir}")
+    print(f"\nANALYSIS COMPLETE!")
+    print(f"Results analyzed and visualized")
+    print(f"Report available: {results['report_file']}")
+    print(f"Plots available: {analyzer.plots_dir}")
     
     return results
 

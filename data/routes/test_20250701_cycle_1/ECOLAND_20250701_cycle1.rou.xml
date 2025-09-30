@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='utf-8'?>
+<routes xmlns="http://www.w3.org/2001/XMLSchema-instance" xsi="http://www.w3.org/2001/XMLSchema-instance" noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+  <vType id="car" accel="2.6" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="11.11" guiShape="passenger" lcStrategic="1.0" lcCooperative="1.0" lcSpeedGain="1.0" lcKeepRight="0.0" lcOvertakeRight="1.0" lcPushy="0.0" lcImpatience="0.0" />
+  <vType id="bus" accel="1.2" decel="4.0" sigma="0.5" length="12" minGap="3.0" maxSpeed="11.11" guiShape="bus" lcStrategic="1.0" lcCooperative="1.0" lcSpeedGain="1.0" lcKeepRight="0.0" lcOvertakeRight="1.0" lcPushy="0.0" lcImpatience="0.0" />
+  <vType id="jeepney" accel="1.8" decel="4.2" sigma="0.5" length="8" minGap="2.8" maxSpeed="11.11" guiShape="bus" lcStrategic="1.0" lcCooperative="1.0" lcSpeedGain="1.0" lcKeepRight="0.0" lcOvertakeRight="1.0" lcPushy="0.0" lcImpatience="0.0" />
+  <vType id="motor" accel="3.0" decel="5.0" sigma="0.3" length="2" minGap="1.5" maxSpeed="11.11" guiShape="motorcycle" lcStrategic="1.0" lcCooperative="1.0" lcSpeedGain="1.0" lcKeepRight="0.0" lcOvertakeRight="1.0" lcPushy="0.0" lcImpatience="0.0" />
+  <vType id="truck" accel="1.5" decel="3.5" sigma="0.4" length="10" minGap="3.5" maxSpeed="11.11" guiShape="truck" lcStrategic="1.0" lcCooperative="1.0" lcSpeedGain="1.0" lcKeepRight="0.0" lcOvertakeRight="1.0" lcPushy="0.0" lcImpatience="0.0" />
+  <route id="route_0" edges="106768821 -1069919419 -794461795 -1069919421 -934134356#1 455558436#0" />
+  <flow id="flow_0_car" route="route_0" begin="0" end="3600" period="50.0" type="car" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_0_motor" route="route_0" begin="0" end="3600" period="40.0" type="motor" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_0_jeepney" route="route_0" begin="0" end="3600" period="75.0" type="jeepney" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_0_bus" route="route_0" begin="0" end="3600" period="75.0" type="bus" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_0_truck" route="route_0" begin="0" end="3600" period="100.0" type="truck" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <route id="route_1" edges="-794461797#2 -794461797#1 -794461797#0 -794461796#1 -794461796#0 24224171#0 24224171#2 794461795 1069919419 106768822" />
+  <flow id="flow_1_car" route="route_1" begin="0" end="3600" period="50.0" type="car" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_1_motor" route="route_1" begin="0" end="3600" period="40.0" type="motor" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_1_jeepney" route="route_1" begin="0" end="3600" period="75.0" type="jeepney" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_1_bus" route="route_1" begin="0" end="3600" period="75.0" type="bus" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_1_truck" route="route_1" begin="0" end="3600" period="100.0" type="truck" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <route id="route_2" edges="770761758#0 770761758#1 770761758#2 1069919422#0 934134356#0" />
+  <flow id="flow_2_car" route="route_2" begin="0" end="3600" period="75.0" type="car" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_2_motor" route="route_2" begin="0" end="3600" period="60.0" type="motor" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_2_jeepney" route="route_2" begin="0" end="3600" period="112.5" type="jeepney" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_2_bus" route="route_2" begin="0" end="3600" period="112.5" type="bus" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_2_truck" route="route_2" begin="0" end="3600" period="150.0" type="truck" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <route id="route_3" edges="770761758#0 770761758#1 770761758#2 1069919422#0 934134356#0 1069919421 794461795 1069919419 106768822" />
+  <flow id="flow_3_car" route="route_3" begin="0" end="3600" period="75.0" type="car" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_3_motor" route="route_3" begin="0" end="3600" period="60.0" type="motor" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_3_jeepney" route="route_3" begin="0" end="3600" period="112.5" type="jeepney" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_3_bus" route="route_3" begin="0" end="3600" period="112.5" type="bus" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_3_truck" route="route_3" begin="0" end="3600" period="150.0" type="truck" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <route id="route_4" edges="-24224169#2 -24224169#1 -24224169#0 455558436#0" />
+  <flow id="flow_4_car" route="route_4" begin="0" end="3600" period="75.0" type="car" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_4_motor" route="route_4" begin="0" end="3600" period="60.0" type="motor" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_4_jeepney" route="route_4" begin="0" end="3600" period="112.5" type="jeepney" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_4_bus" route="route_4" begin="0" end="3600" period="112.5" type="bus" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_4_truck" route="route_4" begin="0" end="3600" period="150.0" type="truck" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <route id="route_5" edges="-24224169#2 -24224169#1 -24224169#0 934134356#0 1069919421 794461795 1069919419 106768822" />
+  <flow id="flow_5_car" route="route_5" begin="0" end="3600" period="75.0" type="car" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_5_motor" route="route_5" begin="0" end="3600" period="60.0" type="motor" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_5_jeepney" route="route_5" begin="0" end="3600" period="112.5" type="jeepney" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_5_bus" route="route_5" begin="0" end="3600" period="112.5" type="bus" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_5_truck" route="route_5" begin="0" end="3600" period="150.0" type="truck" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <route id="route_6" edges="-24224169#2" />
+  <flow id="flow_6_car" route="route_6" begin="0" end="3600" period="150.0" type="car" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_6_motor" route="route_6" begin="0" end="3600" period="120.0" type="motor" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_6_jeepney" route="route_6" begin="0" end="3600" period="225.0" type="jeepney" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_6_bus" route="route_6" begin="0" end="3600" period="225.0" type="bus" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_6_truck" route="route_6" begin="0" end="3600" period="300.0" type="truck" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <route id="route_7" edges="770761758#0 770761758#1 770761758#2 1069919422#0 1102489115#0" />
+  <flow id="flow_7_car" route="route_7" begin="0" end="3600" period="37.5" type="car" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_7_motor" route="route_7" begin="0" end="3600" period="30.0" type="motor" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_7_jeepney" route="route_7" begin="0" end="3600" period="56.25" type="jeepney" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_7_bus" route="route_7" begin="0" end="3600" period="56.25" type="bus" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_7_truck" route="route_7" begin="0" end="3600" period="75.0" type="truck" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <route id="route_8" edges="-794461796#1 -794461796#0 -1069919420 -455558436#1 1102489115#0" />
+  <flow id="flow_8_car" route="route_8" begin="0" end="3600" period="12.5" type="car" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_8_motor" route="route_8" begin="0" end="3600" period="10.0" type="motor" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_8_jeepney" route="route_8" begin="0" end="3600" period="18.75" type="jeepney" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_8_bus" route="route_8" begin="0" end="3600" period="18.75" type="bus" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_8_truck" route="route_8" begin="0" end="3600" period="25.0" type="truck" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <route id="route_9" edges="-794461795 -1069919421 -934134356#1 -1069919422#1 -770761758#2" />
+  <flow id="flow_9_car" route="route_9" begin="0" end="3600" period="37.5" type="car" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_9_motor" route="route_9" begin="0" end="3600" period="30.0" type="motor" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_9_jeepney" route="route_9" begin="0" end="3600" period="56.25" type="jeepney" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_9_bus" route="route_9" begin="0" end="3600" period="56.25" type="bus" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+  <flow id="flow_9_truck" route="route_9" begin="0" end="3600" period="75.0" type="truck" departLane="random" departSpeed="max" departPos="random" arrivalLane="current" departPosLat="random" />
+</routes>

@@ -17,7 +17,7 @@ def consolidate_bundle_routes(bundle_routes, output_file):
         output_file: Output consolidated route file path
     """
     if not bundle_routes:
-        print("❌ No route files to consolidate")
+        print("ERROR: No route files to consolidate")
         return False
     
     # Create root element
@@ -30,14 +30,14 @@ def consolidate_bundle_routes(bundle_routes, output_file):
     route_counter = 0
     flow_counter = 0
     
-    print(f"🔧 Consolidating {len(bundle_routes)} route files...")
+    print(f"Consolidating {len(bundle_routes)} route files...")
     
     for i, route_file in enumerate(bundle_routes):
         if not os.path.exists(route_file):
-            print(f"⚠️ Route file not found: {route_file}")
+            print(f"WARNING: Route file not found: {route_file}")
             continue
         
-        print(f"   📁 Processing: {os.path.basename(route_file)}")
+            print(f"   Processing: {os.path.basename(route_file)}")
         
         try:
             tree = ET.parse(route_file)
@@ -50,31 +50,35 @@ def consolidate_bundle_routes(bundle_routes, output_file):
                     if vtype_id not in added_vtypes:
                         root.append(vtype)
                         added_vtypes.add(vtype_id)
-                        print(f"     ✅ Added vehicle type: {vtype_id}")
+            print(f"     Added vehicle type: {vtype_id}")
             
-            # Add routes and flows with unique IDs
+            # Create mapping of original route IDs to new unique IDs
+            route_id_mapping = {}
+            
+            # Add routes with unique IDs
             for route in file_root.findall('route'):
-                # Make route ID unique across files
                 original_id = route.get('id')
                 unique_id = f"route_{route_counter}"
+                route_id_mapping[original_id] = unique_id
                 route.set('id', unique_id)
                 root.append(route)
                 route_counter += 1
-                
-                # Update any flows that reference this route
-                for flow in file_root.findall('flow'):
-                    if flow.get('route') == original_id:
-                        flow.set('route', unique_id)
             
-            # Add flows with unique IDs
+            # Add flows with unique IDs and updated route references
             for flow in file_root.findall('flow'):
-                unique_id = f"flow_{flow_counter}"
-                flow.set('id', unique_id)
+                # Update route reference to use new unique route ID
+                original_route_id = flow.get('route')
+                if original_route_id in route_id_mapping:
+                    flow.set('route', route_id_mapping[original_route_id])
+                
+                # Set unique flow ID
+                unique_flow_id = f"flow_{flow_counter}"
+                flow.set('id', unique_flow_id)
                 root.append(flow)
                 flow_counter += 1
         
         except ET.ParseError as e:
-            print(f"❌ Error parsing {route_file}: {e}")
+            print(f"ERROR: Error parsing {route_file}: {e}")
             continue
     
     # Create output directory if needed
@@ -85,10 +89,10 @@ def consolidate_bundle_routes(bundle_routes, output_file):
     ET.indent(tree, space="  ", level=0)  # Pretty print
     tree.write(output_file, encoding='utf-8', xml_declaration=True)
     
-    print(f"✅ Consolidated route file created: {output_file}")
-    print(f"   📊 Vehicle types: {len(added_vtypes)}")
-    print(f"   📊 Routes: {route_counter}")
-    print(f"   📊 Flows: {flow_counter}")
+    print(f"Consolidated route file created: {output_file}")
+    print(f"   Vehicle types: {len(added_vtypes)}")
+    print(f"   Routes: {route_counter}")
+    print(f"   Flows: {flow_counter}")
     
     return True
 
@@ -98,7 +102,7 @@ def consolidate_all_bundles():
     scenarios_file = os.path.join("data", "processed", "scenarios_index.csv")
     
     if not os.path.exists(scenarios_file):
-        print(f"❌ Scenarios index not found: {scenarios_file}")
+        print(f"ERROR: Scenarios index not found: {scenarios_file}")
         return
     
     import pandas as pd
@@ -123,13 +127,13 @@ def consolidate_all_bundles():
             if os.path.exists(route_file):
                 bundle_routes.append(route_file)
             else:
-                print(f"⚠️ Missing route file: {route_file}")
+                print(f"WARNING: Missing route file: {route_file}")
         
         if bundle_routes:
             # Create consolidated route file
             output_file = os.path.join(consolidated_dir, f"bundle_{day}_cycle_{cycle}.rou.xml")
             consolidate_bundle_routes(bundle_routes, output_file)
-            print(f"🎯 Bundle {day} Cycle {cycle} consolidated\n")
+            print(f"Bundle {day} Cycle {cycle} consolidated\n")
 
 
 if __name__ == "__main__":

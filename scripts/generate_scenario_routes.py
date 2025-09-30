@@ -1,6 +1,6 @@
 """
 Generate SUMO route files from scenario CSV files
-Follows the correct lifecycle: Bundle → Individual .rou.xml per intersection
+Follows the correct lifecycle: Bundle -> Individual .rou.xml per intersection
 """
 
 import os
@@ -37,37 +37,56 @@ PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
 # Enhanced mapping with more realistic traffic distribution and alternative routes
 INTERSECTION_TO_EDGES = {
     "ECOLAND": {
-        "entry_edges": ["106768821", "-794461797#2", "770761758#0", "-24224169#2"],
-        "exit_edges": ["106768822", "455558436#0", "-24224169#2"],  # Removed 1102489115#0 - it's pass-through
+        "entry_edges": ["106768821", "-794461797#2", "770761758#0", "-794461795", "-24224169#2"],
+        "exit_edges": ["106768822", "1102489120", "934492019#6", "-935563495#2", "-1046997839#6", "106609720#4"],
         "alternative_routes": {
-            # Balanced routes without forcing pass-through as exit
-            "106768821": ["455558436#0", "106768822"],
-            "-794461797#2": ["106768822", "455558436#0"],
-            "770761758#0": ["455558436#0", "106768822"],
-            "-24224169#2": ["455558436#0", "106768822"]
+            # Original balanced routes - updated to use correct exit edges
+            "106768821": ["106768822", "1102489120"],
+            "-794461797#2": ["106768822", "1102489120"],
+            "770761758#0": ["106768822", "1102489120"],
+            "-24224169#2": ["106768822", "1102489120"],
+            
+            # NEW SPECIFIC CLEAN ROUTES (as requested)
+            # Route 1: 770761758#0 → 770761758#1 → 770761758#2 → 1069919422#0 → 1102489115#0 (explore environment)
+            "770761758#0": ["770761758#1", "770761758#2", "1069919422#0", "1102489115#0"],
+            # Route 2: -794461796#1 → -794461796#0 → -1069919420 → -455558436#1 → 1102489115#0 (heavy traffic)
+            "-794461796#1": ["-794461796#0", "-1069919420", "-455558436#1", "1102489115#0"],
+            # Route 3: -794461795 → -1069919421 → -934134356#1 → -1069919422#1 → 106768822 (explore environment)
+            "-794461795": ["-1069919421", "-934134356#1", "-1069919422#1", "106768822"]
         }
     },
     "JOHNPAUL": {
-        "entry_edges": ["1046997839#6", "869986417#1", "935563495#2", "-1046997837#4", "-266255177#0"],
-        "exit_edges": ["-935563495#2", "-1046997839#6", "106609720#4", "266255177#1"],
+        "entry_edges": ["1046997839#6", "869986417#1", "935563495#2", "1069919425#1", "1046997838#3", "-1046997837#4", "-266255177#0"],
+        "exit_edges": ["-935563495#2", "-1046997839#6", "106609720#4", "1046997833#0", "266255177#1"],
         "alternative_routes": {
             # Original routes
             "1046997839#6": ["106609720#4", "-935563495#2", "266255177#1"],
             "869986417#1": ["-1046997839#6", "106609720#4"], 
             "935563495#2": ["-1046997839#6"],  # Limited routes from this edge
-            # Missing entry edges with valid routes
             "-1046997837#4": ["-935563495#2", "-1046997839#6", "106609720#4"],  # All reachable exits
-            "-266255177#0": ["-1046997839#6", "106609720#4"]  # Only reachable exits
+            "-266255177#0": ["-1046997839#6", "106609720#4"],  # Only reachable exits
+            
+            # NEW SPECIFIC CLEAN ROUTES (as requested)
+            # Route 1: 1069919425#1 → 1046997833#0
+            "1069919425#1": ["1046997833#0"],
+            # Route 2: 1046997838#3 → 1046997833#0
+            "1046997838#3": ["1046997833#0"]
         }
     },
     "SANDAWA": {
-        "entry_edges": ["1042538762#0", "934492020#7", "24224169#8"],  # Added missing entry edge
-        "exit_edges": ["934492019#8", "1102489120"],
+        "entry_edges": ["1042538762#3", "1042538760#2", "1042538762#0", "934492020#7", "24224169#8"],
+        "exit_edges": ["934492019#8", "1102489115#0", "-1102489116"],
         "alternative_routes": {
-            # Balanced routes across all entry points
-            "1042538762#0": ["934492019#8", "1102489120"],
-            "934492020#7": ["934492019#8", "1102489120"],
-            "24224169#8": ["934492019#8", "1102489120"]  # Routes from new entry edge
+            # Original balanced routes
+            "1042538762#0": ["934492019#8", "1102489115#0"],
+            "934492020#7": ["934492019#8", "1102489115#0"],
+            "24224169#8": ["934492019#8", "1102489115#0"],
+            
+            # NEW SPECIFIC CLEAN ROUTES (as requested)
+            # Route 1: 1042538762#3 → -1102489116 (explore environment)
+            "1042538762#3": ["-1102489116"],
+            # Route 2: 1042538760#2 → -1102489116 (explore environment)
+            "1042538760#2": ["-1102489116"]
         }
     }
 }
@@ -92,12 +111,12 @@ CSV_TO_SUMO_VEHICLE_TYPES = {
 
 def load_scenario_data(scenario_csv_path):
     """Load vehicle counts from a single intersection scenario CSV file"""
-    print(f"📊 Loading scenario data from: {scenario_csv_path}")
+    print(f"Loading scenario data from: {scenario_csv_path}")
     
     try:
         df = pd.read_csv(scenario_csv_path)
         if len(df) == 0:
-            print(f"❌ Empty scenario file: {scenario_csv_path}")
+            print(f"ERROR: Empty scenario file: {scenario_csv_path}")
             return None
             
         row = df.iloc[0]  # Each scenario file has one row
@@ -121,11 +140,11 @@ def load_scenario_data(scenario_csv_path):
             'vehicles': vehicles
         }
         
-        print(f"✅ Loaded {intersection} scenario: {len(vehicles)} vehicle types, {scenario_data['total_vehicles']} total vehicles")
+        print(f"Loaded {intersection} scenario: {len(vehicles)} vehicle types, {scenario_data['total_vehicles']} total vehicles")
         return scenario_data
         
     except Exception as e:
-        print(f"❌ Error loading scenario data: {e}")
+        print(f"Error loading scenario data: {e}")
         return None
 
 def convert_counts_to_flows(scenario_data):
@@ -176,9 +195,9 @@ def convert_counts_to_flows(scenario_data):
                 'entry_weights': entry_weights.get(intersection, {})
             }
     
-    print(f"📈 {intersection} flows with realistic traffic density:")
+    print(f"{intersection} flows with realistic traffic density:")
     for vtype, flow_data in flows.items():
-        print(f"   {vtype}: {flow_data['count']} vehicles → {flow_data['vehicles_per_hour']} veh/h (period={flow_data['period']:.1f}s)")
+        print(f"   {vtype}: {flow_data['count']} vehicles -> {flow_data['vehicles_per_hour']} veh/h (period={flow_data['period']:.1f}s)")
     
     return flows
 
@@ -187,10 +206,10 @@ def generate_intersection_routes(net_file, scenario_data, flows):
     intersection = scenario_data['intersection']
     
     if intersection not in INTERSECTION_TO_EDGES:
-        print(f"❌ No edge mapping for intersection {intersection}")
+        print(f"ERROR: No edge mapping for intersection {intersection}")
         return []
     
-    print(f"🛣️ Generating enhanced routes for {intersection}...")
+    print(f"Generating enhanced routes for {intersection}...")
     
     # Load network
     net = sumolib.net.readNet(net_file)
@@ -216,35 +235,93 @@ def generate_intersection_routes(net_file, scenario_data, flows):
             # Scale period based on entry weight (higher weight = lower period = more vehicles)
             weighted_period = base_period / max(0.1, entry_weight)
             
-            # Use alternative route preferences if defined
-            if entry_edge in alternative_routes:
-                preferred_exits = alternative_routes[entry_edge]
-                # Create routes to preferred exits
-                for exit_edge in preferred_exits:
-                    routes_data.extend(create_route_variants(
-                        net, entry_edge, exit_edge, vehicle_type, weighted_period, route_id, "weighted"
-                    ))
-                    route_id += len(routes_data) - route_id
+            # PRIORITY: Check for specific clean routes first
+            specific_routes = create_specific_clean_routes(entry_edge, vehicle_type, weighted_period, route_id)
+            if specific_routes:
+                routes_data.extend(specific_routes)
+                route_id += len(specific_routes)
+                print(f"   Added {len(specific_routes)} specific clean routes for {entry_edge}")
                 
-                # Higher period (lower frequency) for non-preferred routes
-                other_exits = [e for e in exit_edges if e not in preferred_exits]
-                for exit_edge in other_exits:
-                    increased_period = weighted_period * 3.0  # Reduced frequency for variety
-                    routes_data.extend(create_route_variants(
-                        net, entry_edge, exit_edge, vehicle_type, increased_period, route_id, "alternative"
-                    ))
-                    route_id += len(routes_data) - route_id
+                # Check for alternative routes for the same entry edge
+                alt_routes = create_specific_clean_routes(f"{entry_edge}_alt", vehicle_type, weighted_period, route_id)
+                if alt_routes:
+                    routes_data.extend(alt_routes)
+                    route_id += len(alt_routes)
+                    print(f"   Added {len(alt_routes)} alternative specific clean routes for {entry_edge}")
             else:
-                # Standard routes for entries without preferences
-                for exit_edge in exit_edges:
-                    if entry_edge != exit_edge:
-                        routes_data.extend(create_route_variants(
+                # Use alternative route preferences if defined
+                if entry_edge in alternative_routes:
+                    preferred_exits = alternative_routes[entry_edge]
+                    # Create routes to preferred exits
+                    for exit_edge in preferred_exits:
+                        new_routes = create_route_variants(
                             net, entry_edge, exit_edge, vehicle_type, weighted_period, route_id, "weighted"
-                        ))
-                        route_id += len(routes_data) - route_id
+                        )
+                        routes_data.extend(new_routes)
+                        route_id += len(new_routes)
+                    
+                    # Higher period (lower frequency) for non-preferred routes
+                    other_exits = [e for e in exit_edges if e not in preferred_exits]
+                    for exit_edge in other_exits:
+                        increased_period = weighted_period * 3.0  # Reduced frequency for variety
+                        new_routes = create_route_variants(
+                            net, entry_edge, exit_edge, vehicle_type, increased_period, route_id, "alternative"
+                        )
+                        routes_data.extend(new_routes)
+                        route_id += len(new_routes)
+                else:
+                    # Standard routes for entries without preferences
+                    for exit_edge in exit_edges:
+                        if entry_edge != exit_edge:
+                            new_routes = create_route_variants(
+                                net, entry_edge, exit_edge, vehicle_type, weighted_period, route_id, "weighted"
+                            )
+                            routes_data.extend(new_routes)
+                            route_id += len(new_routes)
     
-    print(f"✅ Generated {len(routes_data)} diverse routes for {intersection}")
+    print(f"Generated {len(routes_data)} diverse routes for {intersection}")
     return routes_data
+
+def create_specific_clean_routes(entry_edge, vehicle_type, period, route_id):
+    """Create specific clean routes as requested by user"""
+    variants = []
+    
+    # Define the specific clean routes
+    specific_routes = {
+        # Ecoland specific routes
+        "770761758#0": ["770761758#1", "770761758#2", "1069919422#0", "1102489115#0"],
+        "770761758#0_alt": ["770761758#1", "770761758#2", "1069919422#0", "934134356#0", "1069919421", "794461795", "1069919419", "106768822"],
+        "-794461796#1": ["-794461796#0", "-1069919420", "-455558436#1", "1102489115#0"],
+        "-794461795": ["-1069919421", "-934134356#1", "1102489115#0"],
+        
+        # JohnPaul specific routes
+        "1069919425#1": ["1046997833#0"],
+        "1046997838#3": ["1046997833#0"],
+        
+        # Sandawa specific routes
+        "1042538762#3": ["-1102489116"],
+        "1042538760#2": ["-1102489116"]
+    }
+    
+    if entry_edge in specific_routes:
+        route_edges = specific_routes[entry_edge]
+        exit_edge = route_edges[-1]  # Last edge is the exit
+        
+        variants.append({
+            'id': f"route_{route_id}",
+            'edges': route_edges,
+            'entry': entry_edge,
+            'exit': exit_edge,
+            'vehicle_type': vehicle_type,
+            'period': period,
+            'length': len(route_edges),
+            'route_type': "specific_clean"
+        })
+        
+        print(f"   Specific Clean Route {route_id}: {entry_edge} -> {exit_edge} ({vehicle_type}, specific_clean, period={period:.1f}s)")
+        print(f"      Path: {' -> '.join(route_edges)}")
+    
+    return variants
 
 def create_route_variants(net, entry_edge, exit_edge, vehicle_type, period, route_id, route_type):
     """Create multiple route variants for better lane distribution"""
@@ -254,32 +331,37 @@ def create_route_variants(net, entry_edge, exit_edge, vehicle_type, period, rout
         # Find shortest path
         path = net.getShortestPath(net.getEdge(entry_edge), net.getEdge(exit_edge))
         
-        if path and len(path[0]) > 0:
-            route_edges = [edge.getID() for edge in path[0]]
-            
-            # Create main route
-            variants.append({
-                'id': f"route_{route_id}",
-                'edges': route_edges,
-                'entry': entry_edge,
-                'exit': exit_edge,
-                'vehicle_type': vehicle_type,
-                'period': period,
-                'length': len(route_edges),
-                'route_type': route_type
-            })
-            
-            print(f"   ✅ Route {route_id}: {entry_edge} → {exit_edge} ({vehicle_type}, {route_type}, period={period:.1f}s)")
+        edges_seq = None
+        if isinstance(path, tuple) and len(path) >= 1:
+            edges_seq = path[0]
+        
+        if edges_seq:
+            route_edges = [edge.getID() for edge in edges_seq]
+            if route_edges:
+                # Create main route
+                variants.append({
+                    'id': f"route_{route_id}",
+                    'edges': route_edges,
+                    'entry': entry_edge,
+                    'exit': exit_edge,
+                    'vehicle_type': vehicle_type,
+                    'period': period,
+                    'length': len(route_edges),
+                    'route_type': route_type
+                })
+                print(f"   Route {route_id}: {entry_edge} -> {exit_edge} ({vehicle_type}, {route_type}, period={period:.1f}s)")
+        else:
+            print(f"   Skipping: no path {entry_edge} -> {exit_edge}")
             
     except Exception as e:
-        print(f"   ❌ Failed route {entry_edge} → {exit_edge}: {e}")
+        print(f"   Failed route {entry_edge} -> {exit_edge}: {e}")
     
     return variants
 
 def create_intersection_route_file(routes_data, scenario_data, output_file):
     """Create SUMO route file for a single intersection"""
     intersection = scenario_data['intersection']
-    print(f"📝 Creating route file for {intersection}: {output_file}")
+    print(f"Creating route file for {intersection}: {output_file}")
     
     # Create XML structure
     routes_elem = Element("routes")
@@ -352,7 +434,7 @@ def create_intersection_route_file(routes_data, scenario_data, output_file):
     with open(output_file, 'w', encoding='utf-8') as f:
         f.write(final_xml)
     
-    print(f"✅ Route file created: {output_file}")
+    print(f"Route file created: {output_file}")
     print(f"   Total routes: {len(routes_data)} | Total flows: {flow_id}")
     print(f"   Vehicle distribution: {vehicle_stats}")
     
@@ -360,14 +442,14 @@ def create_intersection_route_file(routes_data, scenario_data, output_file):
 
 def process_bundle(day, cycle_num, net_file):
     """Process a complete bundle (all intersections for a specific day/cycle)"""
-    print(f"\n🎯 PROCESSING BUNDLE: Day {day}, Cycle {cycle_num}")
+    print(f"\nPROCESSING BUNDLE: Day {day}, Cycle {cycle_num}")
     print("=" * 60)
     
     scenario_dir = os.path.join(PROJECT_ROOT, "out", "scenarios", str(day), f"cycle_{cycle_num}")
     route_output_dir = os.path.join(PROJECT_ROOT, "data", "routes", f"{day}_cycle_{cycle_num}")
     
     if not os.path.exists(scenario_dir):
-        print(f"❌ Scenario directory not found: {scenario_dir}")
+        print(f"ERROR: Scenario directory not found: {scenario_dir}")
         return []
     
     generated_routes = []
@@ -377,7 +459,7 @@ def process_bundle(day, cycle_num, net_file):
         scenario_file = os.path.join(scenario_dir, f"{intersection}_cycle{cycle_num}.csv")
         
         if not os.path.exists(scenario_file):
-            print(f"⚠️ Scenario file not found: {scenario_file}")
+            print(f"WARNING: Scenario file not found: {scenario_file}")
             continue
         
         # Load scenario data
@@ -388,13 +470,13 @@ def process_bundle(day, cycle_num, net_file):
         # Convert to flows
         flows = convert_counts_to_flows(scenario_data)
         if not flows:
-            print(f"⚠️ No vehicle flows for {intersection}")
+            print(f"WARNING: No vehicle flows for {intersection}")
             continue
         
         # Generate routes
         routes_data = generate_intersection_routes(net_file, scenario_data, flows)
         if not routes_data:
-            print(f"⚠️ No routes generated for {intersection}")
+            print(f"WARNING: No routes generated for {intersection}")
             continue
         
         # Create route file
@@ -407,10 +489,10 @@ def process_bundle(day, cycle_num, net_file):
             'route_count': len(routes_data)
         })
     
-    print(f"\n🎉 Bundle processing complete!")
+    print(f"\nBundle processing complete!")
     print(f"   Generated route files for {len(generated_routes)} intersections")
     for route_info in generated_routes:
-        print(f"   {route_info['intersection']}: {route_info['route_count']} routes → {route_info['route_file']}")
+        print(f"   {route_info['intersection']}: {route_info['route_count']} routes -> {route_info['route_file']}")
     
     return generated_routes
 
@@ -423,10 +505,10 @@ def main():
     
     args = parser.parse_args()
     
-    print("🚀 SCENARIO-BASED ROUTE GENERATOR")
+    print("SCENARIO-BASED ROUTE GENERATOR")
     print("=" * 60)
-    print("📋 Generates individual .rou.xml files per intersection per cycle")
-    print("🎯 Follows the correct lifecycle: Bundle → Synchronized route files")
+    print("Generates individual .rou.xml files per intersection per cycle")
+    print("Follows the correct lifecycle: Bundle -> Synchronized route files")
     
     net_file_path = os.path.join(PROJECT_ROOT, args.net_file)
     
@@ -435,11 +517,11 @@ def main():
         scenarios_index_file = os.path.join(PROJECT_ROOT, "data", "processed", "scenarios_index.csv")
         
         if not os.path.exists(scenarios_index_file):
-            print(f"❌ scenarios_index.csv not found: {scenarios_index_file}")
+            print(f"ERROR: scenarios_index.csv not found: {scenarios_index_file}")
             return
         
         df = pd.read_csv(scenarios_index_file)
-        print(f"📊 Found {len(df)} bundles to process")
+        print(f"Found {len(df)} bundles to process")
         
         for _, row in df.iterrows():
             day = row['Day']
