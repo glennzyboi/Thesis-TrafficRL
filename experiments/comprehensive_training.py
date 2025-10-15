@@ -23,6 +23,7 @@ from algorithms.d3qn_agent import D3QNAgent
 from algorithms.d3qn_agent_no_lstm import D3QNAgentNoLSTM
 from core.traffic_env import TrafficEnvironment
 from utils.production_logger import create_production_logger
+from utils.traffic_prediction_dashboard import TrafficPredictionDashboard
 from evaluation.performance_comparison import PerformanceComparator
 from evaluation.results_analysis import ResultsAnalyzer
 
@@ -76,6 +77,7 @@ class ComprehensiveTrainer:
         # Results storage
         self.training_results = []
         self.validation_results = []
+        self.prediction_dashboard = TrafficPredictionDashboard(f"{self.output_dir}/prediction_dashboard")
         
         # FIXED: Add scenario coverage tracking
         self.scenario_coverage = {
@@ -481,15 +483,27 @@ class ComprehensiveTrainer:
             json.dump(serializable_results, f, indent=2)
         
         print(f"Complete results saved: {results_file}")
+        
+        # Create prediction dashboard (if LSTM agent was used)
+        try:
+            self.prediction_dashboard.create_dashboard()
+            print(f"Traffic prediction dashboard created in: {self.output_dir}/prediction_dashboard")
+        except Exception as e:
+            print(f"WARNING: Failed to create prediction dashboard: {e}")
+        
         return complete_results
     
     def _run_single_episode(self, env, agent, episode_num, scenario_info):
-        """Run a single training episode with comprehensive logging"""
+        """Run a single training episode with comprehensive logging and traffic prediction monitoring"""
         state = env.reset()
         agent.reset_state_history()
         episode_reward = 0
         episode_steps = 0
         losses = []
+        
+        # Traffic prediction tracking
+        episode_predictions = []
+        episode_actual_labels = []
         
         # Episode metrics
         episode_start_time = time.time()
@@ -498,17 +512,44 @@ class ComprehensiveTrainer:
             # Agent action
             action = agent.act(state, training=True)
             
+            # Get traffic prediction for monitoring (if LSTM agent)
+            if hasattr(agent, 'predict_traffic') and len(agent.state_history) >= agent.sequence_length:
+                state_sequence = np.array(list(agent.state_history))
+                traffic_prediction = agent.predict_traffic(state_sequence)
+                episode_predictions.append(traffic_prediction)
+                
+                # Determine actual traffic label
+                traffic_metrics = {
+                    'queue_length': env.metrics.get('queue_length', 0),
+                    'waiting_time': env.metrics.get('waiting_time', 0),
+                    'vehicle_density': env.metrics.get('vehicle_density', 0),
+                    'congestion_level': env.metrics.get('congestion_level', 0)
+                }
+                is_heavy_traffic = agent.is_heavy_traffic(traffic_metrics)
+                episode_actual_labels.append(1 if is_heavy_traffic else 0)
+            
             # Environment step
             next_state, reward, done, info = env.step(action)
             
-            # Store experience
-            agent.remember(state, action, reward, next_state, done)
+            # Store experience with traffic metrics
+            traffic_metrics = {
+                'queue_length': env.metrics.get('queue_length', 0),
+                'waiting_time': env.metrics.get('waiting_time', 0),
+                'vehicle_density': env.metrics.get('vehicle_density', 0),
+                'congestion_level': env.metrics.get('congestion_level', 0)
+            }
+            agent.remember(state, action, reward, next_state, done, traffic_metrics)
             
             # Train agent
             if len(agent.memory) > agent.batch_size:
                 # Handle different agent types
                 if hasattr(agent, 'sequence_length'):  # LSTM agent
-                    loss = agent.replay()
+                    # Use new training method that includes traffic prediction
+                    if hasattr(agent, 'train_both'):
+                        training_metrics = agent.train_both(agent.memory)
+                        loss = training_metrics.get('q_loss', 0)
+                    else:
+                        loss = agent.replay()
                 else:  # Non-LSTM agent
                     loss = agent.replay(agent.batch_size)
                 if loss is not None:
@@ -585,6 +626,15 @@ class ComprehensiveTrainer:
             prev_reward = self.training_results[-1]['reward']
             reward_improvement = episode_reward - prev_reward
             print(f"   Performance: {reward_improvement:+6.2f} from previous episode")
+        
+        # Log traffic prediction performance (if LSTM agent)
+        if hasattr(agent, 'predict_traffic') and episode_predictions and episode_actual_labels:
+            prediction_data = self.prediction_dashboard.log_prediction(
+                episode_num, episode_predictions, episode_actual_labels
+            )
+            print(f"   Traffic Prediction: Accuracy={prediction_data['accuracy']:.3f}, "
+                  f"Precision={prediction_data['precision']:.3f}, "
+                  f"Recall={prediction_data['recall']:.3f}")
         
         print(f"{'-'*60}")
         
