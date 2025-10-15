@@ -242,6 +242,10 @@ class D3QNAgent:
         """
         Train the model on a batch of experiences from replay buffer
         Uses Double DQN approach: main network selects actions, target network evaluates them
+        
+        COMPATIBILITY: Handles both 5-element (old) and 6-element (new) memory tuples
+        - 5 elements: (state, action, reward, next_state, done)
+        - 6 elements: (state, action, reward, next_state, done, traffic_metrics)
         """
         if len(self.memory) < self.batch_size:
             return
@@ -250,14 +254,15 @@ class D3QNAgent:
         batch = random.sample(self.memory, self.batch_size)
         
         # Extract sequences (already prepared for LSTM)
-        # Each memory entry contains: (state_sequence, action, reward, next_state_sequence, done)
-        # where state_sequence and next_state_sequence are lists of states
+        # Handle both 5-element (old) and 6-element (new) memory tuples
+        # traffic_metrics (e[5]) is ignored in replay() - only used in train_traffic_predictor()
         
         states = np.array([e[0] for e in batch])  # Shape: (batch_size, sequence_length, state_size)
         actions = np.array([e[1] for e in batch])
         rewards = np.array([e[2] for e in batch])
         next_states = np.array([e[3] for e in batch])  # Shape: (batch_size, sequence_length, state_size)
         dones = np.array([e[4] for e in batch])
+        # Note: e[5] (traffic_metrics) is ignored in replay() - only used for prediction training
         
         # Data is already in correct shape for LSTM input
         # No reshaping needed since sequences are already prepared

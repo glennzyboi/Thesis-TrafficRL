@@ -549,6 +549,9 @@ class ComprehensiveTrainer:
                         training_metrics = agent.train_both(agent.memory)
                         loss = training_metrics.get('q_loss', 0)
                     else:
+                        # FALLBACK: This should not happen - log warning
+                        print(f"WARNING: train_both() not found for LSTM agent - using replay() fallback")
+                        print(f"         Traffic prediction training will be DISABLED")
                         loss = agent.replay()
                 else:  # Non-LSTM agent
                     loss = agent.replay(agent.batch_size)
@@ -635,6 +638,10 @@ class ComprehensiveTrainer:
             print(f"   Traffic Prediction: Accuracy={prediction_data['accuracy']:.3f}, "
                   f"Precision={prediction_data['precision']:.3f}, "
                   f"Recall={prediction_data['recall']:.3f}")
+        elif hasattr(agent, 'sequence_length') and not episode_predictions:
+            # LSTM agent but no predictions - this indicates a problem
+            print(f"   WARNING: LSTM agent but no traffic predictions generated")
+            print(f"           Check if predict_traffic() method is working correctly")
         
         print(f"{'-'*60}")
         
