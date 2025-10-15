@@ -153,40 +153,47 @@ class D3QNAgent:
         
         return traffic_prediction.numpy()[0][0]  # Return scalar probability
     
-    def is_heavy_traffic(self, traffic_metrics):
+    def is_heavy_traffic(self, scenario_info):
         """
-        Determine if traffic is heavy based on metrics
+        Determine if traffic is heavy based on day of week from scenario date
+        
+        CORRECT IMPLEMENTATION: Uses temporal patterns (weekdays)
+        Heavy Traffic Days: Monday, Tuesday, Friday (peak commute days)
+        Light Traffic Days: Wednesday, Thursday, Saturday, Sunday
         
         Args:
-            traffic_metrics: Dictionary of traffic metrics
+            scenario_info: Dictionary with 'day' key (date in YYYYMMDD format)
             
         Returns:
-            bool: True if heavy traffic, False if light traffic
+            bool: True if heavy traffic day, False if light traffic day
         """
-        if not traffic_metrics:
+        from datetime import datetime
+        
+        if not scenario_info or 'day' not in scenario_info:
             return False
         
-        # Multiple criteria for heavy traffic
-        queue_length = traffic_metrics.get('queue_length', 0)
-        waiting_time = traffic_metrics.get('waiting_time', 0)
-        vehicle_density = traffic_metrics.get('vehicle_density', 0)
-        congestion_level = traffic_metrics.get('congestion_level', 0)
+        try:
+            # Parse date from scenario (format: YYYYMMDD or integer like 20250812)
+            date_str = str(scenario_info['day'])
+            date = datetime.strptime(date_str, "%Y%m%d")
+            
+            # Get day of week (0=Monday, 6=Sunday)
+            day_of_week = date.weekday()
+            
+            # Heavy traffic: Monday (0), Tuesday (1), Friday (4)
+            heavy_traffic_days = [0, 1, 4]
+            
+            return day_of_week in heavy_traffic_days
         
-        # Heavy traffic if ANY of these conditions are met
-        heavy_conditions = [
-            queue_length > 100,           # Long queues
-            waiting_time > 15,            # High waiting times
-            vehicle_density > 0.8,        # High vehicle density
-            congestion_level > 0.7        # High congestion
-        ]
-        
-        return any(heavy_conditions)
+        except (ValueError, KeyError):
+            # If parsing fails, default to light traffic
+            return False
     
     def update_target_model(self):
         """Copy weights from main model to target model"""
         self.target_network.set_weights(self.q_network.get_weights())
     
-    def remember(self, state, action, reward, next_state, done, traffic_metrics=None):
+    def remember(self, state, action, reward, next_state, done, scenario_info=None):
         """Store experience in replay buffer and update state history for LSTM"""
         # Ensure state has correct shape and type
         if isinstance(state, np.ndarray):
@@ -208,7 +215,7 @@ class D3QNAgent:
         current_sequence = self._get_state_sequence()
         next_sequence = self._get_next_state_sequence(next_state)
         
-        self.memory.append((current_sequence, action, reward, next_sequence, done, traffic_metrics))
+        self.memory.append((current_sequence, action, reward, next_sequence, done, scenario_info))
     
     def act(self, state, training=True):
         """
@@ -322,12 +329,12 @@ class D3QNAgent:
         states = []
         traffic_labels = []
         
-        for state_sequence, action, reward, next_state_sequence, done, traffic_metrics in batch_sample:
-            if traffic_metrics is not None:
+        for state_sequence, action, reward, next_state_sequence, done, scenario_info in batch_sample:
+            if scenario_info is not None:
                 states.append(state_sequence)
                 
-                # Create traffic label
-                is_heavy = self.is_heavy_traffic(traffic_metrics)
+                # Create traffic label from scenario date (weekday pattern)
+                is_heavy = self.is_heavy_traffic(scenario_info)
                 traffic_labels.append(1 if is_heavy else 0)
         
         if len(states) == 0:
@@ -344,16 +351,19 @@ class D3QNAgent:
             # Get traffic prediction
             predictions = self.traffic_predictor(lstm_output, training=True)
             
-            # Calculate loss
-            prediction_loss = tf.keras.losses.binary_crossentropy(traffic_labels, predictions)
+            # Calculate loss - ensure shapes match
+            prediction_loss = tf.keras.losses.binary_crossentropy(
+                traffic_labels, 
+                tf.squeeze(predictions, axis=-1)  # Remove last dimension to match target shape
+            )
         
         # Update traffic predictor weights
         traffic_vars = self.traffic_predictor.trainable_variables
         gradients = tape.gradient(prediction_loss, traffic_vars)
         self.traffic_optimizer.apply_gradients(zip(gradients, traffic_vars))
         
-        # Calculate accuracy
-        predicted_labels = (predictions > 0.5).numpy().astype(int)
+        # Calculate accuracy - ensure shapes match
+        predicted_labels = (tf.squeeze(predictions, axis=-1) > 0.5).numpy().astype(int)
         accuracy = np.mean(predicted_labels == traffic_labels)
         
         # Store metrics
@@ -390,7 +400,7 @@ class D3QNAgent:
         next_states = []
         dones = []
         
-        for state_sequence, action, reward, next_state_sequence, done, traffic_metrics in batch_sample:
+        for state_sequence, action, reward, next_state_sequence, done, scenario_info in batch_sample:
             states.append(state_sequence)
             actions.append(action)
             rewards.append(reward)

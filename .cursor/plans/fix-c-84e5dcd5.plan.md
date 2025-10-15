@@ -548,11 +548,11 @@ Trained Agent → Real Signal Controllers → Actual Cars
 
 ### To-dos
 
-- [x] Fix line 635 in experiments/comprehensive_training.py: change 'bundle = val_bundles[i]' to 'bundle = val_bundles.iloc[i]'
-- [x] Search for and fix any similar DataFrame indexing issues using grep pattern 'bundles\[' in experiments/ and evaluation/
-- [x] Run py_compile on comprehensive_training.py, d3qn_agent.py, and traffic_env.py to ensure no syntax errors
-- [ ] Run 5-episode LSTM validation test
-- [ ] Execute 197-episode hybrid training
-- [ ] Continue with 171-episode pure online training
-- [ ] Run 25-episode comprehensive evaluation
-- [ ] Write methodology section
+- [ ] Fix line 635 in experiments/comprehensive_training.py: change 'bundle = val_bundles[i]' to 'bundle = val_bundles.iloc[i]'
+- [ ] Search for and fix any similar DataFrame indexing issues using grep pattern 'bundles\[' in experiments/ and evaluation/
+- [ ] Run py_compile on comprehensive_training.py, d3qn_agent.py, and traffic_env.py to ensure no syntax errors
+- [ ] Run 5-episode LSTM validation test to confirm codebase stability before long training
+- [ ] Execute 197-episode hybrid training (138 offline + 59 online) for LSTM agent - monitor for ~35 hours
+- [ ] Continue with 171-episode pure online training to reach 230 total online episodes - monitor for ~43 hours
+- [ ] Run 25-episode comprehensive evaluation comparing trained LSTM vs Fixed-Time baseline
+- [ ] Write methodology section explaining 368-episode protocol (3× offline + 5× online passes), RL data reuse strategy, and architecture justification

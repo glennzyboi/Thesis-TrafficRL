@@ -518,27 +518,15 @@ class ComprehensiveTrainer:
                 traffic_prediction = agent.predict_traffic(state_sequence)
                 episode_predictions.append(traffic_prediction)
                 
-                # Determine actual traffic label
-                traffic_metrics = {
-                    'queue_length': env.metrics.get('queue_length', 0),
-                    'waiting_time': env.metrics.get('waiting_time', 0),
-                    'vehicle_density': env.metrics.get('vehicle_density', 0),
-                    'congestion_level': env.metrics.get('congestion_level', 0)
-                }
-                is_heavy_traffic = agent.is_heavy_traffic(traffic_metrics)
+                # Determine actual traffic label from scenario date (weekday pattern)
+                is_heavy_traffic = agent.is_heavy_traffic(scenario_info)
                 episode_actual_labels.append(1 if is_heavy_traffic else 0)
             
             # Environment step
             next_state, reward, done, info = env.step(action)
             
-            # Store experience with traffic metrics
-            traffic_metrics = {
-                'queue_length': env.metrics.get('queue_length', 0),
-                'waiting_time': env.metrics.get('waiting_time', 0),
-                'vehicle_density': env.metrics.get('vehicle_density', 0),
-                'congestion_level': env.metrics.get('congestion_level', 0)
-            }
-            agent.remember(state, action, reward, next_state, done, traffic_metrics)
+            # Store experience with scenario info (for date-based traffic classification)
+            agent.remember(state, action, reward, next_state, done, scenario_info)
             
             # Train agent
             if len(agent.memory) > agent.batch_size:
