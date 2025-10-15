@@ -39,9 +39,57 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from algorithms.fixed_time_baseline import run_fixed_time_baseline
-from experiments.train_d3qn import load_scenarios_index, select_random_bundle
+# Scenario loading functions (integrated from train_d3qn.py)
+def load_scenarios_index(split='train', split_ratio=(0.7, 0.2, 0.1), random_seed=42):
+    """Load available bundles with proper train/validation/test split"""
+    import pandas as pd
+    import numpy as np
+    
+    scenarios_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'processed', 'scenarios_index.csv')
+    
+    if not os.path.exists(scenarios_path):
+        print(f"ERROR: Scenarios index not found at {scenarios_path}")
+        return []
+    
+    df = pd.read_csv(scenarios_path)
+    
+    # Set random seed for reproducible splits
+    np.random.seed(random_seed)
+    
+    # Shuffle the data
+    df = df.sample(frac=1).reset_index(drop=True)
+    
+    # Calculate split indices
+    total_scenarios = len(df)
+    train_end = int(total_scenarios * split_ratio[0])
+    val_end = train_end + int(total_scenarios * split_ratio[1])
+    
+    if split == 'train':
+        selected_bundles = df.iloc[:train_end]
+    elif split == 'validation':
+        selected_bundles = df.iloc[train_end:val_end]
+    elif split == 'test':
+        selected_bundles = df.iloc[val_end:]
+    else:
+        selected_bundles = df
+    
+    return selected_bundles
+
+def select_random_bundle(bundles):
+    """Select a random bundle from available bundles"""
+    import random
+    if not bundles:
+        return None, None
+    
+    selected_bundle = random.choice(bundles)
+    scenario_name = selected_bundle['name']
+    route_file = selected_bundle['route_file']
+    
+    return selected_bundle, route_file
+
 from core.traffic_env import TrafficEnvironment
 from algorithms.d3qn_agent import D3QNAgent
+from algorithms.d3qn_agent_no_lstm import D3QNAgentNoLSTM
 
 
 class PerformanceComparator:
@@ -92,7 +140,7 @@ class PerformanceComparator:
         
         # Load available scenarios
         bundles = load_scenarios_index()
-        if not bundles:
+        if bundles.empty:
             print("ERROR: No traffic bundles available!")
             return
         
@@ -107,13 +155,21 @@ class PerformanceComparator:
             
             # Select bundle for this episode
             if episode < len(bundles):
-                bundle = bundles[episode]
-                route_file = bundle['consolidated_file']
-                scenario_name = bundle['name']
+                bundle = bundles.iloc[episode]
+                # Prefer consolidated_file/name if provided; otherwise build from CSV
+                if 'consolidated_file' in bundle:
+                    route_file = bundle['consolidated_file']
+                    scenario_name = bundle.get('name', f"{bundle.get('Day','unknown')}_cycle_{bundle.get('CycleNum','X')}")
+                else:
+                    scenario_name = f"{bundle['Day']}_cycle_{bundle['CycleNum']}"
+                    route_file = os.path.join(
+                        os.path.dirname(os.path.dirname(__file__)),
+                        'data', 'routes', 'consolidated', f"bundle_{scenario_name}.rou.xml"
+                    )
             else:
                 # Random selection if we run out of bundles
                 bundle, route_file = select_random_bundle(bundles)
-                scenario_name = bundle['name']
+                scenario_name = f"{bundle['Day']}_cycle_{bundle['CycleNum']}"
             
             print(f"Scenario: {scenario_name}")
             print(f"Route File: {os.path.basename(route_file)}")
@@ -196,19 +252,43 @@ class PerformanceComparator:
         state_size = len(initial_state)
         action_size = env.action_size
         
-        agent = D3QNAgent(
-            state_size=state_size, 
-            action_size=action_size, 
-            learning_rate=0.0001,  # FIXED: Match training configuration
-            sequence_length=10
-        )
+        # Use correct agent type based on experiment name (ensures architectural parity at eval)
+        if isinstance(self.experiment_name, str) and 'non_lstm' in self.experiment_name.lower():
+            agent = D3QNAgentNoLSTM(
+                state_size=state_size,
+                action_size=action_size,
+                learning_rate=0.0001
+            )
+        else:
+            agent = D3QNAgent(
+                state_size=state_size, 
+                action_size=action_size, 
+                learning_rate=0.0001,  # FIXED: Match training configuration
+                sequence_length=10
+            )
         
         # FIXED: Try to load trained model from multiple locations
+        # and validate input rank matches agent type (2D for non-LSTM, 3D for LSTM)
         model_loaded = False
         for model_path in model_paths:
             if os.path.exists(model_path):
                 try:
                     agent.load(model_path)
+                    # Validate compatibility
+                    try:
+                        input_shape = getattr(agent.q_network, 'input_shape', None)
+                    except Exception:
+                        input_shape = None
+                    if input_shape is not None:
+                        is_lstm_model = (len(input_shape) == 3)
+                        is_non_lstm_experiment = isinstance(self.experiment_name, str) and ('non_lstm' in self.experiment_name.lower())
+                        # Skip incompatible model architectures
+                        if is_non_lstm_experiment and is_lstm_model:
+                            print(f"   WARNING: Skipping incompatible LSTM model for non-LSTM experiment: {model_path}")
+                            continue
+                        if (not is_non_lstm_experiment) and (not is_lstm_model):
+                            print(f"   WARNING: Skipping incompatible non-LSTM model for LSTM experiment: {model_path}")
+                            continue
                     agent.epsilon = 0.0  # No exploration for evaluation
                     print(f"   LOADED TRAINED MODEL: {model_path}")
                     model_loaded = True
@@ -232,7 +312,11 @@ class PerformanceComparator:
         total_reward = 0
         
         for step in range(300):  # 300 steps = 300s total (270s after warmup)
-            action = agent.act(state)
+            # Ensure correct input shape per agent type
+            if isinstance(agent, D3QNAgentNoLSTM):
+                action = agent.act(state.reshape(1, -1))
+            else:
+                action = agent.act(state)
             next_state, reward, done, info = env.step(action)
             
             # Collect step metrics
@@ -276,13 +360,17 @@ class PerformanceComparator:
             return {}
         
         # Average metrics over episode  
+        # CRITICAL FIX: Calculate throughput correctly from completed trips / time
+        simulation_duration_hours = (300 - 30) / 3600  # (num_seconds - warmup_time) / 3600
+        completed_trips = step_data[-1]['completed_trips']  # Cumulative at end
+        
         metrics = {
             'avg_waiting_time': np.mean([d['waiting_time'] for d in step_data]),
             'avg_speed': np.mean([d['avg_speed'] for d in step_data]),
             'avg_queue_length': np.mean([d['queue_length'] for d in step_data]),
             'max_queue_length': max([d['queue_length'] for d in step_data]),
-            'completed_trips': step_data[-1]['completed_trips'],  # Cumulative
-            'avg_throughput': np.mean([d['throughput'] for d in step_data if d['throughput'] > 0]),
+            'completed_trips': completed_trips,
+            'avg_throughput': completed_trips / simulation_duration_hours,  # FIXED: Use same formula as Fixed-Time
             'total_reward': total_reward,
             'travel_time_index': 40.0 / max(np.mean([d['avg_speed'] for d in step_data]), 1.0),
             # Public Transport Specific Metrics (Research-Based Enhancement)
@@ -816,6 +904,14 @@ class PerformanceComparator:
 
 
 if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser(description='D3QN vs Fixed-Time Performance Comparison')
+    parser.add_argument('--experiment_name', type=str, default='default', 
+                        help='Experiment name (matches comprehensive_results folder)')
+    parser.add_argument('--num_episodes', type=int, default=25,
+                        help='Number of episodes to evaluate')
+    args = parser.parse_args()
+    
     # Run comprehensive comparison
-    comparator = PerformanceComparator()
-    comparator.run_enhanced_comparison(num_episodes=60)
+    comparator = PerformanceComparator(experiment_name=args.experiment_name)
+    comparator.run_enhanced_comparison(num_episodes=args.num_episodes)

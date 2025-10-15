@@ -18,8 +18,9 @@ from typing import Dict, List, Any
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from config.training_config import get_config, print_config_summary, save_config_to_file
 
-from experiments.train_d3qn import load_scenarios_index, select_random_bundle
+# Functions integrated directly below (removed import from deleted train_d3qn.py)
 from algorithms.d3qn_agent import D3QNAgent
+from algorithms.d3qn_agent_no_lstm import D3QNAgentNoLSTM
 from core.traffic_env import TrafficEnvironment
 from utils.production_logger import create_production_logger
 from evaluation.performance_comparison import PerformanceComparator
@@ -47,7 +48,7 @@ class ComprehensiveTrainer:
             
             # Training parameters (FIXED: Research-optimized)
             'episodes': 200,              # Sufficient for convergence
-            'target_update_freq': 20,     # FIXED: Increased from 10 for stability
+            'target_update_freq': 10,     # STABILIZATION: Reduced from 20 to 10 for faster Q-value stabilization
             'save_freq': 25,              # FIXED: More frequent checkpoints
             'validation_freq': 15,        # FIXED: More frequent monitoring
             
@@ -98,8 +99,8 @@ class ComprehensiveTrainer:
         
         # First pass: systematic coverage (each scenario once)
         if online_episode < total_scenarios:
-            selected_bundle = bundles[online_episode]
-            scenario_name = selected_bundle['name']
+            selected_bundle = bundles.iloc[online_episode]
+            scenario_name = f"Day {selected_bundle['Day']}, Cycle {selected_bundle['CycleNum']}"
             
             # Track coverage
             self.scenario_coverage['online'].add(scenario_name)
@@ -108,12 +109,14 @@ class ComprehensiveTrainer:
             self.scenario_coverage['online_usage_count'][scenario_name] += 1
             
             print(f"   Systematic Coverage: {scenario_name} (First pass)")
-            return selected_bundle, selected_bundle['consolidated_file']
+            # Construct route file path
+            rou_file = f"data/routes/consolidated/bundle_{selected_bundle['Day']}_cycle_{selected_bundle['CycleNum']}.rou.xml"
+            return selected_bundle, rou_file
         
         # Second pass: balanced random selection
         else:
-            selected_bundle = random.choice(bundles)
-            scenario_name = selected_bundle['name']
+            selected_bundle = bundles.iloc[random.randint(0, len(bundles) - 1)]
+            scenario_name = f"Day {selected_bundle['Day']}, Cycle {selected_bundle['CycleNum']}"
             
             # Track coverage
             self.scenario_coverage['online'].add(scenario_name)
@@ -122,7 +125,9 @@ class ComprehensiveTrainer:
             self.scenario_coverage['online_usage_count'][scenario_name] += 1
             
             print(f"   Balanced Random: {scenario_name} (Second pass)")
-            return selected_bundle, selected_bundle['consolidated_file']
+            # Construct route file path
+            rou_file = f"data/routes/consolidated/bundle_{selected_bundle['Day']}_cycle_{selected_bundle['CycleNum']}.rou.xml"
+            return selected_bundle, rou_file
     
     def _report_scenario_coverage(self, episode, phase_type):
         """Report current scenario coverage statistics"""
@@ -160,14 +165,18 @@ class ComprehensiveTrainer:
         print(f"   Validation scenarios: {len(val_bundles)}")
         print(f"   Test scenarios: {len(test_bundles)}")
         
-        if not train_bundles:
+        if train_bundles.empty:
             raise ValueError("No training data available!")
         
         # Initialize environment and agent
-        initial_bundle = train_bundles[0]
+        initial_bundle = train_bundles.iloc[0]
+        
+        # Construct route file path from Day and CycleNum
+        initial_rou_file = f"data/routes/consolidated/bundle_{initial_bundle['Day']}_cycle_{initial_bundle['CycleNum']}.rou.xml"
+        
         env = TrafficEnvironment(
             net_file='network/ThesisNetowrk.net.xml',
-            rou_file=initial_bundle['consolidated_file'],
+            rou_file=initial_rou_file,
             use_gui=False,
             num_seconds=self.config['episode_duration'],
             warmup_time=self.config['warmup_time'],
@@ -198,15 +207,25 @@ class ComprehensiveTrainer:
             print(f"   Rationale: Sufficient offline stability + adequate online generalization")
             
             # Start with offline configuration (larger memory, stable exploration)
-            agent = D3QNAgent(
-                state_size=len(initial_state),
-                action_size=env.action_size,
-                learning_rate=self.config['learning_rate'],
-                epsilon_decay=self.config['epsilon_decay'],
-                memory_size=self.config['memory_size'],      # Large memory for offline
-                batch_size=self.config['batch_size'],        # Stable batch size
-                sequence_length=self.config['sequence_length']
-            )
+            if self.config.get('agent_type', 'lstm') == 'non_lstm':
+                agent = D3QNAgentNoLSTM(
+                    state_size=len(initial_state),
+                    action_size=env.action_size,
+                    learning_rate=self.config['learning_rate'],
+                    epsilon_decay=self.config['epsilon_decay'],
+                    memory_size=self.config['memory_size'],      # Large memory for offline
+                    batch_size=self.config['batch_size']        # Stable batch size
+                )
+            else:
+                agent = D3QNAgent(
+                    state_size=len(initial_state),
+                    action_size=env.action_size,
+                    learning_rate=self.config['learning_rate'],
+                    epsilon_decay=self.config['epsilon_decay'],
+                    memory_size=self.config['memory_size'],      # Large memory for offline
+                    batch_size=self.config['batch_size'],        # Stable batch size
+                    sequence_length=self.config['sequence_length']
+                )
             
             # Store transition point for online phase
             self.config['offline_episodes'] = offline_episodes
@@ -214,29 +233,49 @@ class ComprehensiveTrainer:
             
         elif training_mode == 'online':
             # Pure online learning (smaller memory, continuous adaptation)
-            agent = D3QNAgent(
-                state_size=len(initial_state),
-                action_size=env.action_size,
-                learning_rate=self.config['learning_rate'] * 1.5,  # Higher for online
-                epsilon_decay=0.9999,                              # Slower decay
-                memory_size=10000,                                 # Smaller memory
-                batch_size=32,                                     # Smaller batches
-                sequence_length=self.config['sequence_length']
-            )
+            if self.config.get('agent_type', 'lstm') == 'non_lstm':
+                agent = D3QNAgentNoLSTM(
+                    state_size=len(initial_state),
+                    action_size=env.action_size,
+                    learning_rate=self.config['learning_rate'] * 1.5,  # Higher for online
+                    epsilon_decay=0.9999,                              # Slower decay
+                    memory_size=10000,                                 # Smaller memory
+                    batch_size=32                                      # Smaller batches
+                )
+            else:
+                agent = D3QNAgent(
+                    state_size=len(initial_state),
+                    action_size=env.action_size,
+                    learning_rate=self.config['learning_rate'] * 1.5,  # Higher for online
+                    epsilon_decay=0.9999,                              # Slower decay
+                    memory_size=10000,                                 # Smaller memory
+                    batch_size=32,                                     # Smaller batches
+                    sequence_length=self.config['sequence_length']
+                )
             print(f"ONLINE LEARNING MODE")
             
         else:
             # Pure offline learning (default original configuration)
-            agent = D3QNAgent(
-                state_size=len(initial_state),
-                action_size=env.action_size,
-                learning_rate=self.config['learning_rate'],
-                epsilon_decay=self.config['epsilon_decay'],
-                memory_size=self.config['memory_size'],
-                batch_size=self.config['batch_size'],
-                sequence_length=self.config['sequence_length']
-            )
-            print(f"OFFLINE LEARNING MODE")
+            if self.config.get('agent_type', 'lstm') == 'non_lstm':
+                agent = D3QNAgentNoLSTM(
+                    state_size=len(initial_state),
+                    action_size=env.action_size,
+                    learning_rate=self.config['learning_rate'],
+                    epsilon_decay=self.config['epsilon_decay'],
+                    memory_size=self.config['memory_size'],
+                    batch_size=self.config['batch_size']
+                )
+            else:
+                agent = D3QNAgent(
+                    state_size=len(initial_state),
+                    action_size=env.action_size,
+                    learning_rate=self.config['learning_rate'],
+                    epsilon_decay=self.config['epsilon_decay'],
+                    memory_size=self.config['memory_size'],
+                    batch_size=self.config['batch_size'],
+                    sequence_length=self.config['sequence_length']
+                )
+                print(f"OFFLINE LEARNING MODE")
         
         agent.gamma = self.config['gamma']
         
@@ -283,7 +322,8 @@ class ComprehensiveTrainer:
             # FIXED: Research-based scenario selection strategy
             if episode <= self.config.get('offline_episodes', 0):
                 # Offline phase: Random selection for diverse foundation learning
-                bundle, route_file = select_random_bundle(train_bundles)
+                bundle = select_random_bundle(train_bundles)
+                route_file = f"data/routes/consolidated/bundle_{bundle['Day']}_cycle_{bundle['CycleNum']}.rou.xml"
                 phase_type = "Offline"
             else:
                 # Online phase: Systematic coverage ensuring each scenario appears
@@ -294,16 +334,17 @@ class ComprehensiveTrainer:
             
             # Enhanced episode header with ML training standards
             print(f"\n{'='*60}")
-            print(f"Episode {episode + 1:03d}/{self.config['episodes']:03d} | {phase_type} | {bundle.get('name', 'Unknown')}")
+            bundle_name = f"Day {bundle['Day']}, Cycle {bundle['CycleNum']}"
+            print(f"Episode {episode + 1:03d}/{self.config['episodes']:03d} | {phase_type} | {bundle_name}")
             print(f"{'='*60}")
             
             # FIXED: Report scenario coverage for online phase
             self._report_scenario_coverage(episode + 1, phase_type)
             scenario_info = {
-                'bundle_name': bundle['name'],
+                'bundle_name': f"Day {bundle['Day']}, Cycle {bundle['CycleNum']}",
                 'route_file': route_file,
-                'day': bundle['day'],
-                'cycle': bundle['cycle']
+                'day': bundle['Day'],
+                'cycle': bundle['CycleNum']
             }
             
             # Reinitialize environment with new scenario
@@ -465,7 +506,11 @@ class ComprehensiveTrainer:
             
             # Train agent
             if len(agent.memory) > agent.batch_size:
-                loss = agent.replay()
+                # Handle different agent types
+                if hasattr(agent, 'sequence_length'):  # LSTM agent
+                    loss = agent.replay()
+                else:  # Non-LSTM agent
+                    loss = agent.replay(agent.batch_size)
                 if loss is not None:
                     losses.append(loss)
             
@@ -587,12 +632,14 @@ class ComprehensiveTrainer:
         
         # Test on multiple validation scenarios
         for i in range(min(len(val_bundles), self.config['validation_episodes'])):
-            bundle = val_bundles[i]
+            bundle = val_bundles.iloc[i]
             
             # Initialize validation environment
+            # Construct route file path
+            val_rou_file = f"data/routes/consolidated/bundle_{bundle['Day']}_cycle_{bundle['CycleNum']}.rou.xml"
             val_env = TrafficEnvironment(
                 net_file='network/ThesisNetowrk.net.xml',
-                rou_file=bundle['consolidated_file'],
+                rou_file=val_rou_file,
                 use_gui=False,
                 num_seconds=self.config['episode_duration'],
                 warmup_time=self.config['warmup_time'],
@@ -710,7 +757,7 @@ class ComprehensiveTrainer:
             return obj.tolist()
         else:
             return obj
-    
+
     def _generate_training_visualizations(self):
         """Generate comprehensive training visualizations"""
         import matplotlib.pyplot as plt
@@ -987,7 +1034,7 @@ class ComprehensiveTrainer:
         print(f"   - Training Phases: training_phases.png")
 
 
-def run_final_comprehensive_training(experiment_name: str = None, episodes: int = 200):
+def run_final_comprehensive_training(experiment_name: str = None, episodes: int = 200, agent_type: str = 'lstm'):
     """
     Run the final comprehensive training for thesis validation
     
@@ -1012,6 +1059,7 @@ def run_final_comprehensive_training(experiment_name: str = None, episodes: int 
     # Initialize trainer
     trainer = ComprehensiveTrainer(experiment_name)
     trainer.config['episodes'] = episodes
+    trainer.config['agent_type'] = agent_type
     
     # Run comprehensive training
     results = trainer.run_comprehensive_training()
@@ -1038,6 +1086,82 @@ def run_final_comprehensive_training(experiment_name: str = None, episodes: int 
     return results
 
 
+# Scenario loading functions (integrated from train_d3qn.py)
+def load_scenarios_index(split='train', split_ratio=(0.7, 0.2, 0.1), random_seed=42):
+    """
+    Load scenarios index and split into train/validation/test sets
+    
+    Args:
+        split: Which split to return ('train', 'validation', 'test', 'all')
+        split_ratio: (train_ratio, val_ratio, test_ratio)
+        random_seed: Random seed for reproducible splits
+    
+    Returns:
+        DataFrame with scenarios for the specified split
+    """
+    scenarios_file = os.path.join("data", "processed", "scenarios_index.csv")
+    
+    if not os.path.exists(scenarios_file):
+        raise FileNotFoundError(f"Scenarios index not found: {scenarios_file}")
+    
+    import pandas as pd
+    import numpy as np
+    
+    # Load scenarios
+    df = pd.read_csv(scenarios_file)
+    print(f"Loaded {len(df)} scenarios from {scenarios_file}")
+    
+    if split == 'all':
+        return df
+    
+    # Set random seed for reproducible splits
+    np.random.seed(random_seed)
+    
+    # Shuffle scenarios
+    shuffled = df.sample(frac=1, random_state=random_seed).reset_index(drop=True)
+    
+    # Calculate split indices
+    n_scenarios = len(shuffled)
+    train_end = int(n_scenarios * split_ratio[0])
+    val_end = int(n_scenarios * (split_ratio[0] + split_ratio[1]))
+    
+    # Split data
+    if split == 'train':
+        return shuffled[:train_end]
+    elif split == 'validation':
+        return shuffled[train_end:val_end]
+    elif split == 'test':
+        return shuffled[val_end:]
+    else:
+        raise ValueError(f"Invalid split: {split}. Must be 'train', 'validation', 'test', or 'all'")
+
+
+def select_random_bundle(bundles):
+    """
+    Select a random bundle from the available bundles
+    
+    Args:
+        bundles: DataFrame with available bundles
+        
+    Returns:
+        Dictionary with bundle information
+    """
+    if len(bundles) == 0:
+        raise ValueError("No bundles available")
+    
+    import numpy as np
+    
+    # Select random bundle
+    selected = bundles.sample(n=1, random_state=np.random.randint(0, 10000)).iloc[0]
+    
+    return {
+        'Day': selected['Day'],
+        'CycleNum': selected['CycleNum'],
+        'Intersections': selected['Intersections'],
+        'ScenarioPath': selected['ScenarioPath']
+    }
+
+
 if __name__ == "__main__":
     import argparse
     
@@ -1046,13 +1170,16 @@ if __name__ == "__main__":
                        help='Experiment name')
     parser.add_argument('--episodes', type=int, default=50,  # CRITICAL FIX: 50 episodes for focused training
                        help='Number of training episodes')
+    parser.add_argument('--agent_type', type=str, default='lstm', choices=['lstm', 'non_lstm'],
+                       help='Agent type: lstm or non_lstm')
     
     args = parser.parse_args()
     
     # Run comprehensive training
     results = run_final_comprehensive_training(
         experiment_name=args.experiment_name,
-        episodes=args.episodes
+        episodes=args.episodes,
+        agent_type=args.agent_type
     )
     
     print(f"\nCOMPREHENSIVE TRAINING COMPLETED!")

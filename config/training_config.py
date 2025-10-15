@@ -12,7 +12,7 @@ TRAINING_CONFIG = {
     # CORE TRAINING PARAMETERS (OPTIMIZED BASED ON TEST RUN ANALYSIS)
     # ========================================================================
     "episodes": 50,                     # CRITICAL FIX: Reduced episodes for focused training
-    "learning_rate": 0.0005,           # OPTIMIZED: Balanced learning rate for better convergence
+    "learning_rate": 0.0003,           # STABILIZATION: Reduced from 0.0005 (-40%) for stable convergence
     "epsilon": 1.0,                    # Initial exploration rate
     "epsilon_decay": 0.9995,           # OPTIMIZED: Balanced exploration for learning
     "epsilon_min": 0.01,               # Minimum exploration rate

@@ -123,8 +123,8 @@ class D3QNAgent:
         q_values = tf.keras.layers.Add(name='q_values')([value, advantage_normalized])
         
         model = tf.keras.Model(inputs=inputs, outputs=q_values)
-        optimizer = tf.keras.optimizers.Adam(learning_rate=self.learning_rate, clipnorm=5.0)
-        model.compile(optimizer=optimizer, loss='mean_squared_error')
+        optimizer = tf.keras.optimizers.Adam(learning_rate=self.learning_rate, clipnorm=1.0)  # STABILIZATION: Reduced clipnorm from 5.0 to 1.0
+        model.compile(optimizer=optimizer, loss=tf.keras.losses.Huber(delta=0.5))  # STABILIZATION: Huber loss with reduced delta for less sensitivity to outliers
         
         return model
     
