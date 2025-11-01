@@ -1,0 +1,126 @@
+{
+  "experiment_name": "lane_tracking_test_20251016",
+  "config": {
+    "learning_rate": 0.0005,
+    "epsilon_decay": 0.9995,
+    "memory_size": 50000,
+    "batch_size": 64,
+    "gamma": 0.98,
+    "sequence_length": 10,
+    "episodes": 5,
+    "target_update_freq": 10,
+    "save_freq": 25,
+    "validation_freq": 15,
+    "episode_duration": 300,
+    "warmup_time": 30,
+    "min_phase_time": 12,
+    "max_phase_time": 120,
+    "random_seed": 42,
+    "validation_episodes": 10,
+    "agent_type": "lstm",
+    "offline_episodes": 3,
+    "online_episodes": 2
+  },
+  "training_time_minutes": 24.677822669347126,
+  "best_reward": -346.1665349044746,
+  "convergence_episode": -1,
+  "training_results": [
+    {
+      "episode": 1,
+      "scenario": "Day 20250812, Cycle 1",
+      "reward": -423.96256435525504,
+      "steps": 300,
+      "time_minutes": 4.22819679180781,
+      "avg_loss": 0.10461591652957565,
+      "epsilon": 0.8886698277259029,
+      "vehicles": 364,
+      "completed_trips": 490,
+      "passenger_throughput": 8018.181818181819,
+      "memory_size": 300
+    },
+    {
+      "episode": 2,
+      "scenario": "Day 20250717, Cycle 1",
+      "reward": -382.15464542645765,
+      "steps": 300,
+      "time_minutes": 5.052110918362936,
+      "avg_loss": 0.0698009730130434,
+      "epsilon": 0.764856516910148,
+      "vehicles": 350,
+      "completed_trips": 497,
+      "passenger_throughput": 8132.727272727273,
+      "memory_size": 600
+    },
+    {
+      "episode": 3,
+      "scenario": "Day 20250703, Cycle 2",
+      "reward": -370.0970059327459,
+      "steps": 300,
+      "time_minutes": 5.094593262672424,
+      "avg_loss": 0.05852724718550841,
+      "epsilon": 0.658293410227447,
+      "vehicles": 376,
+      "completed_trips": 514,
+      "passenger_throughput": 8410.909090909092,
+      "memory_size": 900
+    },
+    {
+      "episode": 4,
+      "scenario": "Day 20250717, Cycle 2",
+      "reward": -346.1665349044746,
+      "steps": 300,
+      "time_minutes": 5.116950543721517,
+      "avg_loss": 0.0489063805838426,
+      "epsilon": 0.6199536662152433,
+      "vehicles": 352,
+      "completed_trips": 514,
+      "passenger_throughput": 8410.909090909092,
+      "memory_size": 1200
+    },
+    {
+      "episode": 5,
+      "scenario": "Day 20250819, Cycle 3",
+      "reward": -390.5964868946366,
+      "steps": 300,
+      "time_minutes": 5.12399423122406,
+      "avg_loss": 0.043495782880733413,
+      "epsilon": 0.5838468717481573,
+      "vehicles": 333,
+      "completed_trips": 472,
+      "passenger_throughput": 7723.636363636364,
+      "memory_size": 1500
+    }
+  ],
+  "validation_results": [],
+  "final_evaluation": {
+    "test_scenarios": 7,
+    "comparison_results": null,
+    "evaluation_timestamp": "2025-10-16T09:36:11.605724"
+  },
+  "logger_summary": {
+    "experiment_id": "lane_tracking_test_20251016",
+    "session_id": "786c5e01-2916-4093-8f69-3e577b812c4f",
+    "timestamp": "2025-10-16T09:36:11.610710",
+    "total_episodes": 5,
+    "performance_metrics": {
+      "avg_reward": -1.27531815834238,
+      "best_reward": -1.1538884496815824,
+      "reward_improvement": 0.0,
+      "avg_passenger_throughput": 8139.27272727273,
+      "avg_vehicles_served": 497.4,
+      "avg_pt_throughput": 0.0
+    },
+    "learning_metrics": {
+      "convergence_episode": -1,
+      "stability_score": 0.0,
+      "exploration_rate": 1.6234609648455582
+    },
+    "config": {
+      "log_interval": 30,
+      "buffer_size": 100,
+      "total_steps": 1495
+    }
+  },
+  "defense_ready": true,
+  "timestamp": "2025-10-16T09:36:11.610710"
+}

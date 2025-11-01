@@ -1,0 +1,188 @@
+{
+  "timestamp": "2025-10-16T16:26:25.105983",
+  "sample_size": 7,
+  "sample_size_adequate": false,
+  "power_analysis": {
+    "sample_size": 7,
+    "power_estimate": "< 0.8 (inadequate)",
+    "minimum_required": 17,
+    "recommended": 25
+  },
+  "metrics_analysis": {
+    "avg_waiting_time": {
+      "test_used": "paired_t_test",
+      "fixed_time_mean": 10.797885910557975,
+      "fixed_time_std": 0.8507391816525831,
+      "d3qn_mean": 7.005377455567991,
+      "d3qn_std": 0.3073988626511987,
+      "test_statistic": 9.039154694501459,
+      "p_value": 0.0001027258822633525,
+      "effect_size_cohens_d": -5.489399406309596,
+      "effect_magnitude": "large",
+      "confidence_interval_95": [
+        -4.553853306662116,
+        -3.0311636033178537
+      ],
+      "significant": true,
+      "assumptions": {
+        "normality": true,
+        "equal_variance": true,
+        "shapiro_p_group1": 0.5,
+        "shapiro_p_group2": 0.5,
+        "levene_p": 0.5
+      },
+      "corrected_p_value": 0.0007190811758434675,
+      "significant_corrected": true
+    },
+    "avg_throughput": {
+      "test_used": "paired_t_test",
+      "fixed_time_mean": 5750.476190476191,
+      "fixed_time_std": 164.03085822179784,
+      "d3qn_mean": 6613.333333333334,
+      "d3qn_std": 332.303170050177,
+      "test_statistic": -11.57235046101338,
+      "p_value": 2.504848094347023e-05,
+      "effect_size_cohens_d": 3.048564508983746,
+      "effect_magnitude": "large",
+      "confidence_interval_95": [
+        727.5564571399021,
+        998.1578285743839
+      ],
+      "significant": true,
+      "assumptions": {
+        "normality": true,
+        "equal_variance": true,
+        "shapiro_p_group1": 0.5,
+        "shapiro_p_group2": 0.5,
+        "levene_p": 0.5
+      },
+      "corrected_p_value": 0.00017533936660429162,
+      "significant_corrected": true
+    },
+    "avg_speed": {
+      "test_used": "paired_t_test",
+      "fixed_time_mean": 14.660432775179165,
+      "fixed_time_std": 0.5733631023442,
+      "d3qn_mean": 15.546813158340248,
+      "d3qn_std": 0.5700949747029928,
+      "test_statistic": -3.735641454324822,
+      "p_value": 0.009672063536925799,
+      "effect_size_cohens_d": 1.4353397636471534,
+      "effect_magnitude": "large",
+      "confidence_interval_95": [
+        0.45581647111964446,
+        1.316944295202525
+      ],
+      "significant": true,
+      "assumptions": {
+        "normality": true,
+        "equal_variance": true,
+        "shapiro_p_group1": 0.5,
+        "shapiro_p_group2": 0.5,
+        "levene_p": 0.5
+      },
+      "corrected_p_value": 0.06770444475848059,
+      "significant_corrected": false
+    },
+    "avg_queue_length": {
+      "test_used": "paired_t_test",
+      "fixed_time_mean": 93.93280423280423,
+      "fixed_time_std": 8.097820869583794,
+      "d3qn_mean": 88.0804761904762,
+      "d3qn_std": 4.927190006539652,
+      "test_statistic": 2.6873236860046474,
+      "p_value": 0.03618139009751373,
+      "effect_size_cohens_d": -0.8083633631886997,
+      "effect_magnitude": "large",
+      "confidence_interval_95": [
+        -9.804095297655001,
+        -1.9005607870010874
+      ],
+      "significant": true,
+      "assumptions": {
+        "normality": true,
+        "equal_variance": true,
+        "shapiro_p_group1": 0.5,
+        "shapiro_p_group2": 0.5,
+        "levene_p": 0.5
+      },
+      "corrected_p_value": 0.25326973068259606,
+      "significant_corrected": false
+    },
+    "completed_trips": {
+      "test_used": "paired_t_test",
+      "fixed_time_mean": 431.2857142857143,
+      "fixed_time_std": 12.302314366634848,
+      "d3qn_mean": 496.0,
+      "d3qn_std": 24.922737753763272,
+      "test_statistic": -11.572350461013391,
+      "p_value": 2.50484809434701e-05,
+      "effect_size_cohens_d": 3.0485645089837456,
+      "effect_magnitude": "large",
+      "confidence_interval_95": [
+        54.56673428549265,
+        74.86183714307876
+      ],
+      "significant": true,
+      "assumptions": {
+        "normality": true,
+        "equal_variance": true,
+        "shapiro_p_group1": 0.5,
+        "shapiro_p_group2": 0.5,
+        "levene_p": 0.5
+      },
+      "corrected_p_value": 0.0001753393666042907,
+      "significant_corrected": true
+    },
+    "travel_time_index": {
+      "test_used": "paired_t_test",
+      "fixed_time_mean": 2.7326708031300195,
+      "fixed_time_std": 0.1084161025899165,
+      "d3qn_mean": 2.5763691262667985,
+      "d3qn_std": 0.09533127288168497,
+      "test_statistic": 3.6972955392808036,
+      "p_value": 0.010120771731820799,
+      "effect_size_cohens_d": -1.4175372254619216,
+      "effect_magnitude": "large",
+      "confidence_interval_95": [
+        -0.23301347221747964,
+        -0.07958988150896186
+      ],
+      "significant": true,
+      "assumptions": {
+        "normality": true,
+        "equal_variance": true,
+        "shapiro_p_group1": 0.5,
+        "shapiro_p_group2": 0.5,
+        "levene_p": 0.5
+      },
+      "corrected_p_value": 0.0708454021227456,
+      "significant_corrected": false
+    },
+    "max_queue_length": {
+      "test_used": "paired_t_test",
+      "fixed_time_mean": 165.14285714285714,
+      "fixed_time_std": 3.681171064778607,
+      "d3qn_mean": 128.14285714285714,
+      "d3qn_std": 7.548482750641661,
+      "test_statistic": 21.194412589170764,
+      "p_value": 7.191947051804401e-07,
+      "effect_size_cohens_d": -5.768388471276493,
+      "effect_magnitude": "large",
+      "confidence_interval_95": [
+        -40.16783837971573,
+        -33.83216162028427
+      ],
+      "significant": true,
+      "assumptions": {
+        "normality": true,
+        "equal_variance": true,
+        "shapiro_p_group1": 0.5,
+        "shapiro_p_group2": 0.5,
+        "levene_p": 0.5
+      },
+      "corrected_p_value": 5.034362936263081e-06,
+      "significant_corrected": true
+    }
+  }
+}

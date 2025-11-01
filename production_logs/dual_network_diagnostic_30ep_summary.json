@@ -1,0 +1,24 @@
+{
+  "experiment_id": "dual_network_diagnostic_30ep",
+  "session_id": "c5080bba-8f72-4353-add6-6019da6c8b4c",
+  "timestamp": "2025-10-18T08:33:34.671341",
+  "total_episodes": 30,
+  "performance_metrics": {
+    "avg_reward": -1.1978924895761323,
+    "best_reward": -0.8276477604483964,
+    "reward_improvement": 2.153940945886839,
+    "avg_passenger_throughput": 8002.363636363635,
+    "avg_vehicles_served": 489.03333333333336,
+    "avg_pt_throughput": 2892.8
+  },
+  "learning_metrics": {
+    "convergence_episode": -1,
+    "stability_score": 0.867779437104938,
+    "exploration_rate": 1.0055291075199204
+  },
+  "config": {
+    "log_interval": 30,
+    "buffer_size": 100,
+    "total_steps": 8970
+  }
+}

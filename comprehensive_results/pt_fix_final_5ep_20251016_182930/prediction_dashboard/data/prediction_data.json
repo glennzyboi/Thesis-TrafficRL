@@ -1,0 +1,62 @@
+[
+  {
+    "episode": 0,
+    "timestamp": "2025-10-16T18:33:40.612306",
+    "accuracy": 0.8542372881355932,
+    "precision": 1.0,
+    "recall": 0.8542372881355932,
+    "f1_score": 0.9213893967093236,
+    "true_positives": 252,
+    "false_positives": 0,
+    "true_negatives": 0,
+    "false_negatives": 43
+  },
+  {
+    "episode": 1,
+    "timestamp": "2025-10-16T18:38:16.735237",
+    "accuracy": 0.006779661016949152,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1_score": 0.0,
+    "true_positives": 0,
+    "false_positives": 293,
+    "true_negatives": 2,
+    "false_negatives": 0
+  },
+  {
+    "episode": 2,
+    "timestamp": "2025-10-16T18:42:58.028917",
+    "accuracy": 0.8915254237288136,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1_score": 0.0,
+    "true_positives": 0,
+    "false_positives": 32,
+    "true_negatives": 263,
+    "false_negatives": 0
+  },
+  {
+    "episode": 3,
+    "timestamp": "2025-10-16T18:47:31.389198",
+    "accuracy": 1.0,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1_score": 0.0,
+    "true_positives": 0,
+    "false_positives": 0,
+    "true_negatives": 295,
+    "false_negatives": 0
+  },
+  {
+    "episode": 4,
+    "timestamp": "2025-10-16T18:52:08.413519",
+    "accuracy": 0.0,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1_score": 0.0,
+    "true_positives": 0,
+    "false_positives": 0,
+    "true_negatives": 0,
+    "false_negatives": 295
+  }
+]

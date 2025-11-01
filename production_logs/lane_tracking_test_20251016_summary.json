@@ -1,0 +1,24 @@
+{
+  "experiment_id": "lane_tracking_test_20251016",
+  "session_id": "786c5e01-2916-4093-8f69-3e577b812c4f",
+  "timestamp": "2025-10-16T09:36:11.610710",
+  "total_episodes": 5,
+  "performance_metrics": {
+    "avg_reward": -1.27531815834238,
+    "best_reward": -1.1538884496815824,
+    "reward_improvement": 0.0,
+    "avg_passenger_throughput": 8139.27272727273,
+    "avg_vehicles_served": 497.4,
+    "avg_pt_throughput": 0.0
+  },
+  "learning_metrics": {
+    "convergence_episode": -1,
+    "stability_score": 0.0,
+    "exploration_rate": 1.6234609648455582
+  },
+  "config": {
+    "log_interval": 30,
+    "buffer_size": 100,
+    "total_steps": 1495
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "experiment_id": "lstm_progressive_test_50ep",
+  "session_id": "c81ead82-34bb-4ab1-8a85-df796aec6163",
+  "timestamp": "2025-10-10T13:34:54.213061",
+  "total_episodes": 50,
+  "performance_metrics": {
+    "avg_reward": -1.3324480482497918,
+    "best_reward": -1.0204046043913275,
+    "reward_improvement": -4.687050001372376,
+    "avg_passenger_throughput": 7984.800000000001,
+    "avg_vehicles_served": 487.96,
+    "avg_pt_throughput": 0.0
+  },
+  "learning_metrics": {
+    "convergence_episode": -1,
+    "stability_score": 0.9232653712403238,
+    "exploration_rate": 1.1419161373939228
+  },
+  "config": {
+    "log_interval": 30,
+    "buffer_size": 100,
+    "total_steps": 14950
+  }
+}

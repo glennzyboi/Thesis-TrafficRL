@@ -1,0 +1,2 @@
+IntersectionID,Day,CycleNum,CycleTime_s,TotalVehicles,car_count,car_passenger_equivalent,motor_count,motor_passenger_equivalent,jeepney_count,jeepney_passenger_equivalent,bus_count,bus_passenger_equivalent,truck_count,truck_passenger_equivalent
+SANDAWA,20250818,1,300,387,172,258.0,153,183.60000000000002,53,530.0,3,90.0,6,6.0

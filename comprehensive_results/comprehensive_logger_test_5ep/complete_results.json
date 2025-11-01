@@ -1,0 +1,127 @@
+{
+  "experiment_name": "comprehensive_logger_test_5ep",
+  "config": {
+    "experiment_name": "comprehensive_logger_test_5ep",
+    "learning_rate": 0.0005,
+    "epsilon_decay": 0.9995,
+    "memory_size": 50000,
+    "batch_size": 64,
+    "gamma": 0.98,
+    "sequence_length": 10,
+    "episodes": 5,
+    "target_update_freq": 10,
+    "save_freq": 25,
+    "validation_freq": 15,
+    "episode_duration": 300,
+    "warmup_time": 30,
+    "min_phase_time": 12,
+    "max_phase_time": 120,
+    "random_seed": 42,
+    "validation_episodes": 10,
+    "agent_type": "lstm",
+    "offline_episodes": 3,
+    "online_episodes": 2
+  },
+  "training_time_minutes": 23.824677364031473,
+  "best_reward": -327.7303152448018,
+  "convergence_episode": -1,
+  "training_results": [
+    {
+      "episode": 1,
+      "scenario": "Day 20250812, Cycle 1",
+      "reward": -411.3108265848566,
+      "steps": 300,
+      "time_minutes": 3.8830853939056396,
+      "avg_loss": 0.12147384588369879,
+      "epsilon": 0.8886698277259029,
+      "vehicles": 371,
+      "completed_trips": 492,
+      "passenger_throughput": 8050.909090909092,
+      "memory_size": 300
+    },
+    {
+      "episode": 2,
+      "scenario": "Day 20250717, Cycle 1",
+      "reward": -390.5656971472829,
+      "steps": 300,
+      "time_minutes": 4.543408493200938,
+      "avg_loss": 0.06263486998776595,
+      "epsilon": 0.764856516910148,
+      "vehicles": 353,
+      "completed_trips": 504,
+      "passenger_throughput": 8247.272727272728,
+      "memory_size": 600
+    },
+    {
+      "episode": 3,
+      "scenario": "Day 20250703, Cycle 2",
+      "reward": -363.9908879028803,
+      "steps": 300,
+      "time_minutes": 4.881339716911316,
+      "avg_loss": 0.058794533678640924,
+      "epsilon": 0.658293410227447,
+      "vehicles": 369,
+      "completed_trips": 519,
+      "passenger_throughput": 8492.727272727274,
+      "memory_size": 900
+    },
+    {
+      "episode": 4,
+      "scenario": "Day 20250717, Cycle 2",
+      "reward": -371.3567093626158,
+      "steps": 300,
+      "time_minutes": 5.348974541823069,
+      "avg_loss": 0.046134495027363304,
+      "epsilon": 0.6199536662152433,
+      "vehicles": 353,
+      "completed_trips": 517,
+      "passenger_throughput": 8460.0,
+      "memory_size": 1200
+    },
+    {
+      "episode": 5,
+      "scenario": "Day 20250819, Cycle 3",
+      "reward": -327.7303152448018,
+      "steps": 300,
+      "time_minutes": 5.1030978242556255,
+      "avg_loss": 0.04258938406283657,
+      "epsilon": 0.5838468717481573,
+      "vehicles": 325,
+      "completed_trips": 466,
+      "passenger_throughput": 7625.454545454546,
+      "memory_size": 1500
+    }
+  ],
+  "validation_results": [],
+  "final_evaluation": {
+    "test_scenarios": 7,
+    "comparison_results": null,
+    "evaluation_timestamp": "2025-10-16T17:54:36.865001"
+  },
+  "logger_summary": {
+    "experiment_id": "comprehensive_logger_test_5ep",
+    "session_id": "9e21b0f7-8f42-45f2-82ad-acc8671b9a4a",
+    "timestamp": "2025-10-16T17:54:36.869988",
+    "total_episodes": 5,
+    "performance_metrics": {
+      "avg_reward": -1.2433029574949575,
+      "best_reward": -1.092434384149338,
+      "reward_improvement": 0.0,
+      "avg_passenger_throughput": 8175.272727272728,
+      "avg_vehicles_served": 499.6,
+      "avg_pt_throughput": 0.0
+    },
+    "learning_metrics": {
+      "convergence_episode": -1,
+      "stability_score": 0.0,
+      "exploration_rate": 1.6354330898525404
+    },
+    "config": {
+      "log_interval": 30,
+      "buffer_size": 100,
+      "total_steps": 1495
+    }
+  },
+  "defense_ready": true,
+  "timestamp": "2025-10-16T17:54:36.869988"
+}

@@ -1,0 +1,79 @@
+COMPREHENSIVE PERFORMANCE COMPARISON REPORT
+==================================================
+Generated: 2025-10-23 08:36:59
+Episodes: 7
+
+SUMMARY STATISTICS
+--------------------
+Avg Waiting Time:
+  Fixed-Time: 10.80
+  D3QN:       6.89
+  Improvement: +36.2%
+
+Avg Throughput:
+  Fixed-Time: 5750.48
+  D3QN:       6702.86
+  Improvement: +16.6%
+
+Avg Speed:
+  Fixed-Time: 14.66
+  D3QN:       15.85
+  Improvement: +8.1%
+
+Avg Queue Length:
+  Fixed-Time: 93.93
+  D3QN:       86.15
+  Improvement: -8.3%
+
+Completed Trips:
+  Fixed-Time: 431.29
+  D3QN:       502.71
+  Improvement: +16.6%
+
+Travel Time Index:
+  Fixed-Time: 2.73
+  D3QN:       2.53
+  Improvement: -7.5%
+
+Max Queue Length:
+  Fixed-Time: 165.14
+  D3QN:       125.29
+  Improvement: -24.1%
+
+EPISODE-BY-EPISODE RESULTS
+------------------------------
+Episode 1:
+  Scenario: 20250815_cycle_1
+  Throughput: 5760.0 -> 6840.0 veh/h
+  Waiting: 12.36 -> 7.41s
+
+Episode 2:
+  Scenario: 20250819_cycle_3
+  Throughput: 5493.3 -> 6333.3 veh/h
+  Waiting: 11.16 -> 6.61s
+
+Episode 3:
+  Scenario: 20250701_cycle_1
+  Throughput: 5880.0 -> 6853.3 veh/h
+  Waiting: 11.28 -> 7.87s
+
+Episode 4:
+  Scenario: 20250811_cycle_1
+  Throughput: 5840.0 -> 7000.0 veh/h
+  Waiting: 10.49 -> 6.81s
+
+Episode 5:
+  Scenario: 20250703_cycle_3
+  Throughput: 5906.7 -> 6866.7 veh/h
+  Waiting: 10.44 -> 6.84s
+
+Episode 6:
+  Scenario: 20250821_cycle_1
+  Throughput: 5866.7 -> 6826.7 veh/h
+  Waiting: 10.45 -> 6.32s
+
+Episode 7:
+  Scenario: 20250709_cycle_2
+  Throughput: 5506.7 -> 6200.0 veh/h
+  Waiting: 9.41 -> 6.39s
+

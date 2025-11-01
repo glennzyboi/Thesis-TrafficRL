@@ -1,0 +1,2 @@
+IntersectionID,Day,CycleNum,CycleTime_s,TotalVehicles,car_count,car_passenger_equivalent,motor_count,motor_passenger_equivalent,jeepney_count,jeepney_passenger_equivalent,bus_count,bus_passenger_equivalent,truck_count,truck_passenger_equivalent
+ECOLAND,20250710,1,300,436,236,354.0,147,176.39999999999998,40,400.0,10,300.0,3,3.0

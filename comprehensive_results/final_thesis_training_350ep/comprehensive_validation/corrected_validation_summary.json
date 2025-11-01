@@ -1,0 +1,31 @@
+{
+  "validation_summary": {
+    "total_scenarios": 66,
+    "d3qn_episodes": 66,
+    "fixed_time_episodes": 66,
+    "validation_complete": true
+  },
+  "passenger_throughput_analysis": {
+    "d3qn_mean": 1209.6969696969697,
+    "d3qn_std": 45.95046486647574,
+    "d3qn_min": 1100.0,
+    "d3qn_max": 1325.0,
+    "fixed_time_mean": 1058.219696969697,
+    "fixed_time_std": 43.13833996911999,
+    "fixed_time_min": 920.0,
+    "fixed_time_max": 1135.0,
+    "improvement_percent": 14.31435014496904,
+    "statistical_test": {
+      "test_used": "paired_t_test",
+      "t_statistic": 41.689354904638215,
+      "p_value": 1.2628414444487044e-48,
+      "cohens_d": 3.398897656053904,
+      "effect_magnitude": "large",
+      "confidence_interval_95": [
+        144.22071996181333,
+        158.7338254927321
+      ],
+      "significant": true
+    }
+  }
+}

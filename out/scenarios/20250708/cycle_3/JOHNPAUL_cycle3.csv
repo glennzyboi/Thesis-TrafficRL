@@ -1,0 +1,2 @@
+IntersectionID,Day,CycleNum,CycleTime_s,TotalVehicles,car_count,car_passenger_equivalent,motor_count,motor_passenger_equivalent,jeepney_count,jeepney_passenger_equivalent,bus_count,bus_passenger_equivalent,truck_count,truck_passenger_equivalent
+JOHNPAUL,20250708,3,300,228,128,192.0,67,80.4,19,190.0,7,210.0,7,7.0

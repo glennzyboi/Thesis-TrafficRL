@@ -16,9 +16,9 @@ class D3QNAgent:
     CORRECTED: LSTM now predicts traffic first, then uses prediction for action selection
     """
     
-    def __init__(self, state_size, action_size, learning_rate=0.0005,  # OPTIMIZED: Balanced learning rate for stability
+    def __init__(self, state_size, action_size, learning_rate=0.0005,  # EVIDENCE-BASED: Restored from old successful training
                  epsilon=1.0, epsilon_min=0.01, epsilon_decay=0.9995,
-                 memory_size=75000, batch_size=128, sequence_length=10):  # OPTIMIZED: Better parameters for convergence
+                 memory_size=75000, batch_size=64, sequence_length=10):  # CRITICAL FIX: Match successful 350ep training (was 128)
         """
         Initialize the D3QN agent with LSTM for temporal learning
         
@@ -55,9 +55,21 @@ class D3QNAgent:
         self.q_network = self._build_q_network_with_prediction()
         self.target_network = self._build_q_network_with_prediction()
         
-        # Separate optimizers for different components
-        self.traffic_optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate * 2)  # Higher LR for prediction
-        self.q_optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)
+        # Separate optimizers for different components (with clipnorm like old successful training)
+        self.traffic_optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate * 2, clipnorm=1.0)  # Higher LR for prediction
+        self.q_optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate, clipnorm=1.0)  # EVIDENCE-BASED: clipnorm from old training
+        
+        # Compile the networks
+        self.q_network.compile(
+            optimizer=self.q_optimizer,
+            loss='mse',
+            metrics=['mae']
+        )
+        self.target_network.compile(
+            optimizer=self.q_optimizer,
+            loss='mse',
+            metrics=['mae']
+        )
         
         # Initialize target network with same weights
         self.update_target_model()
@@ -357,9 +369,11 @@ class D3QNAgent:
                 tf.squeeze(predictions, axis=-1)  # Remove last dimension to match target shape
             )
         
-        # Update traffic predictor weights
+        # Update traffic predictor weights with gradient clipping
         traffic_vars = self.traffic_predictor.trainable_variables
         gradients = tape.gradient(prediction_loss, traffic_vars)
+        # EVIDENCE-BASED: Let optimizer handle clipping via clipnorm=1.0 (like old successful training)
+        # Manual clipping at 0.25 was too restrictive and caused loss instability
         self.traffic_optimizer.apply_gradients(zip(gradients, traffic_vars))
         
         # Calculate accuracy - ensure shapes match
@@ -429,9 +443,11 @@ class D3QNAgent:
             q_values = self.q_network(states, training=True)
             q_loss = tf.keras.losses.Huber(delta=1.0)(target_q, q_values)
         
-        # Update Q-network weights
+        # Update Q-network weights with gradient clipping
         q_vars = self.q_network.trainable_variables
         gradients = tape.gradient(q_loss, q_vars)
+        # EVIDENCE-BASED: Let optimizer handle clipping via clipnorm=1.0 (like old successful training)
+        # Manual clipping at 0.25 was too restrictive and caused loss instability
         self.q_optimizer.apply_gradients(zip(gradients, q_vars))
         
         return float(q_loss)

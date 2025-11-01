@@ -1,0 +1,24 @@
+{
+  "experiment_id": "comprehensive_training",
+  "session_id": "613c20e3-cdf7-40fd-95bb-d8675d1e580d",
+  "timestamp": "2025-10-23T08:37:02.540032",
+  "total_episodes": 50,
+  "performance_metrics": {
+    "avg_reward": -1.2197096569392267,
+    "best_reward": -0.896931423085374,
+    "reward_improvement": -6.745788145467905,
+    "avg_passenger_throughput": 6970.9309090908955,
+    "avg_vehicles_served": 491.54,
+    "avg_pt_throughput": 2941.12
+  },
+  "learning_metrics": {
+    "convergence_episode": -1,
+    "stability_score": 0.8725797544395205,
+    "exploration_rate": 0.9583020681670525
+  },
+  "config": {
+    "log_interval": 30,
+    "buffer_size": 100,
+    "total_steps": 14950
+  }
+}

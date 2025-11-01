@@ -1,0 +1,24 @@
+{
+  "experiment_id": "logging_test_5ep",
+  "session_id": "5eabc033-d420-42c8-9c55-5b535856b986",
+  "timestamp": "2025-10-22T14:16:08.181158",
+  "total_episodes": 5,
+  "performance_metrics": {
+    "avg_reward": -1.3050578239840527,
+    "best_reward": -1.136796066070038,
+    "reward_improvement": 0.0,
+    "avg_passenger_throughput": 6980.290909090896,
+    "avg_vehicles_served": 492.2,
+    "avg_pt_throughput": 2968.0
+  },
+  "learning_metrics": {
+    "convergence_episode": -1,
+    "stability_score": 0.0,
+    "exploration_rate": 1.569458520515751
+  },
+  "config": {
+    "log_interval": 30,
+    "buffer_size": 100,
+    "total_steps": 1495
+  }
+}

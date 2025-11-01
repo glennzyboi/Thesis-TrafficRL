@@ -1,0 +1,374 @@
+COMPREHENSIVE PERFORMANCE COMPARISON REPORT
+==================================================
+Generated: 2025-10-21 10:06:50
+Episodes: 66
+
+SUMMARY STATISTICS
+--------------------
+Avg Waiting Time:
+  Fixed-Time: 10.72
+  D3QN:       7.72
+  Improvement: +28.0%
+
+Avg Throughput:
+  Fixed-Time: 5643.84
+  D3QN:       6427.47
+  Improvement: +13.9%
+
+Avg Speed:
+  Fixed-Time: 14.43
+  D3QN:       15.27
+  Improvement: +5.8%
+
+Avg Queue Length:
+  Fixed-Time: 94.84
+  D3QN:       89.74
+  Improvement: -5.4%
+
+Completed Trips:
+  Fixed-Time: 423.29
+  D3QN:       482.06
+  Improvement: +13.9%
+
+Travel Time Index:
+  Fixed-Time: 2.78
+  D3QN:       2.62
+  Improvement: -5.5%
+
+Max Queue Length:
+  Fixed-Time: 163.56
+  D3QN:       131.91
+  Improvement: -19.4%
+
+EPISODE-BY-EPISODE RESULTS
+------------------------------
+Episode 1:
+  Scenario: 20250815_cycle_1
+  Throughput: 5760.0 -> 6546.7 veh/h
+  Waiting: 12.36 -> 7.29s
+
+Episode 2:
+  Scenario: 20250819_cycle_3
+  Throughput: 5493.3 -> 6186.7 veh/h
+  Waiting: 11.16 -> 6.93s
+
+Episode 3:
+  Scenario: 20250701_cycle_1
+  Throughput: 5880.0 -> 6733.3 veh/h
+  Waiting: 11.28 -> 7.60s
+
+Episode 4:
+  Scenario: 20250811_cycle_1
+  Throughput: 5840.0 -> 6200.0 veh/h
+  Waiting: 10.49 -> 7.29s
+
+Episode 5:
+  Scenario: 20250703_cycle_3
+  Throughput: 5906.7 -> 6506.7 veh/h
+  Waiting: 10.44 -> 6.72s
+
+Episode 6:
+  Scenario: 20250821_cycle_1
+  Throughput: 5866.7 -> 6733.3 veh/h
+  Waiting: 10.45 -> 6.55s
+
+Episode 7:
+  Scenario: 20250709_cycle_2
+  Throughput: 5506.7 -> 6266.7 veh/h
+  Waiting: 9.41 -> 6.82s
+
+Episode 8:
+  Scenario: 20250708_cycle_1
+  Throughput: 5506.7 -> 6320.0 veh/h
+  Waiting: 10.55 -> 7.00s
+
+Episode 9:
+  Scenario: 20250821_cycle_3
+  Throughput: 5666.7 -> 6453.3 veh/h
+  Waiting: 9.82 -> 6.25s
+
+Episode 10:
+  Scenario: 20250717_cycle_1
+  Throughput: 5773.3 -> 6040.0 veh/h
+  Waiting: 10.44 -> 8.83s
+
+Episode 11:
+  Scenario: 20250804_cycle_1
+  Throughput: 4906.7 -> 6333.3 veh/h
+  Waiting: 15.85 -> 7.25s
+
+Episode 12:
+  Scenario: 20250707_cycle_1
+  Throughput: 5733.3 -> 6400.0 veh/h
+  Waiting: 9.61 -> 7.11s
+
+Episode 13:
+  Scenario: 20250807_cycle_3
+  Throughput: 5520.0 -> 6346.7 veh/h
+  Waiting: 11.36 -> 6.90s
+
+Episode 14:
+  Scenario: 20250708_cycle_2
+  Throughput: 5186.7 -> 6120.0 veh/h
+  Waiting: 10.46 -> 5.79s
+
+Episode 15:
+  Scenario: 20250804_cycle_2
+  Throughput: 5640.0 -> 6426.7 veh/h
+  Waiting: 11.54 -> 8.31s
+
+Episode 16:
+  Scenario: 20250715_cycle_2
+  Throughput: 5333.3 -> 5920.0 veh/h
+  Waiting: 11.29 -> 6.68s
+
+Episode 17:
+  Scenario: 20250703_cycle_1
+  Throughput: 5906.7 -> 6813.3 veh/h
+  Waiting: 10.37 -> 6.75s
+
+Episode 18:
+  Scenario: 20250709_cycle_3
+  Throughput: 5426.7 -> 6253.3 veh/h
+  Waiting: 10.85 -> 6.17s
+
+Episode 19:
+  Scenario: 20250807_cycle_2
+  Throughput: 5680.0 -> 6320.0 veh/h
+  Waiting: 11.10 -> 7.36s
+
+Episode 20:
+  Scenario: 20250704_cycle_3
+  Throughput: 5680.0 -> 6546.7 veh/h
+  Waiting: 11.24 -> 7.29s
+
+Episode 21:
+  Scenario: 20250704_cycle_1
+  Throughput: 5866.7 -> 6706.7 veh/h
+  Waiting: 10.09 -> 7.06s
+
+Episode 22:
+  Scenario: 20250716_cycle_2
+  Throughput: 6000.0 -> 6280.0 veh/h
+  Waiting: 9.83 -> 49.62s
+
+Episode 23:
+  Scenario: 20250703_cycle_2
+  Throughput: 6053.3 -> 6973.3 veh/h
+  Waiting: 10.14 -> 5.79s
+
+Episode 24:
+  Scenario: 20250812_cycle_1
+  Throughput: 5920.0 -> 6826.7 veh/h
+  Waiting: 11.02 -> 6.28s
+
+Episode 25:
+  Scenario: 20250805_cycle_1
+  Throughput: 5880.0 -> 6640.0 veh/h
+  Waiting: 9.95 -> 7.59s
+
+Episode 26:
+  Scenario: 20250710_cycle_2
+  Throughput: 5426.7 -> 6066.7 veh/h
+  Waiting: 10.03 -> 5.82s
+
+Episode 27:
+  Scenario: 20250815_cycle_3
+  Throughput: 5386.7 -> 6266.7 veh/h
+  Waiting: 10.50 -> 7.19s
+
+Episode 28:
+  Scenario: 20250818_cycle_3
+  Throughput: 5373.3 -> 6386.7 veh/h
+  Waiting: 10.71 -> 6.54s
+
+Episode 29:
+  Scenario: 20250818_cycle_2
+  Throughput: 5533.3 -> 6266.7 veh/h
+  Waiting: 11.00 -> 7.01s
+
+Episode 30:
+  Scenario: 20250812_cycle_3
+  Throughput: 5920.0 -> 6573.3 veh/h
+  Waiting: 10.29 -> 8.33s
+
+Episode 31:
+  Scenario: 20250717_cycle_2
+  Throughput: 6000.0 -> 7026.7 veh/h
+  Waiting: 9.70 -> 7.32s
+
+Episode 32:
+  Scenario: 20250809_cycle_3
+  Throughput: 5706.7 -> 6480.0 veh/h
+  Waiting: 10.03 -> 7.63s
+
+Episode 33:
+  Scenario: 20250821_cycle_2
+  Throughput: 5466.7 -> 6346.7 veh/h
+  Waiting: 10.71 -> 7.08s
+
+Episode 34:
+  Scenario: 20250709_cycle_1
+  Throughput: 5426.7 -> 6466.7 veh/h
+  Waiting: 10.59 -> 6.54s
+
+Episode 35:
+  Scenario: 20250716_cycle_1
+  Throughput: 5746.7 -> 6613.3 veh/h
+  Waiting: 10.69 -> 8.31s
+
+Episode 36:
+  Scenario: 20250715_cycle_3
+  Throughput: 5360.0 -> 6106.7 veh/h
+  Waiting: 11.28 -> 6.91s
+
+Episode 37:
+  Scenario: 20250715_cycle_1
+  Throughput: 5946.7 -> 6840.0 veh/h
+  Waiting: 11.53 -> 8.11s
+
+Episode 38:
+  Scenario: 20250811_cycle_3
+  Throughput: 5520.0 -> 6613.3 veh/h
+  Waiting: 10.43 -> 7.48s
+
+Episode 39:
+  Scenario: 20250707_cycle_3
+  Throughput: 5506.7 -> 6306.7 veh/h
+  Waiting: 10.50 -> 5.67s
+
+Episode 40:
+  Scenario: 20250717_cycle_3
+  Throughput: 5853.3 -> 6733.3 veh/h
+  Waiting: 9.95 -> 6.68s
+
+Episode 41:
+  Scenario: 20250819_cycle_2
+  Throughput: 5626.7 -> 6173.3 veh/h
+  Waiting: 9.64 -> 6.57s
+
+Episode 42:
+  Scenario: 20250811_cycle_2
+  Throughput: 5680.0 -> 6320.0 veh/h
+  Waiting: 10.38 -> 6.84s
+
+Episode 43:
+  Scenario: 20250805_cycle_2
+  Throughput: 5733.3 -> 6600.0 veh/h
+  Waiting: 10.74 -> 7.46s
+
+Episode 44:
+  Scenario: 20250716_cycle_3
+  Throughput: 5893.3 -> 6906.7 veh/h
+  Waiting: 9.68 -> 6.75s
+
+Episode 45:
+  Scenario: 20250809_cycle_2
+  Throughput: 5613.3 -> 6520.0 veh/h
+  Waiting: 10.68 -> 7.23s
+
+Episode 46:
+  Scenario: 20250812_cycle_2
+  Throughput: 5533.3 -> 6386.7 veh/h
+  Waiting: 9.80 -> 7.11s
+
+Episode 47:
+  Scenario: 20250701_cycle_2
+  Throughput: 5546.7 -> 6226.7 veh/h
+  Waiting: 10.95 -> 7.39s
+
+Episode 48:
+  Scenario: 20250714_cycle_1
+  Throughput: 5653.3 -> 6600.0 veh/h
+  Waiting: 11.01 -> 7.54s
+
+Episode 49:
+  Scenario: 20250701_cycle_3
+  Throughput: 5600.0 -> 6320.0 veh/h
+  Waiting: 11.58 -> 8.31s
+
+Episode 50:
+  Scenario: 20250814_cycle_3
+  Throughput: 5600.0 -> 6240.0 veh/h
+  Waiting: 11.10 -> 6.45s
+
+Episode 51:
+  Scenario: 20250807_cycle_1
+  Throughput: 5720.0 -> 6440.0 veh/h
+  Waiting: 11.69 -> 8.40s
+
+Episode 52:
+  Scenario: 20250804_cycle_3
+  Throughput: 5160.0 -> 5893.3 veh/h
+  Waiting: 11.43 -> 7.91s
+
+Episode 53:
+  Scenario: 20250814_cycle_2
+  Throughput: 5520.0 -> 5600.0 veh/h
+  Waiting: 11.15 -> 8.27s
+
+Episode 54:
+  Scenario: 20250714_cycle_3
+  Throughput: 5680.0 -> 6546.7 veh/h
+  Waiting: 10.04 -> 6.49s
+
+Episode 55:
+  Scenario: 20250815_cycle_2
+  Throughput: 5800.0 -> 6520.0 veh/h
+  Waiting: 10.74 -> 7.76s
+
+Episode 56:
+  Scenario: 20250707_cycle_2
+  Throughput: 5813.3 -> 6533.3 veh/h
+  Waiting: 10.55 -> 6.73s
+
+Episode 57:
+  Scenario: 20250714_cycle_2
+  Throughput: 5493.3 -> 6466.7 veh/h
+  Waiting: 10.15 -> 6.32s
+
+Episode 58:
+  Scenario: 20250710_cycle_1
+  Throughput: 5973.3 -> 6586.7 veh/h
+  Waiting: 11.36 -> 7.08s
+
+Episode 59:
+  Scenario: 20250818_cycle_1
+  Throughput: 5893.3 -> 6586.7 veh/h
+  Waiting: 10.05 -> 6.74s
+
+Episode 60:
+  Scenario: 20250805_cycle_3
+  Throughput: 5333.3 -> 6200.0 veh/h
+  Waiting: 11.51 -> 7.40s
+
+Episode 61:
+  Scenario: 20250710_cycle_3
+  Throughput: 5906.7 -> 6786.7 veh/h
+  Waiting: 10.95 -> 6.28s
+
+Episode 62:
+  Scenario: 20250819_cycle_1
+  Throughput: 5560.0 -> 6413.3 veh/h
+  Waiting: 10.73 -> 6.44s
+
+Episode 63:
+  Scenario: 20250704_cycle_2
+  Throughput: 5453.3 -> 6386.7 veh/h
+  Waiting: 10.97 -> 6.90s
+
+Episode 64:
+  Scenario: 20250809_cycle_1
+  Throughput: 5760.0 -> 6533.3 veh/h
+  Waiting: 10.75 -> 7.09s
+
+Episode 65:
+  Scenario: 20250708_cycle_3
+  Throughput: 5413.3 -> 6080.0 veh/h
+  Waiting: 10.65 -> 6.75s
+
+Episode 66:
+  Scenario: 20250814_cycle_1
+  Throughput: 5426.7 -> 6360.0 veh/h
+  Waiting: 10.50 -> 7.66s
+

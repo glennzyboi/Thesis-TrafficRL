@@ -1,0 +1,24 @@
+{
+  "experiment_id": "test_fixes_25ep_20251016",
+  "session_id": "f6ae36f9-113e-4645-9a06-697945552ce0",
+  "timestamp": "2025-10-16T07:55:42.351342",
+  "total_episodes": 25,
+  "performance_metrics": {
+    "avg_reward": -1.1758996509163675,
+    "best_reward": -0.7849444772723867,
+    "reward_improvement": -0.6945078150014306,
+    "avg_passenger_throughput": 7949.454545454546,
+    "avg_vehicles_served": 485.8,
+    "avg_pt_throughput": 0.0
+  },
+  "learning_metrics": {
+    "convergence_episode": -1,
+    "stability_score": 0.8558059846931311,
+    "exploration_rate": 1.2374148418875104
+  },
+  "config": {
+    "log_interval": 30,
+    "buffer_size": 100,
+    "total_steps": 7475
+  }
+}

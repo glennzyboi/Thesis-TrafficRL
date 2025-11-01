@@ -23,17 +23,18 @@ class TrafficPredictionDashboard:
     
     def log_prediction(self, episode: int, predictions: list, actual_labels: list):
         """Log prediction results for an episode"""
-        # Convert predictions to binary
+        # Convert predictions and labels to numpy arrays
         binary_predictions = (np.array(predictions) > 0.5).astype(int)
+        actual_labels_array = np.array(actual_labels).astype(int)
         
         # Calculate metrics
-        accuracy = np.mean(binary_predictions == actual_labels)
+        accuracy = np.mean(binary_predictions == actual_labels_array)
         
-        # Confusion matrix components
-        tp = np.sum((binary_predictions == 1) & (actual_labels == 1))
-        fp = np.sum((binary_predictions == 1) & (actual_labels == 0))
-        tn = np.sum((binary_predictions == 0) & (actual_labels == 0))
-        fn = np.sum((binary_predictions == 0) & (actual_labels == 1))
+        # Confusion matrix components - FIXED: Use numpy array for actual_labels
+        tp = np.sum((binary_predictions == 1) & (actual_labels_array == 1))
+        fp = np.sum((binary_predictions == 1) & (actual_labels_array == 0))
+        tn = np.sum((binary_predictions == 0) & (actual_labels_array == 0))
+        fn = np.sum((binary_predictions == 0) & (actual_labels_array == 1))
         
         # Calculate additional metrics
         precision = tp / (tp + fp) if (tp + fp) > 0 else 0
@@ -144,7 +145,7 @@ class TrafficPredictionDashboard:
 ## Target Achievement
 - **Target Accuracy**: 80%
 - **Current Accuracy**: {avg_accuracy*100:.1f}%
-- **Achievement**: {'✅ ACHIEVED' if avg_accuracy >= 0.8 else '❌ NOT ACHIEVED'}
+- **Achievement**: {'ACHIEVED' if avg_accuracy >= 0.8 else 'NOT ACHIEVED'}
 """
         
         # Save report

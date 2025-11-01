@@ -1,0 +1,24 @@
+{
+  "experiment_id": "enhanced_training_fixed_rewards",
+  "session_id": "c5285756-413d-46c5-b1c2-25c91859e629",
+  "timestamp": "2025-09-30T08:00:20.584194",
+  "total_episodes": 50,
+  "performance_metrics": {
+    "avg_reward": 0.11918504048135896,
+    "best_reward": 0.582496606221549,
+    "reward_improvement": 282.0343135751807,
+    "avg_passenger_throughput": 7901.018181818183,
+    "avg_vehicles_served": 482.84,
+    "avg_pt_throughput": 0.0
+  },
+  "learning_metrics": {
+    "convergence_episode": -1,
+    "stability_score": 0.0,
+    "exploration_rate": 0.6421987783936494
+  },
+  "config": {
+    "log_interval": 30,
+    "buffer_size": 100,
+    "total_steps": 14950
+  }
+}

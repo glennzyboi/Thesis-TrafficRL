@@ -1,0 +1,24 @@
+{
+  "experiment_id": "final_thesis_training_350ep",
+  "session_id": "4b359871-3716-4b5a-a2ac-8b61b511e3d2",
+  "timestamp": "2025-10-19T12:26:52.947022",
+  "total_episodes": 50,
+  "performance_metrics": {
+    "avg_reward": -1.2056792762551996,
+    "best_reward": -0.7433638326059235,
+    "reward_improvement": 1.5621052854122912,
+    "avg_passenger_throughput": 7966.8,
+    "avg_vehicles_served": 486.86,
+    "avg_pt_throughput": 2908.16
+  },
+  "learning_metrics": {
+    "convergence_episode": -1,
+    "stability_score": 0.7707675462825188,
+    "exploration_rate": 0.911798396129226
+  },
+  "config": {
+    "log_interval": 30,
+    "buffer_size": 100,
+    "total_steps": 14950
+  }
+}

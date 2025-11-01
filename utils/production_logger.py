@@ -337,10 +337,84 @@ class ProductionLogger:
         self.step_buffer.clear()
     
     def _write_episode_log(self):
-        """Write episode to file"""
+        """Write episode to file with improved formatting"""
         with open(self.episode_log_file, 'a', encoding='utf-8') as f:
             clean_data = convert_numpy_types(self.episode_data)
-            f.write(json.dumps(clean_data) + '\n')
+            
+            # Create a more readable format with key sections
+            formatted_episode = self._format_episode_for_readability(clean_data)
+            f.write(json.dumps(formatted_episode, indent=2) + '\n\n')
+    
+    def _format_episode_for_readability(self, episode_data: Dict) -> Dict:
+        """Format episode data for better readability"""
+        # Extract key metrics for easy reading
+        episode_num = episode_data.get('episode_number', 0)
+        
+        # Create a structured, readable format
+        formatted = {
+            "episode_info": {
+                "episode_number": episode_num,
+                "episode_id": episode_data.get('episode_id', ''),
+                "session_id": episode_data.get('session_id', ''),
+                "start_time": episode_data.get('start_time', ''),
+                "end_time": episode_data.get('end_time', ''),
+                "duration_seconds": episode_data.get('episode_time', 0)
+            },
+            
+            "scenario": {
+                "bundle_name": episode_data.get('scenario_info', {}).get('bundle_name', ''),
+                "day": episode_data.get('scenario_info', {}).get('day', ''),
+                "cycle": episode_data.get('scenario_info', {}).get('cycle', ''),
+                "route_file": episode_data.get('scenario_info', {}).get('route_file', '')
+            },
+            
+            "performance_metrics": {
+                "total_reward": episode_data.get('total_reward', 0),
+                "avg_reward": episode_data.get('avg_reward', 0),
+                "reward_std": episode_data.get('reward_std', 0),
+                "min_reward": episode_data.get('min_reward', 0),
+                "max_reward": episode_data.get('max_reward', 0),
+                "avg_loss": episode_data.get('avg_loss', 0)
+            },
+            
+            "traffic_metrics": {
+                "vehicles_served": episode_data.get('vehicles_served', 0),
+                "completed_trips": episode_data.get('final_completed_trips', 0),
+                "passenger_throughput": episode_data.get('passenger_throughput', 0),
+                "avg_waiting_time": episode_data.get('avg_waiting_time', 0),
+                "avg_speed": episode_data.get('avg_speed', 0),
+                "avg_queue_length": episode_data.get('avg_queue_length', 0),
+                "phase_utilization_ratio": episode_data.get('phase_utilization_ratio', 0)
+            },
+            
+            "public_transport_metrics": {
+                "buses_processed": episode_data.get('buses_processed', 0),
+                "jeepneys_processed": episode_data.get('jeepneys_processed', 0),
+                "pt_passenger_throughput": episode_data.get('pt_passenger_throughput', 0),
+                "pt_avg_waiting": episode_data.get('pt_avg_waiting', 0),
+                "pt_service_efficiency": episode_data.get('pt_service_efficiency', 0),
+                "pt_service_quality": episode_data.get('pt_service_quality', 0)
+            },
+            
+            "training_metrics": {
+                "step_count": episode_data.get('step_count', 0),
+                "episode_steps": episode_data.get('episode_steps', 0),
+                "epsilon": episode_data.get('epsilon', 0),
+                "action_distribution": episode_data.get('action_distribution', {}),
+                "coordination_score": episode_data.get('coordination_score', 0)
+            },
+            
+            "reward_breakdown": episode_data.get('reward_components', {}),
+            
+            "detailed_data": {
+                "intersection_throughput": episode_data.get('intersection_throughput', {}),
+                "agent_rewards": episode_data.get('agent_rewards', {}),
+                "step_metrics": episode_data.get('step_metrics', []),
+                "reward_history": episode_data.get('reward_history', [])[-10:]  # Last 10 rewards only
+            }
+        }
+        
+        return formatted
     
     def generate_summary(self) -> Dict[str, Any]:
         """

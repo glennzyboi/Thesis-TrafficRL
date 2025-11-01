@@ -1,0 +1,24 @@
+{
+  "experiment_id": "headless_sanity_stability",
+  "session_id": "33731738-1bc9-4d64-9d2f-ce8e58219948",
+  "timestamp": "2025-09-30T21:52:36.625366",
+  "total_episodes": 10,
+  "performance_metrics": {
+    "avg_reward": 0.16131299650059666,
+    "best_reward": 0.792416258897558,
+    "reward_improvement": -97.55649868552189,
+    "avg_passenger_throughput": 7954.363636363637,
+    "avg_vehicles_served": 486.1,
+    "avg_pt_throughput": 0.0
+  },
+  "learning_metrics": {
+    "convergence_episode": -1,
+    "stability_score": 0.0,
+    "exploration_rate": 1.4434324855366023
+  },
+  "config": {
+    "log_interval": 30,
+    "buffer_size": 100,
+    "total_steps": 2990
+  }
+}

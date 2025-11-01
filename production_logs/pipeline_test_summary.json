@@ -1,0 +1,24 @@
+{
+  "experiment_id": "pipeline_test",
+  "session_id": "454ad867-18b5-4c1e-9a50-bfc33967c0e4",
+  "timestamp": "2025-10-17T06:37:28.704651",
+  "total_episodes": 1,
+  "performance_metrics": {
+    "avg_reward": -1.2540890869896815,
+    "best_reward": -1.2540890869896815,
+    "reward_improvement": 0.0,
+    "avg_passenger_throughput": 8132.727272727273,
+    "avg_vehicles_served": 497.0,
+    "avg_pt_throughput": 2952.0
+  },
+  "learning_metrics": {
+    "convergence_episode": -1,
+    "stability_score": 0.0,
+    "exploration_rate": 1.7713025858360734
+  },
+  "config": {
+    "log_interval": 30,
+    "buffer_size": 100,
+    "total_steps": 299
+  }
+}

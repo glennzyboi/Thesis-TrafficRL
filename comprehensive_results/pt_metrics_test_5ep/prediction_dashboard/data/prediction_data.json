@@ -1,0 +1,62 @@
+[
+  {
+    "episode": 0,
+    "timestamp": "2025-10-16T16:05:56.484074",
+    "accuracy": 0.9423728813559322,
+    "precision": 1.0,
+    "recall": 0.9423728813559322,
+    "f1_score": 0.9703315881326353,
+    "true_positives": 278,
+    "false_positives": 0,
+    "true_negatives": 0,
+    "false_negatives": 17
+  },
+  {
+    "episode": 1,
+    "timestamp": "2025-10-16T16:09:35.609218",
+    "accuracy": 0.0,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1_score": 0.0,
+    "true_positives": 0,
+    "false_positives": 295,
+    "true_negatives": 0,
+    "false_negatives": 0
+  },
+  {
+    "episode": 2,
+    "timestamp": "2025-10-16T16:13:16.196759",
+    "accuracy": 0.9457627118644067,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1_score": 0.0,
+    "true_positives": 0,
+    "false_positives": 16,
+    "true_negatives": 279,
+    "false_negatives": 0
+  },
+  {
+    "episode": 3,
+    "timestamp": "2025-10-16T16:17:08.145191",
+    "accuracy": 1.0,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1_score": 0.0,
+    "true_positives": 0,
+    "false_positives": 0,
+    "true_negatives": 295,
+    "false_negatives": 0
+  },
+  {
+    "episode": 4,
+    "timestamp": "2025-10-16T16:21:00.398329",
+    "accuracy": 0.0,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1_score": 0.0,
+    "true_positives": 0,
+    "false_positives": 0,
+    "true_negatives": 0,
+    "false_negatives": 295
+  }
+]

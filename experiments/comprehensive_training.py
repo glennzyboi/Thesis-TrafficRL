@@ -219,15 +219,15 @@ class ComprehensiveTrainer:
                     batch_size=self.config['batch_size']        # Stable batch size
                 )
             else:
-                agent = D3QNAgent(
-                    state_size=len(initial_state),
-                    action_size=env.action_size,
-                    learning_rate=self.config['learning_rate'],
-                    epsilon_decay=self.config['epsilon_decay'],
-                    memory_size=self.config['memory_size'],      # Large memory for offline
-                    batch_size=self.config['batch_size'],        # Stable batch size
-                    sequence_length=self.config['sequence_length']
-                )
+            agent = D3QNAgent(
+                state_size=len(initial_state),
+                action_size=env.action_size,
+                learning_rate=self.config['learning_rate'],
+                epsilon_decay=self.config['epsilon_decay'],
+                memory_size=self.config['memory_size'],      # Large memory for offline
+                batch_size=self.config['batch_size'],        # Stable batch size
+                sequence_length=self.config['sequence_length']
+            )
             
             # Store transition point for online phase
             self.config['offline_episodes'] = offline_episodes
@@ -245,15 +245,15 @@ class ComprehensiveTrainer:
                     batch_size=32                                      # Smaller batches
                 )
             else:
-                agent = D3QNAgent(
-                    state_size=len(initial_state),
-                    action_size=env.action_size,
-                    learning_rate=self.config['learning_rate'] * 1.5,  # Higher for online
-                    epsilon_decay=0.9999,                              # Slower decay
-                    memory_size=10000,                                 # Smaller memory
-                    batch_size=32,                                     # Smaller batches
-                    sequence_length=self.config['sequence_length']
-                )
+            agent = D3QNAgent(
+                state_size=len(initial_state),
+                action_size=env.action_size,
+                learning_rate=self.config['learning_rate'] * 1.5,  # Higher for online
+                epsilon_decay=0.9999,                              # Slower decay
+                memory_size=10000,                                 # Smaller memory
+                batch_size=32,                                     # Smaller batches
+                sequence_length=self.config['sequence_length']
+            )
             print(f"ONLINE LEARNING MODE")
             
         else:
@@ -268,15 +268,15 @@ class ComprehensiveTrainer:
                     batch_size=self.config['batch_size']
                 )
             else:
-                agent = D3QNAgent(
-                    state_size=len(initial_state),
-                    action_size=env.action_size,
-                    learning_rate=self.config['learning_rate'],
-                    epsilon_decay=self.config['epsilon_decay'],
-                    memory_size=self.config['memory_size'],
-                    batch_size=self.config['batch_size'],
-                    sequence_length=self.config['sequence_length']
-                )
+            agent = D3QNAgent(
+                state_size=len(initial_state),
+                action_size=env.action_size,
+                learning_rate=self.config['learning_rate'],
+                epsilon_decay=self.config['epsilon_decay'],
+                memory_size=self.config['memory_size'],
+                batch_size=self.config['batch_size'],
+                sequence_length=self.config['sequence_length']
+            )
                 print(f"OFFLINE LEARNING MODE")
         
         agent.gamma = self.config['gamma']
@@ -300,7 +300,17 @@ class ComprehensiveTrainer:
         reward_stability_window = []  # Track reward stability
         max_stability_window = 5
         
-        for episode in range(self.config['episodes']):
+        # Resume from episode 150 if checkpoint exists
+        start_episode = 0
+        checkpoint_path = f"{self.output_dir}/models/checkpoint_ep150.keras"
+        if os.path.exists(checkpoint_path):
+            print(f"Found checkpoint at episode 150, resuming training...")
+            start_episode = 150
+            # Load the checkpoint
+            agent.load(checkpoint_path)
+            print(f"Loaded checkpoint from episode 150")
+        
+        for episode in range(start_episode, self.config['episodes']):
             # Check for hybrid training phase transition
             if (training_mode == 'hybrid' and 
                 episode == self.config.get('offline_episodes', 0)):
@@ -540,8 +550,8 @@ class ComprehensiveTrainer:
                         # FALLBACK: This should not happen - log warning
                         print(f"WARNING: train_both() not found for LSTM agent - using replay() fallback")
                         print(f"         Traffic prediction training will be DISABLED")
-                        loss = agent.replay()
-                else:  # Non-LSTM agent
+                loss = agent.replay()
+                if self.config.get('agent_type', 'lstm') == 'non_lstm':  # Non-LSTM agent
                     loss = agent.replay(agent.batch_size)
                 if loss is not None:
                     losses.append(loss)
@@ -594,8 +604,8 @@ class ComprehensiveTrainer:
         vehicles_served = info.get('vehicles', 0)
         completed_trips = info.get('completed_trips', 0) 
         passenger_throughput = info.get('passenger_throughput', 0)
-        avg_waiting = info.get('avg_waiting_time', 0)
-        avg_queue = info.get('avg_queue_length', 0)
+        avg_waiting = info.get('waiting_time', 0)  # FIXED: Use correct key
+        avg_queue = info.get('queue_length', 0)    # FIXED: Use correct key
         avg_speed = info.get('avg_speed', 0)
         
         # ML-style episode completion summary
@@ -649,7 +659,7 @@ class ComprehensiveTrainer:
         
         self.logger.complete_episode(scenario_info, final_metrics)
         
-        # Return episode summary
+        # Return episode summary WITH ALL METRICS for dashboard
         return {
             'episode': episode_num + 1,
             'scenario': scenario_info['bundle_name'],
@@ -661,7 +671,20 @@ class ComprehensiveTrainer:
             'vehicles': info.get('vehicles', 0),
             'completed_trips': info.get('completed_trips', 0),
             'passenger_throughput': info.get('passenger_throughput', 0),
-            'memory_size': len(agent.memory)
+            'memory_size': len(agent.memory),
+            # ADDED: Traffic metrics for dashboard
+            'avg_waiting_time': avg_waiting,
+            'avg_queue_length': avg_queue,
+            'avg_speed': avg_speed,
+            # ADDED: PT metrics for dashboard
+            'jeepneys_processed': info.get('jeepneys_processed', 0),
+            'buses_processed': info.get('buses_processed', 0),
+            'trucks_processed': info.get('metrics', {}).get('trucks', 0),
+            'motorcycles_processed': info.get('metrics', {}).get('motorcycles', 0),
+            'cars_processed': info.get('metrics', {}).get('cars', 0),
+            'pt_passenger_throughput': info.get('pt_passenger_throughput', 0),
+            # ADDED: Per-intersection metrics for dashboard
+            'intersection_metrics': info.get('intersection_metrics', {})
         }
     
     def _run_validation(self, agent, val_bundles, episode_num):

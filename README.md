@@ -2,51 +2,73 @@
 
 A comprehensive implementation of enhanced Dueling Double Deep Q-Network (D3QN) with LSTM for **public transport priority** traffic signal control using SUMO. This system provides an academically rigorous framework for reinforcement learning-based traffic optimization with specific focus on maximizing passenger throughput through bus and jeepney priority.
 
-## 📁 Current Project Structure
+## 📁 Project Structure
 
 ```
 D3QN/
 ├── algorithms/                    # Core RL algorithms and baselines
-│   ├── __init__.py               # Package initialization
 │   ├── d3qn_agent.py            # Main D3QN+LSTM agent implementation
+│   ├── d3qn_agent_no_lstm.py    # D3QN agent without LSTM (alternative)
 │   └── fixed_time_baseline.py   # Fixed-time baseline controller
+│
 ├── core/                         # Core environment and simulation
-│   ├── __init__.py              # Package initialization
 │   └── traffic_env.py           # SUMO traffic environment wrapper
+│
+├── config/                       # Configuration files
+│   └── training_config.py       # Training hyperparameters and settings
+│
 ├── evaluation/                   # Performance analysis and validation
-│   ├── __init__.py              # Package initialization
-│   ├── performance_comparison.py # Enhanced statistical comparison framework
-│   ├── results_analysis.py      # Comprehensive result analysis
-│   ├── hyperparameter_validation.py # Hyperparameter optimization
-│   └── reward_function_validation.py # Reward function validation
-├── experiments/                  # Training scripts and configurations
-│   ├── __init__.py              # Package initialization
-│   ├── comprehensive_training.py # Main hybrid training orchestrator
-│   └── train_d3qn.py            # Basic training implementation
+│   ├── performance_comparison.py # Statistical comparison framework
+│   └── results_analysis.py      # Comprehensive result analysis
+│
+├── experiments/                  # Training scripts
+│   └── comprehensive_training.py # Main training orchestrator
+│
 ├── utils/                        # Utilities and supporting functions
-│   ├── __init__.py              # Package initialization
-│   └── production_logger.py     # Production-grade logging system
-├── scripts/                      # Data processing and route generation
-│   ├── compile_bundles.py       # Process Excel → CSV bundles
-│   ├── generate_scenario_routes.py # Generate SUMO routes from data
-│   └── consolidate_bundle_routes.py # Merge routes for training
+│   ├── production_logger.py     # Production-grade logging system
+│   ├── traffic_prediction_dashboard.py  # LSTM prediction dashboard
+│   └── [other utility modules]
+│
+├── scripts/                      # Supporting scripts
+│   ├── visualization/           # Figure generation for thesis
+│   ├── data_processing/         # Data preprocessing scripts
+│   └── utilities/               # Miscellaneous utility scripts
+│
 ├── data/                         # Training data and scenarios
-│   ├── raw/                     # Original Excel data files (108 files)
+│   ├── raw/                     # Original Excel data files
 │   ├── processed/               # Processed CSV scenarios
-│   └── routes/                  # Generated SUMO route files (24 scenarios)
-├── docs/                         # Comprehensive documentation
-│   ├── comprehensive_methodology.md    # Complete methodology
-│   ├── DEFENSE_PREPARATION_COMPLETE.md # Academic defense prep
-│   ├── TECHNICAL_IMPLEMENTATION_GUIDE.md # Technical details
-│   └── [other documentation files]
+│   └── routes/                  # Generated SUMO route files
+│
 ├── network/                      # SUMO network definition
 │   └── ThesisNetowrk.net.xml    # Main intersection network
-├── comprehensive_results/        # Training results and analysis
-├── models/                       # Trained model checkpoints
-├── production_logs/             # Production logging outputs
-├── requirements.txt             # Python dependencies (enhanced)
-└── __init__.py                  # Package root initialization
+│
+├── comparison_results/           # Validation and comparison results
+│   ├── validation_dashboard_complete.json
+│   └── lstm_validation_metrics.json
+│
+├── comprehensive_results/        # Training experiment results
+│   └── [experiment_name]/        # Individual experiment folders
+│
+├── Chapter 4/                    # Thesis Chapter 4 materials
+│   ├── figures/                 # Generated figures and graphs
+│   └── Chapter_4_*.md           # Chapter documentation
+│
+├── docs/                         # Comprehensive documentation
+│   ├── COMPREHENSIVE_METHODOLOGY.md
+│   ├── TRAINING_JOURNEY_ANTI_CHEATING_ANALYSIS.md
+│   └── PROJECT_STRUCTURE.md     # Detailed structure documentation
+│
+├── archive/                      # Archived files (not actively used)
+│   ├── analysis_documents/      # Old analysis documents
+│   ├── old_scripts/             # Deprecated scripts
+│   └── old_outputs/             # Old output files
+│
+├── resume_training.py            # Resume interrupted training sessions
+├── requirements.txt              # Python dependencies
+└── README.md                     # This file
 ```
+
+For a detailed description of the project structure, see [`docs/PROJECT_STRUCTURE.md`](docs/PROJECT_STRUCTURE.md).
 
 ## 🚀 Enhanced Key Features
 
@@ -107,14 +129,20 @@ export SUMO_HOME="/path/to/sumo"
 
 ### Basic Training
 ```bash
-# Run comprehensive training with hybrid mode (default)
-python experiments/comprehensive_training.py --experiment_name test_run --episodes 5
+# Quick test run (5 episodes)
+python experiments/comprehensive_training.py --experiment_name test_run --episodes 5 --agent_type lstm
 
-# Run full training with hybrid mode
-python experiments/comprehensive_training.py --experiment_name my_experiment --episodes 500
+# Full training (350 episodes, recommended for thesis)
+python experiments/comprehensive_training.py --experiment_name final_thesis_training_350ep --episodes 350 --agent_type lstm
 
-# Run statistical comparison (requires 20+ episodes for validity)
-python evaluation/performance_comparison.py --num_episodes 25
+# Resume interrupted training
+python resume_training.py
+```
+
+### Evaluation and Validation
+```bash
+# Run statistical comparison on validation set (66 episodes)
+python evaluation/performance_comparison.py --experiment_name final_thesis_training_350ep --num_episodes 66
 ```
 
 ### Training Modes
@@ -162,9 +190,10 @@ This implementation follows best practices from traffic signal control literatur
 
 Complete documentation is available in the `docs/` folder:
 
-- `comprehensive_methodology.md`: Detailed methodology documentation
-- `DEFENSE_PREPARATION_COMPLETE.md`: Academic defense preparation
-- `TECHNICAL_IMPLEMENTATION_GUIDE.md`: Technical implementation details
+- **Methodology**: `COMPREHENSIVE_METHODOLOGY.md` - Complete methodology documentation
+- **Training Journey**: `TRAINING_JOURNEY_ANTI_CHEATING_ANALYSIS.md` - Detailed analysis of training evolution
+- **Project Structure**: `PROJECT_STRUCTURE.md` - Detailed codebase organization
+- Additional documentation files for technical details and defense preparation
 
 ## 🔧 Current Stable Configuration
 
@@ -272,5 +301,3 @@ reward_weights = {
 This project is developed for academic research purposes. Please cite appropriately if used in academic work.
 
 ## 🤝 Contributing
-
-This is a research implementation. For questions or collaboration opportunities, please refer to the documentation or contact the development team.

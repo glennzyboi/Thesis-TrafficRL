@@ -1,0 +1,24 @@
+{
+  "experiment_id": "sanity_aggressive_reward",
+  "session_id": "18e7da45-c8e9-4be0-b80d-73d22d8b4e49",
+  "timestamp": "2025-10-10T09:41:08.528225",
+  "total_episodes": 5,
+  "performance_metrics": {
+    "avg_reward": -1.2708567346709134,
+    "best_reward": -1.1435952031289163,
+    "reward_improvement": 0.0,
+    "avg_passenger_throughput": 8201.454545454548,
+    "avg_vehicles_served": 501.2,
+    "avg_pt_throughput": 0.0
+  },
+  "learning_metrics": {
+    "convergence_episode": -1,
+    "stability_score": 0.0,
+    "exploration_rate": 1.7332955189628456
+  },
+  "config": {
+    "log_interval": 30,
+    "buffer_size": 100,
+    "total_steps": 1495
+  }
+}

@@ -11,14 +11,14 @@ TRAINING_CONFIG = {
     # ========================================================================
     # CORE TRAINING PARAMETERS (OPTIMIZED BASED ON TEST RUN ANALYSIS)
     # ========================================================================
-    "episodes": 50,                     # CRITICAL FIX: Reduced episodes for focused training
-    "learning_rate": 0.0003,           # STABILIZATION: Reduced from 0.0005 (-40%) for stable convergence
+    "episodes": 350,                    # Final training: 350 episodes (converged at 300)
+    "learning_rate": 0.0005,           # As used in final training (Chapter 4, Section 4.2.6)
     "epsilon": 1.0,                    # Initial exploration rate
-    "epsilon_decay": 0.9995,           # OPTIMIZED: Balanced exploration for learning
+    "epsilon_decay": 0.9995,           # As used in final training (Chapter 4, Section 4.2.6)
     "epsilon_min": 0.01,               # Minimum exploration rate
-    "memory_size": 75000,              # Increased experience diversity
-    "batch_size": 128,                 # Larger batches for stability
-    "gamma": 0.95,                     # OPTIMIZED: Balanced discount factor for immediate and long-term rewards
+    "memory_size": 75000,              # As used in final training (Chapter 4, Section 4.2.6)
+    "batch_size": 64,                  # As used in final training (Chapter 4, Section 4.2.6)
+    "gamma": 0.95,                     # As used in final training (Chapter 4, Section 4.2.6)
     
     # ========================================================================
     # NETWORK ARCHITECTURE
@@ -61,6 +61,7 @@ TRAINING_CONFIG = {
     "warmup_time": 30,                 # Simulation warmup period
     "step_length": 1.0,                # Simulation step size (seconds)
     "num_seconds": 300,                # Episode duration (5 minutes)
+    "episode_duration": 300,           # Episode duration (alias for num_seconds)
     
     # ========================================================================
     # FAIR CYCLING CONSTRAINTS

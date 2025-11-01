@@ -1,0 +1,24 @@
+{
+  "experiment_id": "final_defense_training_350ep",
+  "session_id": "f50c8c75-b836-4b28-8b2b-847e7382822d",
+  "timestamp": "2025-10-11T08:54:21.690305",
+  "total_episodes": 50,
+  "performance_metrics": {
+    "avg_reward": -1.118983652608858,
+    "best_reward": -0.8083044284833429,
+    "reward_improvement": 4.742337903199193,
+    "avg_passenger_throughput": 7970.072727272728,
+    "avg_vehicles_served": 487.06,
+    "avg_pt_throughput": 0.0
+  },
+  "learning_metrics": {
+    "convergence_episode": -1,
+    "stability_score": 0.8874593171706626,
+    "exploration_rate": 0.8994029960954593
+  },
+  "config": {
+    "log_interval": 30,
+    "buffer_size": 100,
+    "total_steps": 14950
+  }
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "episode": 0,
+    "timestamp": "2025-10-16T18:24:05.709707",
+    "accuracy": 0.9050847457627119,
+    "precision": 1.0,
+    "recall": 0.9050847457627119,
+    "f1_score": 0.9501779359430604,
+    "true_positives": 267,
+    "false_positives": 0,
+    "true_negatives": 0,
+    "false_negatives": 28
+  },
+  {
+    "episode": 1,
+    "timestamp": "2025-10-16T18:28:57.217490",
+    "accuracy": 0.013559322033898305,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1_score": 0.0,
+    "true_positives": 0,
+    "false_positives": 291,
+    "true_negatives": 4,
+    "false_negatives": 0
+  }
+]

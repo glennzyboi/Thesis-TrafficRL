@@ -22,28 +22,62 @@ env/
 .DS_Store
 Thumbs.db
 
-# Logs
+# Logs (keep structured logs, exclude large text logs)
 *.log
+logs/*.log
+production_logs/*.log
+comprehensive_results/*/logs/*.log
+# Exclude large JSONL log files from production_logs
+production_logs/*.jsonl
 
 # Temporary files
 *.tmp
 *.temp
 
-# Model files (too large for git)
-models/*.keras
-models/*.h5
-models/*.pkl
+# Large model files (too large for git - exclude from results)
+*.keras
+*.h5
+*.pkl
+*.ckpt
+comprehensive_results/*/models/*.keras
+comprehensive_results/*/models/*.h5
+comprehensive_results/*/models/*.pkl
 
-# Large output files
-logs/*.png
-logs/*.json
-out/scenarios/*/cycle_*/
-comprehensive_results/
-production_logs/
-comparison_results/
-plots/
-archive/
+# Exclude large archive folders (already archived)
+archive/comprehensive_results/
+archive/production_logs/
 
 # Excel temporary files
 ~$*.xlsx
 ~$*.xls
+
+# Keep important results:
+# - comparison_results/ (validation data - JSON files)
+# - comprehensive_results/*/comparison/ (comparison results)
+# - comprehensive_results/*/prediction_dashboard/ (LSTM validation)
+# - comprehensive_results/*/plots/ (training plots)
+# - Chapter 4/figures/ (thesis figures)
+
+# Large binary/plot files in specific locations (optional - can be included if needed)
+# Uncomment if repository size is a concern:
+# comprehensive_results/*/plots/*.png
+# comprehensive_results/*/plots/*.pdf
+
+# Model files (too large for git)
+*.keras
+*.h5
+*.pkl
+
+# Large binary files in results
+comprehensive_results/*/models/*.keras
+comprehensive_results/*/models/*.h5
+comprehensive_results/*/logs/*.log
+
+# Keep these important results:
+# comparison_results/ (validation data)
+# comprehensive_results/*/comparison/ (comparison results)
+# comprehensive_results/*/prediction_dashboard/ (LSTM validation)
+
+# Exclude only very large directories
+archive/comprehensive_results/
+archive/production_logs/

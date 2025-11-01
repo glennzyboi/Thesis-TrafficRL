@@ -1,0 +1,62 @@
+[
+  {
+    "episode": 0,
+    "timestamp": "2025-10-22T13:51:05.865188",
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1_score": 1.0,
+    "true_positives": 295,
+    "false_positives": 0,
+    "true_negatives": 0,
+    "false_negatives": 0
+  },
+  {
+    "episode": 1,
+    "timestamp": "2025-10-22T13:55:47.053726",
+    "accuracy": 0.0,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1_score": 0.0,
+    "true_positives": 0,
+    "false_positives": 295,
+    "true_negatives": 0,
+    "false_negatives": 0
+  },
+  {
+    "episode": 2,
+    "timestamp": "2025-10-22T14:00:31.555827",
+    "accuracy": 0.8372881355932204,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1_score": 0.0,
+    "true_positives": 0,
+    "false_positives": 48,
+    "true_negatives": 247,
+    "false_negatives": 0
+  },
+  {
+    "episode": 3,
+    "timestamp": "2025-10-22T14:05:17.946913",
+    "accuracy": 1.0,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1_score": 0.0,
+    "true_positives": 0,
+    "false_positives": 0,
+    "true_negatives": 295,
+    "false_negatives": 0
+  },
+  {
+    "episode": 4,
+    "timestamp": "2025-10-22T14:10:05.289609",
+    "accuracy": 0.0,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1_score": 0.0,
+    "true_positives": 0,
+    "false_positives": 0,
+    "true_negatives": 0,
+    "false_negatives": 295
+  }
+]

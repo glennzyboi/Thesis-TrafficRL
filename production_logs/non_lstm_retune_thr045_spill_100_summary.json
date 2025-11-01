@@ -1,0 +1,24 @@
+{
+  "experiment_id": "non_lstm_retune_thr045_spill_100",
+  "session_id": "b1800625-04e3-4f49-96c1-48bd8542db20",
+  "timestamp": "2025-10-07T08:18:56.101495",
+  "total_episodes": 50,
+  "performance_metrics": {
+    "avg_reward": -0.9303782049833045,
+    "best_reward": -0.6212603151350506,
+    "reward_improvement": -1.5258276223250624,
+    "avg_passenger_throughput": 7996.254545454546,
+    "avg_vehicles_served": 488.66,
+    "avg_pt_throughput": 0.0
+  },
+  "learning_metrics": {
+    "convergence_episode": -1,
+    "stability_score": 0.8502797499586094,
+    "exploration_rate": 0.7115283746794381
+  },
+  "config": {
+    "log_interval": 30,
+    "buffer_size": 100,
+    "total_steps": 14950
+  }
+}

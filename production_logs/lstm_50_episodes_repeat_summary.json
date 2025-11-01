@@ -1,0 +1,24 @@
+{
+  "experiment_id": "lstm_50_episodes_repeat",
+  "session_id": "f5d1eca0-4c85-417f-ba2c-592361ccdc51",
+  "timestamp": "2025-10-06T07:11:46.395578",
+  "total_episodes": 50,
+  "performance_metrics": {
+    "avg_reward": -0.26849072465130036,
+    "best_reward": 0.3073813664623329,
+    "reward_improvement": 55.191948384638046,
+    "avg_passenger_throughput": 8003.454545454546,
+    "avg_vehicles_served": 489.1,
+    "avg_pt_throughput": 0.0
+  },
+  "learning_metrics": {
+    "convergence_episode": -1,
+    "stability_score": 0.15582776185971436,
+    "exploration_rate": 0.9616197565703678
+  },
+  "config": {
+    "log_interval": 30,
+    "buffer_size": 100,
+    "total_steps": 14950
+  }
+}

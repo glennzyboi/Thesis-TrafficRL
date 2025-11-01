@@ -1,0 +1,75 @@
+{
+  "experiment_name": "pipeline_test",
+  "config": {
+    "experiment_name": "pipeline_test",
+    "learning_rate": 0.00025,
+    "epsilon_decay": 0.9995,
+    "memory_size": 50000,
+    "batch_size": 96,
+    "gamma": 0.98,
+    "sequence_length": 10,
+    "episodes": 1,
+    "target_update_freq": 10,
+    "save_freq": 25,
+    "validation_freq": 15,
+    "episode_duration": 300,
+    "warmup_time": 30,
+    "min_phase_time": 12,
+    "max_phase_time": 120,
+    "random_seed": 42,
+    "validation_episodes": 10,
+    "agent_type": "lstm",
+    "offline_episodes": 0,
+    "online_episodes": 1
+  },
+  "training_time_minutes": 3.5409417192141217,
+  "best_reward": -376.22672609690426,
+  "convergence_episode": -1,
+  "training_results": [
+    {
+      "episode": 1,
+      "scenario": "Day 20250812, Cycle 1",
+      "reward": -376.22672609690426,
+      "steps": 300,
+      "time_minutes": 3.5292726000150045,
+      "avg_loss": 0.16834336141976763,
+      "epsilon": 0.9538920962096049,
+      "vehicles": 350,
+      "completed_trips": 497,
+      "passenger_throughput": 8132.727272727273,
+      "memory_size": 300
+    }
+  ],
+  "validation_results": [],
+  "final_evaluation": {
+    "test_scenarios": 7,
+    "comparison_results": null,
+    "evaluation_timestamp": "2025-10-17T06:37:28.703653"
+  },
+  "logger_summary": {
+    "experiment_id": "pipeline_test",
+    "session_id": "454ad867-18b5-4c1e-9a50-bfc33967c0e4",
+    "timestamp": "2025-10-17T06:37:28.704651",
+    "total_episodes": 1,
+    "performance_metrics": {
+      "avg_reward": -1.2540890869896815,
+      "best_reward": -1.2540890869896815,
+      "reward_improvement": 0.0,
+      "avg_passenger_throughput": 8132.727272727273,
+      "avg_vehicles_served": 497.0,
+      "avg_pt_throughput": 2952.0
+    },
+    "learning_metrics": {
+      "convergence_episode": -1,
+      "stability_score": 0.0,
+      "exploration_rate": 1.7713025858360734
+    },
+    "config": {
+      "log_interval": 30,
+      "buffer_size": 100,
+      "total_steps": 299
+    }
+  },
+  "defense_ready": true,
+  "timestamp": "2025-10-17T06:37:28.705649"
+}

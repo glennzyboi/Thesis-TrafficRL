@@ -1,0 +1,360 @@
+{
+  "experiment_name": "logging_test_5ep",
+  "config": {
+    "learning_rate": 0.0005,
+    "epsilon_decay": 0.9995,
+    "memory_size": 50000,
+    "batch_size": 64,
+    "gamma": 0.98,
+    "sequence_length": 10,
+    "episodes": 5,
+    "target_update_freq": 10,
+    "save_freq": 5,
+    "validation_freq": 100,
+    "episode_duration": 300,
+    "warmup_time": 30,
+    "min_phase_time": 12,
+    "max_phase_time": 120,
+    "random_seed": 42,
+    "validation_episodes": 10,
+    "offline_episodes": 3,
+    "online_episodes": 2
+  },
+  "training_time_minutes": 23.064074178536732,
+  "best_reward": -341.03881982101126,
+  "convergence_episode": -1,
+  "training_results": [
+    {
+      "episode": 1,
+      "scenario": "Day 20250812, Cycle 1",
+      "reward": -410.3413363778577,
+      "steps": 300,
+      "time_minutes": 4.061990276972453,
+      "avg_loss": 0.3392379547832376,
+      "epsilon": 0.7897340627103864,
+      "vehicles": 350,
+      "completed_trips": 493,
+      "passenger_throughput": 6991.636363636349,
+      "memory_size": 300,
+      "avg_waiting_time": 5.062857142857143,
+      "avg_queue_length": 89,
+      "avg_speed": 11.537859206613627,
+      "jeepneys_processed": 99,
+      "buses_processed": 33,
+      "trucks_processed": 0,
+      "motorcycles_processed": 0,
+      "cars_processed": 0,
+      "pt_passenger_throughput": 2904.0,
+      "intersection_metrics": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 12,
+          "total_queue": 11,
+          "avg_waiting": 18.58823529411765,
+          "vehicle_types": {
+            "car": 10,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 1,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 99,
+          "total_queue": 73,
+          "avg_waiting": 74.42105263157895,
+          "vehicle_types": {
+            "car": 56,
+            "bus": 0,
+            "jeepney": 7,
+            "motorcycle": 36,
+            "truck": 0
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 26,
+          "total_queue": 5,
+          "avg_waiting": 2.8,
+          "vehicle_types": {
+            "car": 16,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 10,
+            "truck": 0
+          }
+        }
+      }
+    },
+    {
+      "episode": 2,
+      "scenario": "Day 20250717, Cycle 1",
+      "reward": -398.22512186127324,
+      "steps": 300,
+      "time_minutes": 4.674587500095368,
+      "avg_loss": 0.4427269700169563,
+      "epsilon": 0.5850054914599224,
+      "vehicles": 359,
+      "completed_trips": 493,
+      "passenger_throughput": 6991.636363636349,
+      "memory_size": 600,
+      "avg_waiting_time": 5.222841225626741,
+      "avg_queue_length": 88,
+      "avg_speed": 14.639180180641223,
+      "jeepneys_processed": 88,
+      "buses_processed": 33,
+      "trucks_processed": 0,
+      "motorcycles_processed": 0,
+      "cars_processed": 0,
+      "pt_passenger_throughput": 2728.0,
+      "intersection_metrics": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 13,
+          "total_queue": 13,
+          "avg_waiting": 24.352941176470587,
+          "vehicle_types": {
+            "car": 9,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 3,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 109,
+          "total_queue": 68,
+          "avg_waiting": 74.21052631578948,
+          "vehicle_types": {
+            "car": 58,
+            "bus": 0,
+            "jeepney": 6,
+            "motorcycle": 39,
+            "truck": 6
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 50,
+          "total_queue": 7,
+          "avg_waiting": 3.4,
+          "vehicle_types": {
+            "car": 28,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 21,
+            "truck": 0
+          }
+        }
+      }
+    },
+    {
+      "episode": 3,
+      "scenario": "Day 20250703, Cycle 2",
+      "reward": -396.84803198038423,
+      "steps": 300,
+      "time_minutes": 4.72966423034668,
+      "avg_loss": 0.6468918656309446,
+      "epsilon": 0.43335021394888135,
+      "vehicles": 372,
+      "completed_trips": 506,
+      "passenger_throughput": 7175.999999999979,
+      "memory_size": 900,
+      "avg_waiting_time": 5.06989247311828,
+      "avg_queue_length": 99,
+      "avg_speed": 11.891122406154837,
+      "jeepneys_processed": 118,
+      "buses_processed": 34,
+      "trucks_processed": 0,
+      "motorcycles_processed": 0,
+      "cars_processed": 0,
+      "pt_passenger_throughput": 3248.0,
+      "intersection_metrics": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 20,
+          "total_queue": 19,
+          "avg_waiting": 28.58823529411765,
+          "vehicle_types": {
+            "car": 7,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 12,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 98,
+          "total_queue": 76,
+          "avg_waiting": 71.94736842105263,
+          "vehicle_types": {
+            "car": 49,
+            "bus": 0,
+            "jeepney": 22,
+            "motorcycle": 25,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 45,
+          "total_queue": 4,
+          "avg_waiting": 2.2,
+          "vehicle_types": {
+            "car": 26,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 18,
+            "truck": 0
+          }
+        }
+      }
+    },
+    {
+      "episode": 4,
+      "scenario": "Day 20250717, Cycle 2",
+      "reward": -341.03881982101126,
+      "steps": 300,
+      "time_minutes": 4.761188260714213,
+      "avg_loss": 0.980977445046107,
+      "epsilon": 0.3843425482537209,
+      "vehicles": 349,
+      "completed_trips": 519,
+      "passenger_throughput": 7360.363636363609,
+      "memory_size": 1200,
+      "avg_waiting_time": 3.0458452722063036,
+      "avg_queue_length": 62,
+      "avg_speed": 13.37386868694139,
+      "jeepneys_processed": 99,
+      "buses_processed": 34,
+      "trucks_processed": 0,
+      "motorcycles_processed": 0,
+      "cars_processed": 0,
+      "pt_passenger_throughput": 2944.0,
+      "intersection_metrics": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 15,
+          "total_queue": 13,
+          "avg_waiting": 19.0,
+          "vehicle_types": {
+            "car": 10,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 4,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 79,
+          "total_queue": 43,
+          "avg_waiting": 36.21052631578947,
+          "vehicle_types": {
+            "car": 40,
+            "bus": 4,
+            "jeepney": 8,
+            "motorcycle": 22,
+            "truck": 5
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 52,
+          "total_queue": 6,
+          "avg_waiting": 3.466666666666667,
+          "vehicle_types": {
+            "car": 21,
+            "bus": 0,
+            "jeepney": 4,
+            "motorcycle": 27,
+            "truck": 0
+          }
+        }
+      }
+    },
+    {
+      "episode": 5,
+      "scenario": "Day 20250819, Cycle 3",
+      "reward": -411.1334259355526,
+      "steps": 300,
+      "time_minutes": 4.77707401116689,
+      "avg_loss": 1.1086350013812383,
+      "epsilon": 0.3408771696501083,
+      "vehicles": 338,
+      "completed_trips": 450,
+      "passenger_throughput": 6381.818181818188,
+      "memory_size": 1500,
+      "avg_waiting_time": 4.662721893491124,
+      "avg_queue_length": 80,
+      "avg_speed": 12.9932032762298,
+      "jeepneys_processed": 106,
+      "buses_processed": 33,
+      "trucks_processed": 0,
+      "motorcycles_processed": 0,
+      "cars_processed": 0,
+      "pt_passenger_throughput": 3016.0,
+      "intersection_metrics": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 12,
+          "total_queue": 10,
+          "avg_waiting": 17.647058823529413,
+          "vehicle_types": {
+            "car": 6,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 6,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 90,
+          "total_queue": 64,
+          "avg_waiting": 63.94736842105263,
+          "vehicle_types": {
+            "car": 44,
+            "bus": 0,
+            "jeepney": 8,
+            "motorcycle": 34,
+            "truck": 4
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 50,
+          "total_queue": 6,
+          "avg_waiting": 4.066666666666666,
+          "vehicle_types": {
+            "car": 28,
+            "bus": 0,
+            "jeepney": 5,
+            "motorcycle": 17,
+            "truck": 0
+          }
+        }
+      }
+    }
+  ],
+  "validation_results": [],
+  "final_evaluation": {
+    "test_scenarios": 7,
+    "comparison_results": null,
+    "evaluation_timestamp": "2025-10-22T14:16:08.178204"
+  },
+  "logger_summary": {
+    "experiment_id": "logging_test_5ep",
+    "session_id": "5eabc033-d420-42c8-9c55-5b535856b986",
+    "timestamp": "2025-10-22T14:16:08.181158",
+    "total_episodes": 5,
+    "performance_metrics": {
+      "avg_reward": -1.3050578239840527,
+      "best_reward": -1.136796066070038,
+      "reward_improvement": 0.0,
+      "avg_passenger_throughput": 6980.290909090896,
+      "avg_vehicles_served": 492.2,
+      "avg_pt_throughput": 2968.0
+    },
+    "learning_metrics": {
+      "convergence_episode": -1,
+      "stability_score": 0.0,
+      "exploration_rate": 1.569458520515751
+    },
+    "config": {
+      "log_interval": 30,
+      "buffer_size": 100,
+      "total_steps": 1495
+    }
+  },
+  "defense_ready": true,
+  "timestamp": "2025-10-22T14:16:08.182152"
+}

@@ -1,0 +1,110 @@
+[
+  {
+    "episode": 1,
+    "scenario": "20250717_cycle_2",
+    "fixed_time": {
+      "passenger_throughput": 675.0,
+      "avg_waiting_time": 9.698922033794732,
+      "avg_queue_length": 88.4888888888889,
+      "total_vehicles": 450,
+      "vehicle_types": {
+        "cars": 52,
+        "motorcycles": 51,
+        "trucks": 5,
+        "tricycles": 0,
+        "jeepneys": 12,
+        "buses": 11
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 20,
+          "total_queue": 20,
+          "avg_waiting": 21.6,
+          "vehicle_types": {
+            "car": 10,
+            "bus": 2,
+            "jeepney": 2,
+            "motorcycle": 4,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 73,
+          "total_queue": 48,
+          "avg_waiting": 12.136986301369863,
+          "vehicle_types": {
+            "car": 26,
+            "bus": 4,
+            "jeepney": 5,
+            "motorcycle": 34,
+            "truck": 4
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 44,
+          "total_queue": 0,
+          "avg_waiting": 0.0,
+          "vehicle_types": {
+            "car": 16,
+            "bus": 5,
+            "jeepney": 5,
+            "motorcycle": 13,
+            "truck": 5
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 646.0999999999984,
+      "avg_waiting_time": 5.922155884392908,
+      "avg_queue_length": 79.00333333333333,
+      "total_vehicles": 497,
+      "vehicle_types": {
+        "cars": 57,
+        "motorcycles": 36,
+        "trucks": 5,
+        "tricycles": 0,
+        "jeepneys": 12,
+        "buses": 6
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 19.19,
+          "total_queue": 14.866666666666667,
+          "avg_waiting": 21.993725490196105,
+          "vehicle_types": {
+            "car": 10.11,
+            "bus": 1.0566666666666666,
+            "jeepney": 2.3633333333333333,
+            "motorcycle": 4.86,
+            "truck": 0.8
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 66.49666666666667,
+          "total_queue": 45.43,
+          "avg_waiting": 57.81350877192985,
+          "vehicle_types": {
+            "car": 32.67666666666667,
+            "bus": 4.11,
+            "jeepney": 6.17,
+            "motorcycle": 18.98,
+            "truck": 4.56
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 38.166666666666664,
+          "total_queue": 18.706666666666667,
+          "avg_waiting": 16.362222222222226,
+          "vehicle_types": {
+            "car": 15.916666666666666,
+            "bus": 1.7,
+            "jeepney": 4.22,
+            "motorcycle": 14.416666666666666,
+            "truck": 1.9133333333333333
+          }
+        }
+      }
+    }
+  }
+]

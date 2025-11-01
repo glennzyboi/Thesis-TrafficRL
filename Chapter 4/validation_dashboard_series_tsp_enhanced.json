@@ -1,0 +1,7130 @@
+[
+  {
+    "episode": 1,
+    "scenario": "20250815_cycle_1",
+    "fixed_time": {
+      "passenger_throughput": 6476.691374999995,
+      "avg_waiting_time": 12.357714490301916,
+      "avg_queue_length": 106.41111111111111,
+      "total_vehicles": 432,
+      "vehicle_types": {
+        "cars": 80,
+        "motorcycles": 57,
+        "trucks": 7,
+        "tricycles": 0,
+        "jeepneys": 13,
+        "buses": 3
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 11,
+          "total_queue": 11,
+          "avg_waiting": 23.545454545454547,
+          "vehicle_types": {
+            "car": 6,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 3,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 104,
+          "total_queue": 87,
+          "avg_waiting": 30.759615384615383,
+          "vehicle_types": {
+            "car": 55,
+            "bus": 2,
+            "jeepney": 5,
+            "motorcycle": 41,
+            "truck": 1
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 45,
+          "total_queue": 2,
+          "avg_waiting": 0.13333333333333333,
+          "vehicle_types": {
+            "car": 19,
+            "bus": 1,
+            "jeepney": 6,
+            "motorcycle": 13,
+            "truck": 6
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 515.4,
+      "avg_waiting_time": 7.324444775569673,
+      "avg_queue_length": 95.73333333333333,
+      "total_vehicles": 157,
+      "vehicle_types": {
+        "cars": 75,
+        "buses": 3,
+        "jeepneys": 16,
+        "motorcycles": 56,
+        "trucks": 7,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 14,
+          "total_queue": 11,
+          "avg_waiting": 22.470588235294116,
+          "vehicle_types": {
+            "car": 6,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 7,
+            "truck": 1
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 84,
+          "total_queue": 64,
+          "avg_waiting": 72.89473684210526,
+          "vehicle_types": {
+            "car": 45,
+            "bus": 0,
+            "jeepney": 7,
+            "motorcycle": 30,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 44,
+          "total_queue": 5,
+          "avg_waiting": 3.2,
+          "vehicle_types": {
+            "car": 24,
+            "bus": 0,
+            "jeepney": 5,
+            "motorcycle": 15,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 2,
+    "scenario": "20250819_cycle_3",
+    "fixed_time": {
+      "passenger_throughput": 6214.761000000004,
+      "avg_waiting_time": 11.156539998609883,
+      "avg_queue_length": 89.52222222222223,
+      "total_vehicles": 412,
+      "vehicle_types": {
+        "cars": 73,
+        "motorcycles": 39,
+        "trucks": 14,
+        "tricycles": 0,
+        "jeepneys": 8,
+        "buses": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 16,
+          "total_queue": 14,
+          "avg_waiting": 31.625,
+          "vehicle_types": {
+            "car": 9,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 3,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 71,
+          "total_queue": 47,
+          "avg_waiting": 17.901408450704224,
+          "vehicle_types": {
+            "car": 40,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 28,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 47,
+          "total_queue": 10,
+          "avg_waiting": 1.2765957446808511,
+          "vehicle_types": {
+            "car": 24,
+            "bus": 0,
+            "jeepney": 5,
+            "motorcycle": 8,
+            "truck": 10
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 301.3,
+      "avg_waiting_time": 5.764480445091095,
+      "avg_queue_length": 70.44333333333333,
+      "total_vehicles": 129,
+      "vehicle_types": {
+        "cars": 67,
+        "buses": 0,
+        "jeepneys": 10,
+        "motorcycles": 38,
+        "trucks": 14,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 13,
+          "total_queue": 13,
+          "avg_waiting": 20.058823529411764,
+          "vehicle_types": {
+            "car": 10,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 1,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 62,
+          "total_queue": 30,
+          "avg_waiting": 22.263157894736842,
+          "vehicle_types": {
+            "car": 24,
+            "bus": 0,
+            "jeepney": 10,
+            "motorcycle": 26,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 30,
+          "total_queue": 4,
+          "avg_waiting": 2.6,
+          "vehicle_types": {
+            "car": 11,
+            "bus": 0,
+            "jeepney": 13,
+            "motorcycle": 6,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 3,
+    "scenario": "20250701_cycle_1",
+    "fixed_time": {
+      "passenger_throughput": 6767.546624999995,
+      "avg_waiting_time": 11.278592215012852,
+      "avg_queue_length": 102.68888888888888,
+      "total_vehicles": 441,
+      "vehicle_types": {
+        "cars": 88,
+        "motorcycles": 53,
+        "trucks": 4,
+        "tricycles": 0,
+        "jeepneys": 13,
+        "buses": 5
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 20,
+          "total_queue": 20,
+          "avg_waiting": 21.85,
+          "vehicle_types": {
+            "car": 13,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 4,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 107,
+          "total_queue": 88,
+          "avg_waiting": 29.55140186915888,
+          "vehicle_types": {
+            "car": 57,
+            "bus": 0,
+            "jeepney": 6,
+            "motorcycle": 42,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 36,
+          "total_queue": 5,
+          "avg_waiting": 1.6666666666666667,
+          "vehicle_types": {
+            "car": 18,
+            "bus": 5,
+            "jeepney": 6,
+            "motorcycle": 7,
+            "truck": 0
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 634.7,
+      "avg_waiting_time": 7.349827154284833,
+      "avg_queue_length": 97.42333333333333,
+      "total_vehicles": 162,
+      "vehicle_types": {
+        "cars": 82,
+        "buses": 6,
+        "jeepneys": 17,
+        "motorcycles": 54,
+        "trucks": 3,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 14,
+          "total_queue": 13,
+          "avg_waiting": 25.0,
+          "vehicle_types": {
+            "car": 7,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 5,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 103,
+          "total_queue": 68,
+          "avg_waiting": 75.36842105263158,
+          "vehicle_types": {
+            "car": 64,
+            "bus": 2,
+            "jeepney": 14,
+            "motorcycle": 23,
+            "truck": 0
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 47,
+          "total_queue": 4,
+          "avg_waiting": 1.2,
+          "vehicle_types": {
+            "car": 29,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 16,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 4,
+    "scenario": "20250811_cycle_1",
+    "fixed_time": {
+      "passenger_throughput": 6399.461250000003,
+      "avg_waiting_time": 10.492149368935108,
+      "avg_queue_length": 95.14814814814815,
+      "total_vehicles": 438,
+      "vehicle_types": {
+        "cars": 55,
+        "motorcycles": 45,
+        "trucks": 10,
+        "tricycles": 0,
+        "jeepneys": 20,
+        "buses": 15
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 13,
+          "total_queue": 13,
+          "avg_waiting": 14.846153846153847,
+          "vehicle_types": {
+            "car": 6,
+            "bus": 0,
+            "jeepney": 5,
+            "motorcycle": 2,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 84,
+          "total_queue": 70,
+          "avg_waiting": 21.761904761904763,
+          "vehicle_types": {
+            "car": 34,
+            "bus": 5,
+            "jeepney": 8,
+            "motorcycle": 33,
+            "truck": 4
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 48,
+          "total_queue": 13,
+          "avg_waiting": 3.7083333333333335,
+          "vehicle_types": {
+            "car": 15,
+            "bus": 10,
+            "jeepney": 7,
+            "motorcycle": 10,
+            "truck": 6
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 1143.8999999999999,
+      "avg_waiting_time": 8.397227024387224,
+      "avg_queue_length": 99.67,
+      "total_vehicles": 148,
+      "vehicle_types": {
+        "cars": 51,
+        "buses": 19,
+        "jeepneys": 24,
+        "motorcycles": 44,
+        "trucks": 10,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 13,
+          "total_queue": 13,
+          "avg_waiting": 22.941176470588236,
+          "vehicle_types": {
+            "car": 9,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 4,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 78,
+          "total_queue": 57,
+          "avg_waiting": 73.84210526315789,
+          "vehicle_types": {
+            "car": 42,
+            "bus": 2,
+            "jeepney": 7,
+            "motorcycle": 23,
+            "truck": 4
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 49,
+          "total_queue": 4,
+          "avg_waiting": 1.6,
+          "vehicle_types": {
+            "car": 25,
+            "bus": 0,
+            "jeepney": 7,
+            "motorcycle": 17,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 5,
+    "scenario": "20250703_cycle_3",
+    "fixed_time": {
+      "passenger_throughput": 6512.02650000001,
+      "avg_waiting_time": 10.437876389898038,
+      "avg_queue_length": 95.5962962962963,
+      "total_vehicles": 443,
+      "vehicle_types": {
+        "cars": 70,
+        "motorcycles": 49,
+        "trucks": 9,
+        "tricycles": 0,
+        "jeepneys": 13,
+        "buses": 5
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 26,
+          "total_queue": 26,
+          "avg_waiting": 21.076923076923077,
+          "vehicle_types": {
+            "car": 14,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 10,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 79,
+          "total_queue": 66,
+          "avg_waiting": 26.151898734177216,
+          "vehicle_types": {
+            "car": 38,
+            "bus": 0,
+            "jeepney": 6,
+            "motorcycle": 31,
+            "truck": 4
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 41,
+          "total_queue": 0,
+          "avg_waiting": 0.0,
+          "vehicle_types": {
+            "car": 18,
+            "bus": 5,
+            "jeepney": 5,
+            "motorcycle": 8,
+            "truck": 5
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 613.0,
+      "avg_waiting_time": 7.665609674064787,
+      "avg_queue_length": 88.34,
+      "total_vehicles": 145,
+      "vehicle_types": {
+        "cars": 66,
+        "buses": 6,
+        "jeepneys": 17,
+        "motorcycles": 48,
+        "trucks": 8,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 8,
+          "total_queue": 6,
+          "avg_waiting": 46.705882352941174,
+          "vehicle_types": {
+            "car": 4,
+            "bus": 3,
+            "jeepney": 1,
+            "motorcycle": 0,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 68,
+          "total_queue": 52,
+          "avg_waiting": 57.94736842105263,
+          "vehicle_types": {
+            "car": 34,
+            "bus": 0,
+            "jeepney": 5,
+            "motorcycle": 27,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 43,
+          "total_queue": 7,
+          "avg_waiting": 2.2,
+          "vehicle_types": {
+            "car": 20,
+            "bus": 0,
+            "jeepney": 8,
+            "motorcycle": 15,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 6,
+    "scenario": "20250821_cycle_1",
+    "fixed_time": {
+      "passenger_throughput": 6028.194374999998,
+      "avg_waiting_time": 10.45462874914092,
+      "avg_queue_length": 81.97777777777777,
+      "total_vehicles": 440,
+      "vehicle_types": {
+        "cars": 70,
+        "motorcycles": 34,
+        "trucks": 13,
+        "tricycles": 0,
+        "jeepneys": 5,
+        "buses": 10
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 19,
+          "total_queue": 17,
+          "avg_waiting": 17.842105263157894,
+          "vehicle_types": {
+            "car": 10,
+            "bus": 2,
+            "jeepney": 0,
+            "motorcycle": 7,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 63,
+          "total_queue": 49,
+          "avg_waiting": 16.746031746031747,
+          "vehicle_types": {
+            "car": 39,
+            "bus": 3,
+            "jeepney": 0,
+            "motorcycle": 14,
+            "truck": 7
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 50,
+          "total_queue": 11,
+          "avg_waiting": 0.88,
+          "vehicle_types": {
+            "car": 21,
+            "bus": 5,
+            "jeepney": 5,
+            "motorcycle": 13,
+            "truck": 6
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 687.5,
+      "avg_waiting_time": 6.311448600917462,
+      "avg_queue_length": 78.60666666666667,
+      "total_vehicles": 129,
+      "vehicle_types": {
+        "cars": 66,
+        "buses": 13,
+        "jeepneys": 6,
+        "motorcycles": 33,
+        "trucks": 11,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 15,
+          "total_queue": 15,
+          "avg_waiting": 25.41176470588235,
+          "vehicle_types": {
+            "car": 9,
+            "bus": 2,
+            "jeepney": 1,
+            "motorcycle": 3,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 44,
+          "total_queue": 26,
+          "avg_waiting": 29.789473684210527,
+          "vehicle_types": {
+            "car": 31,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 11,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 50,
+          "total_queue": 8,
+          "avg_waiting": 3.6,
+          "vehicle_types": {
+            "car": 27,
+            "bus": 0,
+            "jeepney": 3,
+            "motorcycle": 20,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 7,
+    "scenario": "20250709_cycle_2",
+    "fixed_time": {
+      "passenger_throughput": 6201.470624999997,
+      "avg_waiting_time": 9.407700162007108,
+      "avg_queue_length": 86.18518518518519,
+      "total_vehicles": 413,
+      "vehicle_types": {
+        "cars": 82,
+        "motorcycles": 38,
+        "trucks": 8,
+        "tricycles": 0,
+        "jeepneys": 17,
+        "buses": 5
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 18,
+          "total_queue": 16,
+          "avg_waiting": 19.88888888888889,
+          "vehicle_types": {
+            "car": 14,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 2,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 76,
+          "total_queue": 61,
+          "avg_waiting": 19.894736842105264,
+          "vehicle_types": {
+            "car": 42,
+            "bus": 0,
+            "jeepney": 8,
+            "motorcycle": 24,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 56,
+          "total_queue": 15,
+          "avg_waiting": 3.5714285714285716,
+          "vehicle_types": {
+            "car": 26,
+            "bus": 5,
+            "jeepney": 7,
+            "motorcycle": 12,
+            "truck": 6
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 621.6,
+      "avg_waiting_time": 6.846944484918902,
+      "avg_queue_length": 77.17,
+      "total_vehicles": 149,
+      "vehicle_types": {
+        "cars": 78,
+        "buses": 5,
+        "jeepneys": 20,
+        "motorcycles": 38,
+        "trucks": 8,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 12,
+          "total_queue": 10,
+          "avg_waiting": 19.294117647058822,
+          "vehicle_types": {
+            "car": 10,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 2,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 68,
+          "total_queue": 38,
+          "avg_waiting": 45.526315789473685,
+          "vehicle_types": {
+            "car": 35,
+            "bus": 0,
+            "jeepney": 9,
+            "motorcycle": 22,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 46,
+          "total_queue": 2,
+          "avg_waiting": 1.7333333333333334,
+          "vehicle_types": {
+            "car": 27,
+            "bus": 0,
+            "jeepney": 6,
+            "motorcycle": 13,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 8,
+    "scenario": "20250708_cycle_1",
+    "fixed_time": {
+      "passenger_throughput": 5979.287999999996,
+      "avg_waiting_time": 10.55242509528853,
+      "avg_queue_length": 91.02592592592593,
+      "total_vehicles": 413,
+      "vehicle_types": {
+        "cars": 62,
+        "motorcycles": 55,
+        "trucks": 9,
+        "tricycles": 0,
+        "jeepneys": 9,
+        "buses": 8
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 17,
+          "total_queue": 17,
+          "avg_waiting": 28.11764705882353,
+          "vehicle_types": {
+            "car": 5,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 11,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 75,
+          "total_queue": 58,
+          "avg_waiting": 21.92,
+          "vehicle_types": {
+            "car": 32,
+            "bus": 3,
+            "jeepney": 2,
+            "motorcycle": 34,
+            "truck": 4
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 51,
+          "total_queue": 12,
+          "avg_waiting": 1.6274509803921569,
+          "vehicle_types": {
+            "car": 25,
+            "bus": 5,
+            "jeepney": 6,
+            "motorcycle": 10,
+            "truck": 5
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 663.1,
+      "avg_waiting_time": 7.0818587162180435,
+      "avg_queue_length": 82.72,
+      "total_vehicles": 138,
+      "vehicle_types": {
+        "cars": 55,
+        "buses": 10,
+        "jeepneys": 11,
+        "motorcycles": 54,
+        "trucks": 8,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 16,
+          "total_queue": 14,
+          "avg_waiting": 26.352941176470587,
+          "vehicle_types": {
+            "car": 10,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 3,
+            "truck": 1
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 51,
+          "total_queue": 31,
+          "avg_waiting": 30.68421052631579,
+          "vehicle_types": {
+            "car": 29,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 20,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 49,
+          "total_queue": 7,
+          "avg_waiting": 5.466666666666667,
+          "vehicle_types": {
+            "car": 29,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 19,
+            "truck": 1
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 9,
+    "scenario": "20250821_cycle_3",
+    "fixed_time": {
+      "passenger_throughput": 5997.770624999996,
+      "avg_waiting_time": 9.816362000484695,
+      "avg_queue_length": 88.04444444444445,
+      "total_vehicles": 425,
+      "vehicle_types": {
+        "cars": 71,
+        "motorcycles": 41,
+        "trucks": 7,
+        "tricycles": 0,
+        "jeepneys": 15,
+        "buses": 10
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 22,
+          "total_queue": 20,
+          "avg_waiting": 19.045454545454547,
+          "vehicle_types": {
+            "car": 9,
+            "bus": 0,
+            "jeepney": 3,
+            "motorcycle": 10,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 79,
+          "total_queue": 59,
+          "avg_waiting": 22.126582278481013,
+          "vehicle_types": {
+            "car": 40,
+            "bus": 5,
+            "jeepney": 7,
+            "motorcycle": 25,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 43,
+          "total_queue": 8,
+          "avg_waiting": 0.9302325581395349,
+          "vehicle_types": {
+            "car": 22,
+            "bus": 5,
+            "jeepney": 5,
+            "motorcycle": 6,
+            "truck": 5
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 785.1,
+      "avg_waiting_time": 7.235444632851116,
+      "avg_queue_length": 92.9,
+      "total_vehicles": 139,
+      "vehicle_types": {
+        "cars": 65,
+        "buses": 11,
+        "jeepneys": 18,
+        "motorcycles": 39,
+        "trucks": 6,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 14,
+          "total_queue": 14,
+          "avg_waiting": 21.41176470588235,
+          "vehicle_types": {
+            "car": 6,
+            "bus": 2,
+            "jeepney": 0,
+            "motorcycle": 6,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 79,
+          "total_queue": 58,
+          "avg_waiting": 65.57894736842105,
+          "vehicle_types": {
+            "car": 39,
+            "bus": 1,
+            "jeepney": 10,
+            "motorcycle": 29,
+            "truck": 0
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 48,
+          "total_queue": 4,
+          "avg_waiting": 1.9333333333333333,
+          "vehicle_types": {
+            "car": 18,
+            "bus": 0,
+            "jeepney": 6,
+            "motorcycle": 19,
+            "truck": 5
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 10,
+    "scenario": "20250717_cycle_1",
+    "fixed_time": {
+      "passenger_throughput": 6157.249875000001,
+      "avg_waiting_time": 10.436715526312755,
+      "avg_queue_length": 88.51851851851852,
+      "total_vehicles": 433,
+      "vehicle_types": {
+        "cars": 65,
+        "motorcycles": 48,
+        "trucks": 9,
+        "tricycles": 0,
+        "jeepneys": 8,
+        "buses": 3
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 18,
+          "total_queue": 17,
+          "avg_waiting": 19.22222222222222,
+          "vehicle_types": {
+            "car": 12,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 6,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 73,
+          "total_queue": 63,
+          "avg_waiting": 21.0,
+          "vehicle_types": {
+            "car": 35,
+            "bus": 2,
+            "jeepney": 3,
+            "motorcycle": 29,
+            "truck": 4
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 42,
+          "total_queue": 6,
+          "avg_waiting": 0.6904761904761905,
+          "vehicle_types": {
+            "car": 18,
+            "bus": 1,
+            "jeepney": 5,
+            "motorcycle": 13,
+            "truck": 5
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 402.1,
+      "avg_waiting_time": 5.644859033896161,
+      "avg_queue_length": 71.97,
+      "total_vehicles": 129,
+      "vehicle_types": {
+        "cars": 61,
+        "buses": 3,
+        "jeepneys": 10,
+        "motorcycles": 47,
+        "trucks": 8,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 16,
+          "total_queue": 12,
+          "avg_waiting": 24.058823529411764,
+          "vehicle_types": {
+            "car": 6,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 8,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 73,
+          "total_queue": 24,
+          "avg_waiting": 18.473684210526315,
+          "vehicle_types": {
+            "car": 45,
+            "bus": 3,
+            "jeepney": 5,
+            "motorcycle": 14,
+            "truck": 6
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 43,
+          "total_queue": 6,
+          "avg_waiting": 1.8666666666666667,
+          "vehicle_types": {
+            "car": 14,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 28,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 11,
+    "scenario": "20250804_cycle_1",
+    "fixed_time": {
+      "passenger_throughput": 5904.38625,
+      "avg_waiting_time": 15.8474985064508,
+      "avg_queue_length": 93.08148148148148,
+      "total_vehicles": 368,
+      "vehicle_types": {
+        "cars": 72,
+        "motorcycles": 48,
+        "trucks": 10,
+        "tricycles": 0,
+        "jeepneys": 4,
+        "buses": 6
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 22,
+          "total_queue": 20,
+          "avg_waiting": 39.18181818181818,
+          "vehicle_types": {
+            "car": 8,
+            "bus": 1,
+            "jeepney": 2,
+            "motorcycle": 10,
+            "truck": 1
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 80,
+          "total_queue": 55,
+          "avg_waiting": 23.8875,
+          "vehicle_types": {
+            "car": 50,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 25,
+            "truck": 3
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 38,
+          "total_queue": 6,
+          "avg_waiting": 1.236842105263158,
+          "vehicle_types": {
+            "car": 14,
+            "bus": 5,
+            "jeepney": 0,
+            "motorcycle": 13,
+            "truck": 6
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 468.79999999999995,
+      "avg_waiting_time": 7.114116944811071,
+      "avg_queue_length": 88.34,
+      "total_vehicles": 135,
+      "vehicle_types": {
+        "cars": 68,
+        "buses": 7,
+        "jeepneys": 4,
+        "motorcycles": 46,
+        "trucks": 10,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 15,
+          "total_queue": 15,
+          "avg_waiting": 23.11764705882353,
+          "vehicle_types": {
+            "car": 10,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 3,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 97,
+          "total_queue": 67,
+          "avg_waiting": 58.36842105263158,
+          "vehicle_types": {
+            "car": 65,
+            "bus": 0,
+            "jeepney": 4,
+            "motorcycle": 28,
+            "truck": 0
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 34,
+          "total_queue": 4,
+          "avg_waiting": 1.5333333333333334,
+          "vehicle_types": {
+            "car": 15,
+            "bus": 0,
+            "jeepney": 5,
+            "motorcycle": 9,
+            "truck": 5
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 12,
+    "scenario": "20250707_cycle_1",
+    "fixed_time": {
+      "passenger_throughput": 6451.373250000004,
+      "avg_waiting_time": 9.614488373423182,
+      "avg_queue_length": 98.67037037037036,
+      "total_vehicles": 430,
+      "vehicle_types": {
+        "cars": 94,
+        "motorcycles": 36,
+        "trucks": 7,
+        "tricycles": 0,
+        "jeepneys": 8,
+        "buses": 10
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 20,
+          "total_queue": 19,
+          "avg_waiting": 12.85,
+          "vehicle_types": {
+            "car": 12,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 6,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 95,
+          "total_queue": 78,
+          "avg_waiting": 28.842105263157894,
+          "vehicle_types": {
+            "car": 60,
+            "bus": 0,
+            "jeepney": 5,
+            "motorcycle": 23,
+            "truck": 7
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 40,
+          "total_queue": 9,
+          "avg_waiting": 0.85,
+          "vehicle_types": {
+            "car": 22,
+            "bus": 10,
+            "jeepney": 1,
+            "motorcycle": 7,
+            "truck": 0
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 698.9,
+      "avg_waiting_time": 7.959635115068627,
+      "avg_queue_length": 97.27333333333333,
+      "total_vehicles": 151,
+      "vehicle_types": {
+        "cars": 88,
+        "buses": 11,
+        "jeepneys": 10,
+        "motorcycles": 35,
+        "trucks": 7,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 12,
+          "total_queue": 11,
+          "avg_waiting": 24.764705882352942,
+          "vehicle_types": {
+            "car": 5,
+            "bus": 2,
+            "jeepney": 1,
+            "motorcycle": 2,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 92,
+          "total_queue": 72,
+          "avg_waiting": 75.63157894736842,
+          "vehicle_types": {
+            "car": 49,
+            "bus": 0,
+            "jeepney": 10,
+            "motorcycle": 33,
+            "truck": 0
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 41,
+          "total_queue": 3,
+          "avg_waiting": 2.0,
+          "vehicle_types": {
+            "car": 22,
+            "bus": 0,
+            "jeepney": 6,
+            "motorcycle": 8,
+            "truck": 5
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 13,
+    "scenario": "20250807_cycle_3",
+    "fixed_time": {
+      "passenger_throughput": 6393.184875000009,
+      "avg_waiting_time": 11.361805430342839,
+      "avg_queue_length": 97.71481481481482,
+      "total_vehicles": 414,
+      "vehicle_types": {
+        "cars": 89,
+        "motorcycles": 31,
+        "trucks": 16,
+        "tricycles": 0,
+        "jeepneys": 10,
+        "buses": 1
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 14,
+          "total_queue": 12,
+          "avg_waiting": 17.285714285714285,
+          "vehicle_types": {
+            "car": 10,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 2,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 90,
+          "total_queue": 72,
+          "avg_waiting": 28.011111111111113,
+          "vehicle_types": {
+            "car": 54,
+            "bus": 0,
+            "jeepney": 5,
+            "motorcycle": 23,
+            "truck": 8
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 43,
+          "total_queue": 13,
+          "avg_waiting": 1.1162790697674418,
+          "vehicle_types": {
+            "car": 25,
+            "bus": 1,
+            "jeepney": 5,
+            "motorcycle": 6,
+            "truck": 6
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 388.2,
+      "avg_waiting_time": 6.927370606801721,
+      "avg_queue_length": 85.07666666666667,
+      "total_vehicles": 141,
+      "vehicle_types": {
+        "cars": 81,
+        "buses": 1,
+        "jeepneys": 13,
+        "motorcycles": 31,
+        "trucks": 15,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 14,
+          "total_queue": 10,
+          "avg_waiting": 23.0,
+          "vehicle_types": {
+            "car": 7,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 2,
+            "truck": 4
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 94,
+          "total_queue": 62,
+          "avg_waiting": 72.89473684210526,
+          "vehicle_types": {
+            "car": 67,
+            "bus": 2,
+            "jeepney": 8,
+            "motorcycle": 17,
+            "truck": 0
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 40,
+          "total_queue": 2,
+          "avg_waiting": 0.8,
+          "vehicle_types": {
+            "car": 25,
+            "bus": 0,
+            "jeepney": 5,
+            "motorcycle": 10,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 14,
+    "scenario": "20250708_cycle_2",
+    "fixed_time": {
+      "passenger_throughput": 5942.923875,
+      "avg_waiting_time": 10.46381653605384,
+      "avg_queue_length": 82.1,
+      "total_vehicles": 389,
+      "vehicle_types": {
+        "cars": 58,
+        "motorcycles": 18,
+        "trucks": 12,
+        "tricycles": 0,
+        "jeepneys": 5,
+        "buses": 5
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 15,
+          "total_queue": 14,
+          "avg_waiting": 25.866666666666667,
+          "vehicle_types": {
+            "car": 13,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 2,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 48,
+          "total_queue": 45,
+          "avg_waiting": 23.25,
+          "vehicle_types": {
+            "car": 27,
+            "bus": 5,
+            "jeepney": 0,
+            "motorcycle": 10,
+            "truck": 6
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 35,
+          "total_queue": 0,
+          "avg_waiting": 0.0,
+          "vehicle_types": {
+            "car": 18,
+            "bus": 0,
+            "jeepney": 5,
+            "motorcycle": 6,
+            "truck": 6
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 373.5,
+      "avg_waiting_time": 6.506302650264118,
+      "avg_queue_length": 73.22,
+      "total_vehicles": 96,
+      "vehicle_types": {
+        "cars": 56,
+        "buses": 5,
+        "jeepneys": 6,
+        "motorcycles": 18,
+        "trucks": 11,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 13,
+          "total_queue": 12,
+          "avg_waiting": 23.647058823529413,
+          "vehicle_types": {
+            "car": 8,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 3,
+            "truck": 1
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 57,
+          "total_queue": 33,
+          "avg_waiting": 32.73684210526316,
+          "vehicle_types": {
+            "car": 31,
+            "bus": 2,
+            "jeepney": 1,
+            "motorcycle": 21,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 25,
+          "total_queue": 3,
+          "avg_waiting": 0.6,
+          "vehicle_types": {
+            "car": 15,
+            "bus": 0,
+            "jeepney": 4,
+            "motorcycle": 6,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 15,
+    "scenario": "20250804_cycle_2",
+    "fixed_time": {
+      "passenger_throughput": 6237.530250000001,
+      "avg_waiting_time": 11.538023935085862,
+      "avg_queue_length": 102.11481481481482,
+      "total_vehicles": 423,
+      "vehicle_types": {
+        "cars": 90,
+        "motorcycles": 38,
+        "trucks": 2,
+        "tricycles": 0,
+        "jeepneys": 11,
+        "buses": 1
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 12,
+          "total_queue": 12,
+          "avg_waiting": 30.833333333333332,
+          "vehicle_types": {
+            "car": 8,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 4,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 94,
+          "total_queue": 82,
+          "avg_waiting": 35.638297872340424,
+          "vehicle_types": {
+            "car": 63,
+            "bus": 1,
+            "jeepney": 6,
+            "motorcycle": 22,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 36,
+          "total_queue": 2,
+          "avg_waiting": 0.16666666666666666,
+          "vehicle_types": {
+            "car": 19,
+            "bus": 0,
+            "jeepney": 5,
+            "motorcycle": 12,
+            "truck": 0
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 399.0,
+      "avg_waiting_time": 6.692502692014653,
+      "avg_queue_length": 89.0,
+      "total_vehicles": 141,
+      "vehicle_types": {
+        "cars": 86,
+        "buses": 1,
+        "jeepneys": 14,
+        "motorcycles": 38,
+        "trucks": 2,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 16,
+          "total_queue": 16,
+          "avg_waiting": 32.11764705882353,
+          "vehicle_types": {
+            "car": 6,
+            "bus": 2,
+            "jeepney": 0,
+            "motorcycle": 8,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 96,
+          "total_queue": 59,
+          "avg_waiting": 65.3157894736842,
+          "vehicle_types": {
+            "car": 54,
+            "bus": 2,
+            "jeepney": 9,
+            "motorcycle": 29,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 43,
+          "total_queue": 4,
+          "avg_waiting": 2.533333333333333,
+          "vehicle_types": {
+            "car": 24,
+            "bus": 0,
+            "jeepney": 4,
+            "motorcycle": 15,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 16,
+    "scenario": "20250715_cycle_2",
+    "fixed_time": {
+      "passenger_throughput": 5970.452250000008,
+      "avg_waiting_time": 11.288961719904169,
+      "avg_queue_length": 89.37037037037037,
+      "total_vehicles": 400,
+      "vehicle_types": {
+        "cars": 66,
+        "motorcycles": 49,
+        "trucks": 7,
+        "tricycles": 0,
+        "jeepneys": 2,
+        "buses": 2
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 12,
+          "total_queue": 12,
+          "avg_waiting": 15.416666666666666,
+          "vehicle_types": {
+            "car": 10,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 2,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 69,
+          "total_queue": 48,
+          "avg_waiting": 22.0,
+          "vehicle_types": {
+            "car": 33,
+            "bus": 2,
+            "jeepney": 2,
+            "motorcycle": 32,
+            "truck": 0
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 45,
+          "total_queue": 10,
+          "avg_waiting": 1.8888888888888888,
+          "vehicle_types": {
+            "car": 23,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 15,
+            "truck": 7
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 254.8,
+      "avg_waiting_time": 5.759406225107723,
+      "avg_queue_length": 70.81,
+      "total_vehicles": 120,
+      "vehicle_types": {
+        "cars": 62,
+        "buses": 2,
+        "jeepneys": 2,
+        "motorcycles": 48,
+        "trucks": 6,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 18,
+          "total_queue": 18,
+          "avg_waiting": 27.41176470588235,
+          "vehicle_types": {
+            "car": 4,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 12,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 53,
+          "total_queue": 29,
+          "avg_waiting": 21.842105263157894,
+          "vehicle_types": {
+            "car": 34,
+            "bus": 0,
+            "jeepney": 4,
+            "motorcycle": 13,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 33,
+          "total_queue": 3,
+          "avg_waiting": 1.1333333333333333,
+          "vehicle_types": {
+            "car": 19,
+            "bus": 0,
+            "jeepney": 6,
+            "motorcycle": 8,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 17,
+    "scenario": "20250703_cycle_1",
+    "fixed_time": {
+      "passenger_throughput": 6536.785499999998,
+      "avg_waiting_time": 10.373288869563646,
+      "avg_queue_length": 98.8037037037037,
+      "total_vehicles": 443,
+      "vehicle_types": {
+        "cars": 93,
+        "motorcycles": 44,
+        "trucks": 2,
+        "tricycles": 0,
+        "jeepneys": 14,
+        "buses": 8
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 26,
+          "total_queue": 23,
+          "avg_waiting": 18.692307692307693,
+          "vehicle_types": {
+            "car": 15,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 9,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 91,
+          "total_queue": 76,
+          "avg_waiting": 29.76923076923077,
+          "vehicle_types": {
+            "car": 57,
+            "bus": 2,
+            "jeepney": 7,
+            "motorcycle": 23,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 44,
+          "total_queue": 0,
+          "avg_waiting": 0.0,
+          "vehicle_types": {
+            "car": 21,
+            "bus": 6,
+            "jeepney": 5,
+            "motorcycle": 12,
+            "truck": 0
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 779.5,
+      "avg_waiting_time": 7.347066802047205,
+      "avg_queue_length": 95.92,
+      "total_vehicles": 161,
+      "vehicle_types": {
+        "cars": 88,
+        "buses": 10,
+        "jeepneys": 18,
+        "motorcycles": 44,
+        "trucks": 1,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 17,
+          "total_queue": 13,
+          "avg_waiting": 22.11764705882353,
+          "vehicle_types": {
+            "car": 4,
+            "bus": 2,
+            "jeepney": 5,
+            "motorcycle": 6,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 107,
+          "total_queue": 72,
+          "avg_waiting": 66.94736842105263,
+          "vehicle_types": {
+            "car": 54,
+            "bus": 2,
+            "jeepney": 16,
+            "motorcycle": 33,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 44,
+          "total_queue": 0,
+          "avg_waiting": 0.0,
+          "vehicle_types": {
+            "car": 28,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 15,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 18,
+    "scenario": "20250709_cycle_3",
+    "fixed_time": {
+      "passenger_throughput": 6329.924999999996,
+      "avg_waiting_time": 10.853560137534508,
+      "avg_queue_length": 90.47407407407407,
+      "total_vehicles": 407,
+      "vehicle_types": {
+        "cars": 70,
+        "motorcycles": 36,
+        "trucks": 13,
+        "tricycles": 0,
+        "jeepneys": 7,
+        "buses": 7
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 16,
+          "total_queue": 14,
+          "avg_waiting": 23.875,
+          "vehicle_types": {
+            "car": 11,
+            "bus": 2,
+            "jeepney": 1,
+            "motorcycle": 2,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 73,
+          "total_queue": 53,
+          "avg_waiting": 24.136986301369863,
+          "vehicle_types": {
+            "car": 41,
+            "bus": 0,
+            "jeepney": 6,
+            "motorcycle": 24,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 44,
+          "total_queue": 8,
+          "avg_waiting": 1.0681818181818181,
+          "vehicle_types": {
+            "car": 18,
+            "bus": 5,
+            "jeepney": 0,
+            "motorcycle": 10,
+            "truck": 11
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 547.6,
+      "avg_waiting_time": 7.0133676421846305,
+      "avg_queue_length": 79.99333333333334,
+      "total_vehicles": 131,
+      "vehicle_types": {
+        "cars": 67,
+        "buses": 8,
+        "jeepneys": 8,
+        "motorcycles": 35,
+        "trucks": 13,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 12,
+          "total_queue": 9,
+          "avg_waiting": 19.88235294117647,
+          "vehicle_types": {
+            "car": 5,
+            "bus": 0,
+            "jeepney": 3,
+            "motorcycle": 2,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 50,
+          "total_queue": 35,
+          "avg_waiting": 40.73684210526316,
+          "vehicle_types": {
+            "car": 38,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 9,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 41,
+          "total_queue": 2,
+          "avg_waiting": 1.0,
+          "vehicle_types": {
+            "car": 19,
+            "bus": 0,
+            "jeepney": 6,
+            "motorcycle": 16,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 19,
+    "scenario": "20250807_cycle_2",
+    "fixed_time": {
+      "passenger_throughput": 6720.343874999995,
+      "avg_waiting_time": 11.102121446100439,
+      "avg_queue_length": 97.62222222222222,
+      "total_vehicles": 426,
+      "vehicle_types": {
+        "cars": 109,
+        "motorcycles": 42,
+        "trucks": 13,
+        "tricycles": 0,
+        "jeepneys": 19,
+        "buses": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 19,
+          "total_queue": 17,
+          "avg_waiting": 13.947368421052632,
+          "vehicle_types": {
+            "car": 12,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 5,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 113,
+          "total_queue": 95,
+          "avg_waiting": 23.63716814159292,
+          "vehicle_types": {
+            "car": 61,
+            "bus": 0,
+            "jeepney": 17,
+            "motorcycle": 28,
+            "truck": 7
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 51,
+          "total_queue": 12,
+          "avg_waiting": 0.5098039215686274,
+          "vehicle_types": {
+            "car": 36,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 9,
+            "truck": 6
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 570.8,
+      "avg_waiting_time": 7.347458216267743,
+      "avg_queue_length": 94.63333333333334,
+      "total_vehicles": 180,
+      "vehicle_types": {
+        "cars": 100,
+        "buses": 0,
+        "jeepneys": 26,
+        "motorcycles": 42,
+        "trucks": 12,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 10,
+          "total_queue": 8,
+          "avg_waiting": 20.470588235294116,
+          "vehicle_types": {
+            "car": 6,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 2,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 113,
+          "total_queue": 81,
+          "avg_waiting": 60.8421052631579,
+          "vehicle_types": {
+            "car": 55,
+            "bus": 2,
+            "jeepney": 20,
+            "motorcycle": 36,
+            "truck": 0
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 39,
+          "total_queue": 2,
+          "avg_waiting": 1.0666666666666667,
+          "vehicle_types": {
+            "car": 24,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 13,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 20,
+    "scenario": "20250704_cycle_3",
+    "fixed_time": {
+      "passenger_throughput": 6778.248750000002,
+      "avg_waiting_time": 11.237283884461961,
+      "avg_queue_length": 105.77777777777777,
+      "total_vehicles": 426,
+      "vehicle_types": {
+        "cars": 91,
+        "motorcycles": 47,
+        "trucks": 15,
+        "tricycles": 0,
+        "jeepneys": 28,
+        "buses": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 12,
+          "total_queue": 12,
+          "avg_waiting": 20.333333333333332,
+          "vehicle_types": {
+            "car": 8,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 2,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 130,
+          "total_queue": 106,
+          "avg_waiting": 30.753846153846155,
+          "vehicle_types": {
+            "car": 70,
+            "bus": 0,
+            "jeepney": 20,
+            "motorcycle": 38,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 39,
+          "total_queue": 6,
+          "avg_waiting": 0.5384615384615384,
+          "vehicle_types": {
+            "car": 13,
+            "bus": 0,
+            "jeepney": 8,
+            "motorcycle": 7,
+            "truck": 11
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 666.5,
+      "avg_waiting_time": 7.968688958974405,
+      "avg_queue_length": 104.69666666666667,
+      "total_vehicles": 175,
+      "vehicle_types": {
+        "cars": 83,
+        "buses": 0,
+        "jeepneys": 34,
+        "motorcycles": 44,
+        "trucks": 14,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 15,
+          "total_queue": 12,
+          "avg_waiting": 15.705882352941176,
+          "vehicle_types": {
+            "car": 5,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 8,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 147,
+          "total_queue": 113,
+          "avg_waiting": 94.84210526315789,
+          "vehicle_types": {
+            "car": 82,
+            "bus": 0,
+            "jeepney": 21,
+            "motorcycle": 41,
+            "truck": 3
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 36,
+          "total_queue": 5,
+          "avg_waiting": 3.2666666666666666,
+          "vehicle_types": {
+            "car": 17,
+            "bus": 0,
+            "jeepney": 6,
+            "motorcycle": 13,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 21,
+    "scenario": "20250704_cycle_1",
+    "fixed_time": {
+      "passenger_throughput": 6511.270499999998,
+      "avg_waiting_time": 10.09176759675298,
+      "avg_queue_length": 92.82592592592593,
+      "total_vehicles": 440,
+      "vehicle_types": {
+        "cars": 77,
+        "motorcycles": 35,
+        "trucks": 11,
+        "tricycles": 0,
+        "jeepneys": 10,
+        "buses": 7
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 17,
+          "total_queue": 17,
+          "avg_waiting": 25.823529411764707,
+          "vehicle_types": {
+            "car": 10,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 5,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 77,
+          "total_queue": 55,
+          "avg_waiting": 23.623376623376622,
+          "vehicle_types": {
+            "car": 47,
+            "bus": 1,
+            "jeepney": 5,
+            "motorcycle": 19,
+            "truck": 5
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 46,
+          "total_queue": 3,
+          "avg_waiting": 0.32608695652173914,
+          "vehicle_types": {
+            "car": 20,
+            "bus": 6,
+            "jeepney": 3,
+            "motorcycle": 11,
+            "truck": 6
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 653.1,
+      "avg_waiting_time": 7.008444130746005,
+      "avg_queue_length": 86.74,
+      "total_vehicles": 138,
+      "vehicle_types": {
+        "cars": 73,
+        "buses": 9,
+        "jeepneys": 13,
+        "motorcycles": 33,
+        "trucks": 10,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 13,
+          "total_queue": 11,
+          "avg_waiting": 19.294117647058822,
+          "vehicle_types": {
+            "car": 8,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 4,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 71,
+          "total_queue": 46,
+          "avg_waiting": 53.0,
+          "vehicle_types": {
+            "car": 43,
+            "bus": 0,
+            "jeepney": 6,
+            "motorcycle": 22,
+            "truck": 0
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 47,
+          "total_queue": 4,
+          "avg_waiting": 2.066666666666667,
+          "vehicle_types": {
+            "car": 27,
+            "bus": 0,
+            "jeepney": 7,
+            "motorcycle": 13,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 22,
+    "scenario": "20250716_cycle_2",
+    "fixed_time": {
+      "passenger_throughput": 6366.74325,
+      "avg_waiting_time": 9.829318014771431,
+      "avg_queue_length": 89.2,
+      "total_vehicles": 450,
+      "vehicle_types": {
+        "cars": 62,
+        "motorcycles": 35,
+        "trucks": 16,
+        "tricycles": 0,
+        "jeepneys": 17,
+        "buses": 9
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 21,
+          "total_queue": 21,
+          "avg_waiting": 14.619047619047619,
+          "vehicle_types": {
+            "car": 12,
+            "bus": 0,
+            "jeepney": 4,
+            "motorcycle": 5,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 72,
+          "total_queue": 54,
+          "avg_waiting": 18.51388888888889,
+          "vehicle_types": {
+            "car": 38,
+            "bus": 4,
+            "jeepney": 6,
+            "motorcycle": 19,
+            "truck": 5
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 46,
+          "total_queue": 12,
+          "avg_waiting": 2.891304347826087,
+          "vehicle_types": {
+            "car": 12,
+            "bus": 5,
+            "jeepney": 7,
+            "motorcycle": 11,
+            "truck": 11
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 736.5,
+      "avg_waiting_time": 5.892223594390846,
+      "avg_queue_length": 79.72333333333333,
+      "total_vehicles": 133,
+      "vehicle_types": {
+        "cars": 56,
+        "buses": 9,
+        "jeepneys": 20,
+        "motorcycles": 33,
+        "trucks": 15,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 17,
+          "total_queue": 17,
+          "avg_waiting": 21.41176470588235,
+          "vehicle_types": {
+            "car": 9,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 8,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 81,
+          "total_queue": 52,
+          "avg_waiting": 46.63157894736842,
+          "vehicle_types": {
+            "car": 40,
+            "bus": 3,
+            "jeepney": 6,
+            "motorcycle": 30,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 46,
+          "total_queue": 6,
+          "avg_waiting": 3.2666666666666666,
+          "vehicle_types": {
+            "car": 20,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 19,
+            "truck": 5
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 23,
+    "scenario": "20250703_cycle_2",
+    "fixed_time": {
+      "passenger_throughput": 6646.287374999996,
+      "avg_waiting_time": 10.144403515430788,
+      "avg_queue_length": 89.7,
+      "total_vehicles": 454,
+      "vehicle_types": {
+        "cars": 66,
+        "motorcycles": 56,
+        "trucks": 13,
+        "tricycles": 0,
+        "jeepneys": 22,
+        "buses": 9
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 23,
+          "total_queue": 23,
+          "avg_waiting": 13.608695652173912,
+          "vehicle_types": {
+            "car": 8,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 13,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 91,
+          "total_queue": 57,
+          "avg_waiting": 17.857142857142858,
+          "vehicle_types": {
+            "car": 43,
+            "bus": 4,
+            "jeepney": 13,
+            "motorcycle": 25,
+            "truck": 6
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 52,
+          "total_queue": 12,
+          "avg_waiting": 1.4807692307692308,
+          "vehicle_types": {
+            "car": 15,
+            "bus": 5,
+            "jeepney": 7,
+            "motorcycle": 18,
+            "truck": 7
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 853.3,
+      "avg_waiting_time": 6.547982548809414,
+      "avg_queue_length": 90.99333333333334,
+      "total_vehicles": 163,
+      "vehicle_types": {
+        "cars": 62,
+        "buses": 9,
+        "jeepneys": 26,
+        "motorcycles": 53,
+        "trucks": 13,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 13,
+          "total_queue": 11,
+          "avg_waiting": 23.470588235294116,
+          "vehicle_types": {
+            "car": 9,
+            "bus": 0,
+            "jeepney": 3,
+            "motorcycle": 1,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 99,
+          "total_queue": 70,
+          "avg_waiting": 57.26315789473684,
+          "vehicle_types": {
+            "car": 46,
+            "bus": 0,
+            "jeepney": 22,
+            "motorcycle": 29,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 50,
+          "total_queue": 6,
+          "avg_waiting": 1.4,
+          "vehicle_types": {
+            "car": 34,
+            "bus": 0,
+            "jeepney": 6,
+            "motorcycle": 10,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 24,
+    "scenario": "20250812_cycle_1",
+    "fixed_time": {
+      "passenger_throughput": 6581.657250000001,
+      "avg_waiting_time": 11.021892510741962,
+      "avg_queue_length": 99.5925925925926,
+      "total_vehicles": 444,
+      "vehicle_types": {
+        "cars": 86,
+        "motorcycles": 43,
+        "trucks": 15,
+        "tricycles": 0,
+        "jeepneys": 14,
+        "buses": 5
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 26,
+          "total_queue": 26,
+          "avg_waiting": 19.846153846153847,
+          "vehicle_types": {
+            "car": 10,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 14,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 97,
+          "total_queue": 74,
+          "avg_waiting": 26.896907216494846,
+          "vehicle_types": {
+            "car": 62,
+            "bus": 0,
+            "jeepney": 7,
+            "motorcycle": 23,
+            "truck": 5
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 40,
+          "total_queue": 11,
+          "avg_waiting": 2.025,
+          "vehicle_types": {
+            "car": 14,
+            "bus": 5,
+            "jeepney": 5,
+            "motorcycle": 6,
+            "truck": 10
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 605.3,
+      "avg_waiting_time": 7.454325679036798,
+      "avg_queue_length": 98.50666666666666,
+      "total_vehicles": 155,
+      "vehicle_types": {
+        "cars": 78,
+        "buses": 5,
+        "jeepneys": 18,
+        "motorcycles": 41,
+        "trucks": 13,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 13,
+          "total_queue": 10,
+          "avg_waiting": 20.823529411764707,
+          "vehicle_types": {
+            "car": 3,
+            "bus": 1,
+            "jeepney": 5,
+            "motorcycle": 2,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 94,
+          "total_queue": 68,
+          "avg_waiting": 59.473684210526315,
+          "vehicle_types": {
+            "car": 58,
+            "bus": 0,
+            "jeepney": 7,
+            "motorcycle": 29,
+            "truck": 0
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 48,
+          "total_queue": 2,
+          "avg_waiting": 1.1333333333333333,
+          "vehicle_types": {
+            "car": 18,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 25,
+            "truck": 5
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 25,
+    "scenario": "20250805_cycle_1",
+    "fixed_time": {
+      "passenger_throughput": 6052.701375000006,
+      "avg_waiting_time": 9.950693948435566,
+      "avg_queue_length": 99.73703703703704,
+      "total_vehicles": 441,
+      "vehicle_types": {
+        "cars": 104,
+        "motorcycles": 57,
+        "trucks": 1,
+        "tricycles": 0,
+        "jeepneys": 12,
+        "buses": 5
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 23,
+          "total_queue": 22,
+          "avg_waiting": 13.826086956521738,
+          "vehicle_types": {
+            "car": 16,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 7,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 100,
+          "total_queue": 84,
+          "avg_waiting": 29.02,
+          "vehicle_types": {
+            "car": 62,
+            "bus": 0,
+            "jeepney": 7,
+            "motorcycle": 31,
+            "truck": 0
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 56,
+          "total_queue": 10,
+          "avg_waiting": 0.6964285714285714,
+          "vehicle_types": {
+            "car": 26,
+            "bus": 5,
+            "jeepney": 5,
+            "motorcycle": 19,
+            "truck": 1
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 601.1999999999999,
+      "avg_waiting_time": 7.203618501491072,
+      "avg_queue_length": 96.45,
+      "total_vehicles": 172,
+      "vehicle_types": {
+        "cars": 93,
+        "buses": 5,
+        "jeepneys": 16,
+        "motorcycles": 57,
+        "trucks": 1,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 16,
+          "total_queue": 14,
+          "avg_waiting": 23.294117647058822,
+          "vehicle_types": {
+            "car": 8,
+            "bus": 0,
+            "jeepney": 3,
+            "motorcycle": 5,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 103,
+          "total_queue": 76,
+          "avg_waiting": 68.21052631578948,
+          "vehicle_types": {
+            "car": 57,
+            "bus": 0,
+            "jeepney": 10,
+            "motorcycle": 34,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 36,
+          "total_queue": 5,
+          "avg_waiting": 2.8,
+          "vehicle_types": {
+            "car": 22,
+            "bus": 0,
+            "jeepney": 8,
+            "motorcycle": 6,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 26,
+    "scenario": "20250710_cycle_2",
+    "fixed_time": {
+      "passenger_throughput": 6250.59225000001,
+      "avg_waiting_time": 10.028695606913704,
+      "avg_queue_length": 88.45185185185186,
+      "total_vehicles": 407,
+      "vehicle_types": {
+        "cars": 80,
+        "motorcycles": 42,
+        "trucks": 2,
+        "tricycles": 0,
+        "jeepneys": 8,
+        "buses": 2
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 14,
+          "total_queue": 14,
+          "avg_waiting": 29.428571428571427,
+          "vehicle_types": {
+            "car": 10,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 4,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 72,
+          "total_queue": 54,
+          "avg_waiting": 24.11111111111111,
+          "vehicle_types": {
+            "car": 42,
+            "bus": 2,
+            "jeepney": 3,
+            "motorcycle": 23,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 48,
+          "total_queue": 13,
+          "avg_waiting": 1.5,
+          "vehicle_types": {
+            "car": 28,
+            "bus": 0,
+            "jeepney": 5,
+            "motorcycle": 15,
+            "truck": 0
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 355.3,
+      "avg_waiting_time": 7.0493781924900745,
+      "avg_queue_length": 80.77,
+      "total_vehicles": 130,
+      "vehicle_types": {
+        "cars": 75,
+        "buses": 2,
+        "jeepneys": 9,
+        "motorcycles": 42,
+        "trucks": 2,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 12,
+          "total_queue": 11,
+          "avg_waiting": 21.941176470588236,
+          "vehicle_types": {
+            "car": 3,
+            "bus": 2,
+            "jeepney": 2,
+            "motorcycle": 3,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 54,
+          "total_queue": 40,
+          "avg_waiting": 38.526315789473685,
+          "vehicle_types": {
+            "car": 33,
+            "bus": 2,
+            "jeepney": 0,
+            "motorcycle": 19,
+            "truck": 0
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 41,
+          "total_queue": 6,
+          "avg_waiting": 3.7333333333333334,
+          "vehicle_types": {
+            "car": 26,
+            "bus": 0,
+            "jeepney": 3,
+            "motorcycle": 12,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 27,
+    "scenario": "20250815_cycle_3",
+    "fixed_time": {
+      "passenger_throughput": 6098.533875000005,
+      "avg_waiting_time": 10.495232643447268,
+      "avg_queue_length": 86.98518518518519,
+      "total_vehicles": 404,
+      "vehicle_types": {
+        "cars": 66,
+        "motorcycles": 31,
+        "trucks": 11,
+        "tricycles": 0,
+        "jeepneys": 7,
+        "buses": 11
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 15,
+          "total_queue": 13,
+          "avg_waiting": 15.733333333333333,
+          "vehicle_types": {
+            "car": 6,
+            "bus": 2,
+            "jeepney": 0,
+            "motorcycle": 5,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 68,
+          "total_queue": 54,
+          "avg_waiting": 19.852941176470587,
+          "vehicle_types": {
+            "car": 41,
+            "bus": 4,
+            "jeepney": 2,
+            "motorcycle": 17,
+            "truck": 4
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 43,
+          "total_queue": 11,
+          "avg_waiting": 1.930232558139535,
+          "vehicle_types": {
+            "car": 19,
+            "bus": 5,
+            "jeepney": 5,
+            "motorcycle": 9,
+            "truck": 5
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 749.6,
+      "avg_waiting_time": 6.850283413635061,
+      "avg_queue_length": 78.21,
+      "total_vehicles": 122,
+      "vehicle_types": {
+        "cars": 60,
+        "buses": 14,
+        "jeepneys": 9,
+        "motorcycles": 29,
+        "trucks": 10,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 12,
+          "total_queue": 11,
+          "avg_waiting": 22.235294117647058,
+          "vehicle_types": {
+            "car": 5,
+            "bus": 2,
+            "jeepney": 0,
+            "motorcycle": 3,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 49,
+          "total_queue": 26,
+          "avg_waiting": 28.526315789473685,
+          "vehicle_types": {
+            "car": 31,
+            "bus": 0,
+            "jeepney": 5,
+            "motorcycle": 11,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 43,
+          "total_queue": 4,
+          "avg_waiting": 2.8,
+          "vehicle_types": {
+            "car": 18,
+            "bus": 0,
+            "jeepney": 11,
+            "motorcycle": 14,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 28,
+    "scenario": "20250818_cycle_3",
+    "fixed_time": {
+      "passenger_throughput": 6261.86662500001,
+      "avg_waiting_time": 10.710522850212316,
+      "avg_queue_length": 96.5962962962963,
+      "total_vehicles": 403,
+      "vehicle_types": {
+        "cars": 80,
+        "motorcycles": 26,
+        "trucks": 20,
+        "tricycles": 0,
+        "jeepneys": 14,
+        "buses": 2
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 10,
+          "total_queue": 9,
+          "avg_waiting": 27.0,
+          "vehicle_types": {
+            "car": 5,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 3,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 81,
+          "total_queue": 72,
+          "avg_waiting": 30.77777777777778,
+          "vehicle_types": {
+            "car": 58,
+            "bus": 2,
+            "jeepney": 4,
+            "motorcycle": 11,
+            "truck": 6
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 51,
+          "total_queue": 12,
+          "avg_waiting": 1.7450980392156863,
+          "vehicle_types": {
+            "car": 17,
+            "bus": 0,
+            "jeepney": 10,
+            "motorcycle": 12,
+            "truck": 12
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 470.2,
+      "avg_waiting_time": 6.391349960376837,
+      "avg_queue_length": 81.03333333333333,
+      "total_vehicles": 139,
+      "vehicle_types": {
+        "cars": 76,
+        "buses": 2,
+        "jeepneys": 17,
+        "motorcycles": 26,
+        "trucks": 18,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 12,
+          "total_queue": 12,
+          "avg_waiting": 23.941176470588236,
+          "vehicle_types": {
+            "car": 10,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 2,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 76,
+          "total_queue": 38,
+          "avg_waiting": 44.05263157894737,
+          "vehicle_types": {
+            "car": 52,
+            "bus": 0,
+            "jeepney": 7,
+            "motorcycle": 17,
+            "truck": 0
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 46,
+          "total_queue": 2,
+          "avg_waiting": 0.8,
+          "vehicle_types": {
+            "car": 26,
+            "bus": 0,
+            "jeepney": 11,
+            "motorcycle": 9,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 29,
+    "scenario": "20250818_cycle_2",
+    "fixed_time": {
+      "passenger_throughput": 6331.363500000005,
+      "avg_waiting_time": 11.004757252014587,
+      "avg_queue_length": 87.72592592592592,
+      "total_vehicles": 415,
+      "vehicle_types": {
+        "cars": 77,
+        "motorcycles": 45,
+        "trucks": 8,
+        "tricycles": 0,
+        "jeepneys": 11,
+        "buses": 3
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 12,
+          "total_queue": 10,
+          "avg_waiting": 13.333333333333334,
+          "vehicle_types": {
+            "car": 10,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 2,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 77,
+          "total_queue": 58,
+          "avg_waiting": 17.441558441558442,
+          "vehicle_types": {
+            "car": 39,
+            "bus": 2,
+            "jeepney": 6,
+            "motorcycle": 28,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 55,
+          "total_queue": 20,
+          "avg_waiting": 2.5454545454545454,
+          "vehicle_types": {
+            "car": 28,
+            "bus": 1,
+            "jeepney": 5,
+            "motorcycle": 15,
+            "truck": 6
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 456.9,
+      "avg_waiting_time": 7.711049669201013,
+      "avg_queue_length": 94.62333333333333,
+      "total_vehicles": 142,
+      "vehicle_types": {
+        "cars": 73,
+        "buses": 3,
+        "jeepneys": 13,
+        "motorcycles": 45,
+        "trucks": 8,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 13,
+          "total_queue": 11,
+          "avg_waiting": 23.705882352941178,
+          "vehicle_types": {
+            "car": 9,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 4,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 96,
+          "total_queue": 71,
+          "avg_waiting": 74.73684210526316,
+          "vehicle_types": {
+            "car": 43,
+            "bus": 0,
+            "jeepney": 13,
+            "motorcycle": 40,
+            "truck": 0
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 47,
+          "total_queue": 4,
+          "avg_waiting": 1.8,
+          "vehicle_types": {
+            "car": 20,
+            "bus": 0,
+            "jeepney": 8,
+            "motorcycle": 19,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 30,
+    "scenario": "20250812_cycle_3",
+    "fixed_time": {
+      "passenger_throughput": 6425.871375000002,
+      "avg_waiting_time": 10.289876440274176,
+      "avg_queue_length": 103.46296296296296,
+      "total_vehicles": 444,
+      "vehicle_types": {
+        "cars": 86,
+        "motorcycles": 57,
+        "trucks": 4,
+        "tricycles": 0,
+        "jeepneys": 18,
+        "buses": 11
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 22,
+          "total_queue": 22,
+          "avg_waiting": 31.681818181818183,
+          "vehicle_types": {
+            "car": 10,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 11,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 109,
+          "total_queue": 93,
+          "avg_waiting": 31.6697247706422,
+          "vehicle_types": {
+            "car": 58,
+            "bus": 0,
+            "jeepney": 11,
+            "motorcycle": 36,
+            "truck": 4
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 45,
+          "total_queue": 10,
+          "avg_waiting": 0.8888888888888888,
+          "vehicle_types": {
+            "car": 18,
+            "bus": 11,
+            "jeepney": 6,
+            "motorcycle": 10,
+            "truck": 0
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 1010.3,
+      "avg_waiting_time": 7.103097632100298,
+      "avg_queue_length": 97.05666666666667,
+      "total_vehicles": 175,
+      "vehicle_types": {
+        "cars": 78,
+        "buses": 14,
+        "jeepneys": 24,
+        "motorcycles": 56,
+        "trucks": 3,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 18,
+          "total_queue": 15,
+          "avg_waiting": 26.705882352941178,
+          "vehicle_types": {
+            "car": 9,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 7,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 84,
+          "total_queue": 72,
+          "avg_waiting": 63.0,
+          "vehicle_types": {
+            "car": 48,
+            "bus": 1,
+            "jeepney": 6,
+            "motorcycle": 27,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 49,
+          "total_queue": 6,
+          "avg_waiting": 1.4666666666666666,
+          "vehicle_types": {
+            "car": 23,
+            "bus": 0,
+            "jeepney": 4,
+            "motorcycle": 22,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 31,
+    "scenario": "20250717_cycle_2",
+    "fixed_time": {
+      "passenger_throughput": 6166.9466250000005,
+      "avg_waiting_time": 9.698922033794732,
+      "avg_queue_length": 88.4888888888889,
+      "total_vehicles": 450,
+      "vehicle_types": {
+        "cars": 52,
+        "motorcycles": 51,
+        "trucks": 11,
+        "tricycles": 0,
+        "jeepneys": 12,
+        "buses": 11
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 20,
+          "total_queue": 20,
+          "avg_waiting": 21.6,
+          "vehicle_types": {
+            "car": 10,
+            "bus": 2,
+            "jeepney": 2,
+            "motorcycle": 4,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 73,
+          "total_queue": 48,
+          "avg_waiting": 12.136986301369863,
+          "vehicle_types": {
+            "car": 26,
+            "bus": 4,
+            "jeepney": 5,
+            "motorcycle": 34,
+            "truck": 4
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 44,
+          "total_queue": 0,
+          "avg_waiting": 0.0,
+          "vehicle_types": {
+            "car": 16,
+            "bus": 5,
+            "jeepney": 5,
+            "motorcycle": 13,
+            "truck": 5
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 861.3000000000001,
+      "avg_waiting_time": 6.431933635493937,
+      "avg_queue_length": 81.36333333333333,
+      "total_vehicles": 138,
+      "vehicle_types": {
+        "cars": 49,
+        "buses": 14,
+        "jeepneys": 16,
+        "motorcycles": 49,
+        "trucks": 10,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 17,
+          "total_queue": 17,
+          "avg_waiting": 24.58823529411765,
+          "vehicle_types": {
+            "car": 9,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 7,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 67,
+          "total_queue": 36,
+          "avg_waiting": 28.31578947368421,
+          "vehicle_types": {
+            "car": 36,
+            "bus": 0,
+            "jeepney": 7,
+            "motorcycle": 19,
+            "truck": 5
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 51,
+          "total_queue": 7,
+          "avg_waiting": 4.466666666666667,
+          "vehicle_types": {
+            "car": 27,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 23,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 32,
+    "scenario": "20250809_cycle_3",
+    "fixed_time": {
+      "passenger_throughput": 6400.448249999996,
+      "avg_waiting_time": 10.029339315868016,
+      "avg_queue_length": 100.32222222222222,
+      "total_vehicles": 428,
+      "vehicle_types": {
+        "cars": 89,
+        "motorcycles": 52,
+        "trucks": 3,
+        "tricycles": 0,
+        "jeepneys": 12,
+        "buses": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 15,
+          "total_queue": 13,
+          "avg_waiting": 20.4,
+          "vehicle_types": {
+            "car": 8,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 5,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 94,
+          "total_queue": 73,
+          "avg_waiting": 29.06382978723404,
+          "vehicle_types": {
+            "car": 57,
+            "bus": 0,
+            "jeepney": 6,
+            "motorcycle": 30,
+            "truck": 1
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 47,
+          "total_queue": 15,
+          "avg_waiting": 2.872340425531915,
+          "vehicle_types": {
+            "car": 24,
+            "bus": 0,
+            "jeepney": 6,
+            "motorcycle": 17,
+            "truck": 0
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 358.9,
+      "avg_waiting_time": 7.690488219756896,
+      "avg_queue_length": 97.13333333333334,
+      "total_vehicles": 145,
+      "vehicle_types": {
+        "cars": 81,
+        "buses": 0,
+        "jeepneys": 13,
+        "motorcycles": 49,
+        "trucks": 2,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 15,
+          "total_queue": 13,
+          "avg_waiting": 27.11764705882353,
+          "vehicle_types": {
+            "car": 7,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 8,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 96,
+          "total_queue": 62,
+          "avg_waiting": 71.94736842105263,
+          "vehicle_types": {
+            "car": 63,
+            "bus": 0,
+            "jeepney": 15,
+            "motorcycle": 18,
+            "truck": 0
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 45,
+          "total_queue": 6,
+          "avg_waiting": 3.4,
+          "vehicle_types": {
+            "car": 24,
+            "bus": 0,
+            "jeepney": 8,
+            "motorcycle": 13,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 33,
+    "scenario": "20250821_cycle_2",
+    "fixed_time": {
+      "passenger_throughput": 6092.2155000000075,
+      "avg_waiting_time": 10.714600431760703,
+      "avg_queue_length": 93.78888888888889,
+      "total_vehicles": 410,
+      "vehicle_types": {
+        "cars": 83,
+        "motorcycles": 43,
+        "trucks": 13,
+        "tricycles": 0,
+        "jeepneys": 6,
+        "buses": 3
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 17,
+          "total_queue": 15,
+          "avg_waiting": 24.941176470588236,
+          "vehicle_types": {
+            "car": 15,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 2,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 81,
+          "total_queue": 62,
+          "avg_waiting": 23.54320987654321,
+          "vehicle_types": {
+            "car": 48,
+            "bus": 3,
+            "jeepney": 1,
+            "motorcycle": 27,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 50,
+          "total_queue": 13,
+          "avg_waiting": 3.58,
+          "vehicle_types": {
+            "car": 20,
+            "bus": 0,
+            "jeepney": 5,
+            "motorcycle": 14,
+            "truck": 11
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 377.1,
+      "avg_waiting_time": 7.044129791937851,
+      "avg_queue_length": 83.90666666666667,
+      "total_vehicles": 139,
+      "vehicle_types": {
+        "cars": 76,
+        "buses": 3,
+        "jeepneys": 7,
+        "motorcycles": 42,
+        "trucks": 11,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 18,
+          "total_queue": 16,
+          "avg_waiting": 19.764705882352942,
+          "vehicle_types": {
+            "car": 10,
+            "bus": 2,
+            "jeepney": 1,
+            "motorcycle": 5,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 75,
+          "total_queue": 43,
+          "avg_waiting": 43.78947368421053,
+          "vehicle_types": {
+            "car": 36,
+            "bus": 0,
+            "jeepney": 8,
+            "motorcycle": 29,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 47,
+          "total_queue": 4,
+          "avg_waiting": 3.0,
+          "vehicle_types": {
+            "car": 25,
+            "bus": 0,
+            "jeepney": 3,
+            "motorcycle": 19,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 34,
+    "scenario": "20250709_cycle_1",
+    "fixed_time": {
+      "passenger_throughput": 6093.3337500000025,
+      "avg_waiting_time": 10.585399368020116,
+      "avg_queue_length": 93.96296296296296,
+      "total_vehicles": 407,
+      "vehicle_types": {
+        "cars": 71,
+        "motorcycles": 36,
+        "trucks": 10,
+        "tricycles": 0,
+        "jeepneys": 14,
+        "buses": 6
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 11,
+          "total_queue": 11,
+          "avg_waiting": 31.636363636363637,
+          "vehicle_types": {
+            "car": 4,
+            "bus": 0,
+            "jeepney": 4,
+            "motorcycle": 3,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 76,
+          "total_queue": 60,
+          "avg_waiting": 20.473684210526315,
+          "vehicle_types": {
+            "car": 47,
+            "bus": 1,
+            "jeepney": 3,
+            "motorcycle": 21,
+            "truck": 4
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 50,
+          "total_queue": 17,
+          "avg_waiting": 5.96,
+          "vehicle_types": {
+            "car": 20,
+            "bus": 5,
+            "jeepney": 7,
+            "motorcycle": 12,
+            "truck": 6
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 646.6,
+      "avg_waiting_time": 6.85323812449833,
+      "avg_queue_length": 78.03333333333333,
+      "total_vehicles": 136,
+      "vehicle_types": {
+        "cars": 67,
+        "buses": 7,
+        "jeepneys": 18,
+        "motorcycles": 35,
+        "trucks": 9,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 16,
+          "total_queue": 16,
+          "avg_waiting": 23.705882352941178,
+          "vehicle_types": {
+            "car": 8,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 6,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 70,
+          "total_queue": 34,
+          "avg_waiting": 27.0,
+          "vehicle_types": {
+            "car": 33,
+            "bus": 0,
+            "jeepney": 7,
+            "motorcycle": 27,
+            "truck": 3
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 40,
+          "total_queue": 5,
+          "avg_waiting": 2.4,
+          "vehicle_types": {
+            "car": 11,
+            "bus": 0,
+            "jeepney": 13,
+            "motorcycle": 16,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 35,
+    "scenario": "20250716_cycle_1",
+    "fixed_time": {
+      "passenger_throughput": 6444.0075000000015,
+      "avg_waiting_time": 10.693896779995644,
+      "avg_queue_length": 102.66296296296296,
+      "total_vehicles": 431,
+      "vehicle_types": {
+        "cars": 87,
+        "motorcycles": 56,
+        "trucks": 8,
+        "tricycles": 0,
+        "jeepneys": 14,
+        "buses": 7
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 10,
+          "total_queue": 10,
+          "avg_waiting": 24.5,
+          "vehicle_types": {
+            "car": 8,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 0,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 112,
+          "total_queue": 102,
+          "avg_waiting": 31.830357142857142,
+          "vehicle_types": {
+            "car": 58,
+            "bus": 1,
+            "jeepney": 7,
+            "motorcycle": 44,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 50,
+          "total_queue": 14,
+          "avg_waiting": 2.0,
+          "vehicle_types": {
+            "car": 21,
+            "bus": 6,
+            "jeepney": 5,
+            "motorcycle": 12,
+            "truck": 6
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 695.5,
+      "avg_waiting_time": 7.26046176312588,
+      "avg_queue_length": 93.83666666666667,
+      "total_vehicles": 166,
+      "vehicle_types": {
+        "cars": 80,
+        "buses": 8,
+        "jeepneys": 16,
+        "motorcycles": 55,
+        "trucks": 7,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 13,
+          "total_queue": 12,
+          "avg_waiting": 25.352941176470587,
+          "vehicle_types": {
+            "car": 8,
+            "bus": 0,
+            "jeepney": 3,
+            "motorcycle": 2,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 104,
+          "total_queue": 76,
+          "avg_waiting": 85.26315789473684,
+          "vehicle_types": {
+            "car": 58,
+            "bus": 0,
+            "jeepney": 7,
+            "motorcycle": 35,
+            "truck": 4
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 49,
+          "total_queue": 4,
+          "avg_waiting": 1.4666666666666666,
+          "vehicle_types": {
+            "car": 32,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 17,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 36,
+    "scenario": "20250715_cycle_3",
+    "fixed_time": {
+      "passenger_throughput": 5943.511874999997,
+      "avg_waiting_time": 11.282684884176179,
+      "avg_queue_length": 83.96296296296296,
+      "total_vehicles": 402,
+      "vehicle_types": {
+        "cars": 68,
+        "motorcycles": 33,
+        "trucks": 13,
+        "tricycles": 0,
+        "jeepneys": 6,
+        "buses": 8
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 16,
+          "total_queue": 13,
+          "avg_waiting": 13.125,
+          "vehicle_types": {
+            "car": 9,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 4,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 61,
+          "total_queue": 51,
+          "avg_waiting": 18.540983606557376,
+          "vehicle_types": {
+            "car": 33,
+            "bus": 3,
+            "jeepney": 0,
+            "motorcycle": 20,
+            "truck": 5
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 51,
+          "total_queue": 18,
+          "avg_waiting": 4.392156862745098,
+          "vehicle_types": {
+            "car": 26,
+            "bus": 5,
+            "jeepney": 5,
+            "motorcycle": 9,
+            "truck": 6
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 607.0,
+      "avg_waiting_time": 6.860666222695988,
+      "avg_queue_length": 81.56333333333333,
+      "total_vehicles": 125,
+      "vehicle_types": {
+        "cars": 61,
+        "buses": 10,
+        "jeepneys": 8,
+        "motorcycles": 33,
+        "trucks": 13,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 13,
+          "total_queue": 13,
+          "avg_waiting": 23.294117647058822,
+          "vehicle_types": {
+            "car": 2,
+            "bus": 2,
+            "jeepney": 3,
+            "motorcycle": 4,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 76,
+          "total_queue": 41,
+          "avg_waiting": 46.526315789473685,
+          "vehicle_types": {
+            "car": 43,
+            "bus": 0,
+            "jeepney": 3,
+            "motorcycle": 27,
+            "truck": 3
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 40,
+          "total_queue": 2,
+          "avg_waiting": 0.7333333333333333,
+          "vehicle_types": {
+            "car": 30,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 10,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 37,
+    "scenario": "20250715_cycle_1",
+    "fixed_time": {
+      "passenger_throughput": 6723.320625000006,
+      "avg_waiting_time": 11.52512886956998,
+      "avg_queue_length": 111.06296296296296,
+      "total_vehicles": 446,
+      "vehicle_types": {
+        "cars": 95,
+        "motorcycles": 57,
+        "trucks": 7,
+        "tricycles": 0,
+        "jeepneys": 28,
+        "buses": 7
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 23,
+          "total_queue": 20,
+          "avg_waiting": 15.91304347826087,
+          "vehicle_types": {
+            "car": 11,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 9,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 131,
+          "total_queue": 109,
+          "avg_waiting": 33.13740458015267,
+          "vehicle_types": {
+            "car": 70,
+            "bus": 2,
+            "jeepney": 17,
+            "motorcycle": 37,
+            "truck": 5
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 40,
+          "total_queue": 13,
+          "avg_waiting": 1.625,
+          "vehicle_types": {
+            "car": 14,
+            "bus": 5,
+            "jeepney": 10,
+            "motorcycle": 11,
+            "truck": 0
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 950.5999999999999,
+      "avg_waiting_time": 7.756730858994418,
+      "avg_queue_length": 104.95,
+      "total_vehicles": 196,
+      "vehicle_types": {
+        "cars": 91,
+        "buses": 8,
+        "jeepneys": 33,
+        "motorcycles": 57,
+        "trucks": 7,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 14,
+          "total_queue": 8,
+          "avg_waiting": 18.470588235294116,
+          "vehicle_types": {
+            "car": 3,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 5,
+            "truck": 4
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 137,
+          "total_queue": 106,
+          "avg_waiting": 89.94736842105263,
+          "vehicle_types": {
+            "car": 71,
+            "bus": 1,
+            "jeepney": 27,
+            "motorcycle": 36,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 53,
+          "total_queue": 1,
+          "avg_waiting": 0.26666666666666666,
+          "vehicle_types": {
+            "car": 25,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 27,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 38,
+    "scenario": "20250811_cycle_3",
+    "fixed_time": {
+      "passenger_throughput": 6741.099749999999,
+      "avg_waiting_time": 10.42791621463102,
+      "avg_queue_length": 103.3037037037037,
+      "total_vehicles": 414,
+      "vehicle_types": {
+        "cars": 112,
+        "motorcycles": 49,
+        "trucks": 7,
+        "tricycles": 0,
+        "jeepneys": 17,
+        "buses": 3
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 14,
+          "total_queue": 11,
+          "avg_waiting": 16.928571428571427,
+          "vehicle_types": {
+            "car": 10,
+            "bus": 2,
+            "jeepney": 0,
+            "motorcycle": 2,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 113,
+          "total_queue": 93,
+          "avg_waiting": 28.79646017699115,
+          "vehicle_types": {
+            "car": 67,
+            "bus": 0,
+            "jeepney": 17,
+            "motorcycle": 29,
+            "truck": 0
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 61,
+          "total_queue": 17,
+          "avg_waiting": 1.5081967213114753,
+          "vehicle_types": {
+            "car": 35,
+            "bus": 1,
+            "jeepney": 0,
+            "motorcycle": 18,
+            "truck": 7
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 643.9,
+      "avg_waiting_time": 7.057080313606025,
+      "avg_queue_length": 90.44666666666667,
+      "total_vehicles": 182,
+      "vehicle_types": {
+        "cars": 105,
+        "buses": 4,
+        "jeepneys": 21,
+        "motorcycles": 46,
+        "trucks": 6,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 9,
+          "total_queue": 9,
+          "avg_waiting": 17.647058823529413,
+          "vehicle_types": {
+            "car": 5,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 1,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 110,
+          "total_queue": 90,
+          "avg_waiting": 76.10526315789474,
+          "vehicle_types": {
+            "car": 59,
+            "bus": 0,
+            "jeepney": 18,
+            "motorcycle": 33,
+            "truck": 0
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 42,
+          "total_queue": 6,
+          "avg_waiting": 3.466666666666667,
+          "vehicle_types": {
+            "car": 20,
+            "bus": 0,
+            "jeepney": 6,
+            "motorcycle": 16,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 39,
+    "scenario": "20250707_cycle_3",
+    "fixed_time": {
+      "passenger_throughput": 6423.246375000006,
+      "avg_waiting_time": 10.498261731914372,
+      "avg_queue_length": 88.9,
+      "total_vehicles": 413,
+      "vehicle_types": {
+        "cars": 68,
+        "motorcycles": 34,
+        "trucks": 3,
+        "tricycles": 0,
+        "jeepneys": 12,
+        "buses": 8
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 15,
+          "total_queue": 13,
+          "avg_waiting": 25.933333333333334,
+          "vehicle_types": {
+            "car": 12,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 3,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 75,
+          "total_queue": 61,
+          "avg_waiting": 24.64,
+          "vehicle_types": {
+            "car": 39,
+            "bus": 3,
+            "jeepney": 7,
+            "motorcycle": 24,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 35,
+          "total_queue": 5,
+          "avg_waiting": 1.0,
+          "vehicle_types": {
+            "car": 17,
+            "bus": 5,
+            "jeepney": 5,
+            "motorcycle": 7,
+            "truck": 1
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 713.5,
+      "avg_waiting_time": 6.843431839858895,
+      "avg_queue_length": 81.64,
+      "total_vehicles": 124,
+      "vehicle_types": {
+        "cars": 63,
+        "buses": 11,
+        "jeepneys": 14,
+        "motorcycles": 34,
+        "trucks": 2,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 13,
+          "total_queue": 13,
+          "avg_waiting": 20.764705882352942,
+          "vehicle_types": {
+            "car": 10,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 1,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 60,
+          "total_queue": 39,
+          "avg_waiting": 46.473684210526315,
+          "vehicle_types": {
+            "car": 35,
+            "bus": 0,
+            "jeepney": 9,
+            "motorcycle": 14,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 48,
+          "total_queue": 3,
+          "avg_waiting": 1.8666666666666667,
+          "vehicle_types": {
+            "car": 22,
+            "bus": 0,
+            "jeepney": 9,
+            "motorcycle": 17,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 40,
+    "scenario": "20250717_cycle_3",
+    "fixed_time": {
+      "passenger_throughput": 6049.609125,
+      "avg_waiting_time": 9.945622062832433,
+      "avg_queue_length": 89.94444444444444,
+      "total_vehicles": 439,
+      "vehicle_types": {
+        "cars": 73,
+        "motorcycles": 37,
+        "trucks": 6,
+        "tricycles": 0,
+        "jeepneys": 3,
+        "buses": 5
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 22,
+          "total_queue": 21,
+          "avg_waiting": 18.727272727272727,
+          "vehicle_types": {
+            "car": 12,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 8,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 64,
+          "total_queue": 49,
+          "avg_waiting": 14.4375,
+          "vehicle_types": {
+            "car": 37,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 21,
+            "truck": 5
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 38,
+          "total_queue": 5,
+          "avg_waiting": 0.6578947368421053,
+          "vehicle_types": {
+            "car": 24,
+            "bus": 5,
+            "jeepney": 0,
+            "motorcycle": 8,
+            "truck": 1
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 413.59999999999997,
+      "avg_waiting_time": 7.431858497239468,
+      "avg_queue_length": 93.70333333333333,
+      "total_vehicles": 120,
+      "vehicle_types": {
+        "cars": 69,
+        "buses": 6,
+        "jeepneys": 4,
+        "motorcycles": 36,
+        "trucks": 5,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 17,
+          "total_queue": 13,
+          "avg_waiting": 26.764705882352942,
+          "vehicle_types": {
+            "car": 5,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 12,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 72,
+          "total_queue": 50,
+          "avg_waiting": 65.10526315789474,
+          "vehicle_types": {
+            "car": 33,
+            "bus": 3,
+            "jeepney": 6,
+            "motorcycle": 30,
+            "truck": 0
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 48,
+          "total_queue": 6,
+          "avg_waiting": 3.3333333333333335,
+          "vehicle_types": {
+            "car": 21,
+            "bus": 0,
+            "jeepney": 6,
+            "motorcycle": 21,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 41,
+    "scenario": "20250819_cycle_2",
+    "fixed_time": {
+      "passenger_throughput": 6017.589374999993,
+      "avg_waiting_time": 9.642358487440339,
+      "avg_queue_length": 77.67777777777778,
+      "total_vehicles": 422,
+      "vehicle_types": {
+        "cars": 65,
+        "motorcycles": 31,
+        "trucks": 19,
+        "tricycles": 0,
+        "jeepneys": 11,
+        "buses": 6
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 14,
+          "total_queue": 12,
+          "avg_waiting": 17.142857142857142,
+          "vehicle_types": {
+            "car": 8,
+            "bus": 2,
+            "jeepney": 0,
+            "motorcycle": 4,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 71,
+          "total_queue": 58,
+          "avg_waiting": 18.95774647887324,
+          "vehicle_types": {
+            "car": 35,
+            "bus": 3,
+            "jeepney": 6,
+            "motorcycle": 20,
+            "truck": 7
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 47,
+          "total_queue": 11,
+          "avg_waiting": 0.8723404255319149,
+          "vehicle_types": {
+            "car": 22,
+            "bus": 1,
+            "jeepney": 5,
+            "motorcycle": 7,
+            "truck": 12
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 605.8,
+      "avg_waiting_time": 7.174708564773312,
+      "avg_queue_length": 85.45,
+      "total_vehicles": 133,
+      "vehicle_types": {
+        "cars": 63,
+        "buses": 7,
+        "jeepneys": 15,
+        "motorcycles": 31,
+        "trucks": 17,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 16,
+          "total_queue": 16,
+          "avg_waiting": 28.0,
+          "vehicle_types": {
+            "car": 9,
+            "bus": 2,
+            "jeepney": 1,
+            "motorcycle": 4,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 66,
+          "total_queue": 43,
+          "avg_waiting": 51.10526315789474,
+          "vehicle_types": {
+            "car": 41,
+            "bus": 0,
+            "jeepney": 10,
+            "motorcycle": 15,
+            "truck": 0
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 39,
+          "total_queue": 3,
+          "avg_waiting": 0.6,
+          "vehicle_types": {
+            "car": 19,
+            "bus": 0,
+            "jeepney": 8,
+            "motorcycle": 12,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 42,
+    "scenario": "20250811_cycle_2",
+    "fixed_time": {
+      "passenger_throughput": 6538.1741250000005,
+      "avg_waiting_time": 10.377691003611393,
+      "avg_queue_length": 93.5925925925926,
+      "total_vehicles": 426,
+      "vehicle_types": {
+        "cars": 88,
+        "motorcycles": 47,
+        "trucks": 2,
+        "tricycles": 0,
+        "jeepneys": 23,
+        "buses": 4
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 20,
+          "total_queue": 15,
+          "avg_waiting": 17.0,
+          "vehicle_types": {
+            "car": 7,
+            "bus": 2,
+            "jeepney": 2,
+            "motorcycle": 7,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 97,
+          "total_queue": 65,
+          "avg_waiting": 20.948453608247423,
+          "vehicle_types": {
+            "car": 52,
+            "bus": 1,
+            "jeepney": 15,
+            "motorcycle": 29,
+            "truck": 0
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 47,
+          "total_queue": 15,
+          "avg_waiting": 2.3404255319148937,
+          "vehicle_types": {
+            "car": 29,
+            "bus": 1,
+            "jeepney": 6,
+            "motorcycle": 11,
+            "truck": 0
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 738.4000000000001,
+      "avg_waiting_time": 7.344340027148866,
+      "avg_queue_length": 90.59,
+      "total_vehicles": 161,
+      "vehicle_types": {
+        "cars": 79,
+        "buses": 5,
+        "jeepneys": 28,
+        "motorcycles": 48,
+        "trucks": 1,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 12,
+          "total_queue": 7,
+          "avg_waiting": 15.529411764705882,
+          "vehicle_types": {
+            "car": 6,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 2,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 95,
+          "total_queue": 63,
+          "avg_waiting": 67.21052631578948,
+          "vehicle_types": {
+            "car": 47,
+            "bus": 0,
+            "jeepney": 20,
+            "motorcycle": 26,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 40,
+          "total_queue": 3,
+          "avg_waiting": 1.5333333333333334,
+          "vehicle_types": {
+            "car": 20,
+            "bus": 0,
+            "jeepney": 3,
+            "motorcycle": 17,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 43,
+    "scenario": "20250805_cycle_2",
+    "fixed_time": {
+      "passenger_throughput": 6439.019999999999,
+      "avg_waiting_time": 10.74212892433327,
+      "avg_queue_length": 108.37037037037037,
+      "total_vehicles": 430,
+      "vehicle_types": {
+        "cars": 101,
+        "motorcycles": 63,
+        "trucks": 7,
+        "tricycles": 0,
+        "jeepneys": 17,
+        "buses": 5
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 19,
+          "total_queue": 18,
+          "avg_waiting": 22.263157894736842,
+          "vehicle_types": {
+            "car": 10,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 8,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 128,
+          "total_queue": 102,
+          "avg_waiting": 28.0234375,
+          "vehicle_types": {
+            "car": 67,
+            "bus": 0,
+            "jeepney": 16,
+            "motorcycle": 43,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 46,
+          "total_queue": 6,
+          "avg_waiting": 0.4782608695652174,
+          "vehicle_types": {
+            "car": 24,
+            "bus": 5,
+            "jeepney": 0,
+            "motorcycle": 12,
+            "truck": 5
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 727.4,
+      "avg_waiting_time": 7.808221747935189,
+      "avg_queue_length": 101.52333333333333,
+      "total_vehicles": 193,
+      "vehicle_types": {
+        "cars": 96,
+        "buses": 6,
+        "jeepneys": 21,
+        "motorcycles": 64,
+        "trucks": 6,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 18,
+          "total_queue": 16,
+          "avg_waiting": 24.705882352941178,
+          "vehicle_types": {
+            "car": 10,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 6,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 132,
+          "total_queue": 101,
+          "avg_waiting": 85.52631578947368,
+          "vehicle_types": {
+            "car": 62,
+            "bus": 3,
+            "jeepney": 15,
+            "motorcycle": 44,
+            "truck": 8
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 40,
+          "total_queue": 4,
+          "avg_waiting": 3.0,
+          "vehicle_types": {
+            "car": 20,
+            "bus": 0,
+            "jeepney": 10,
+            "motorcycle": 10,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 44,
+    "scenario": "20250716_cycle_3",
+    "fixed_time": {
+      "passenger_throughput": 6357.398250000002,
+      "avg_waiting_time": 9.67523800914977,
+      "avg_queue_length": 92.4,
+      "total_vehicles": 442,
+      "vehicle_types": {
+        "cars": 64,
+        "motorcycles": 53,
+        "trucks": 9,
+        "tricycles": 0,
+        "jeepneys": 13,
+        "buses": 11
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 28,
+          "total_queue": 26,
+          "avg_waiting": 24.178571428571427,
+          "vehicle_types": {
+            "car": 13,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 13,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 79,
+          "total_queue": 61,
+          "avg_waiting": 21.962025316455698,
+          "vehicle_types": {
+            "car": 40,
+            "bus": 1,
+            "jeepney": 6,
+            "motorcycle": 28,
+            "truck": 4
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 43,
+          "total_queue": 6,
+          "avg_waiting": 0.3023255813953488,
+          "vehicle_types": {
+            "car": 11,
+            "bus": 10,
+            "jeepney": 5,
+            "motorcycle": 12,
+            "truck": 5
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 851.9,
+      "avg_waiting_time": 6.842663844001618,
+      "avg_queue_length": 88.23333333333333,
+      "total_vehicles": 147,
+      "vehicle_types": {
+        "cars": 57,
+        "buses": 13,
+        "jeepneys": 17,
+        "motorcycles": 52,
+        "trucks": 8,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 18,
+          "total_queue": 12,
+          "avg_waiting": 22.823529411764707,
+          "vehicle_types": {
+            "car": 7,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 9,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 90,
+          "total_queue": 57,
+          "avg_waiting": 58.1578947368421,
+          "vehicle_types": {
+            "car": 41,
+            "bus": 3,
+            "jeepney": 15,
+            "motorcycle": 29,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 52,
+          "total_queue": 6,
+          "avg_waiting": 2.466666666666667,
+          "vehicle_types": {
+            "car": 30,
+            "bus": 0,
+            "jeepney": 4,
+            "motorcycle": 18,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 45,
+    "scenario": "20250809_cycle_2",
+    "fixed_time": {
+      "passenger_throughput": 6623.132250000005,
+      "avg_waiting_time": 10.676184479708581,
+      "avg_queue_length": 101.43333333333334,
+      "total_vehicles": 421,
+      "vehicle_types": {
+        "cars": 83,
+        "motorcycles": 52,
+        "trucks": 6,
+        "tricycles": 0,
+        "jeepneys": 18,
+        "buses": 8
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 22,
+          "total_queue": 20,
+          "avg_waiting": 19.40909090909091,
+          "vehicle_types": {
+            "car": 12,
+            "bus": 0,
+            "jeepney": 4,
+            "motorcycle": 6,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 100,
+          "total_queue": 79,
+          "avg_waiting": 26.81,
+          "vehicle_types": {
+            "car": 50,
+            "bus": 3,
+            "jeepney": 4,
+            "motorcycle": 38,
+            "truck": 5
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 45,
+          "total_queue": 8,
+          "avg_waiting": 1.3555555555555556,
+          "vehicle_types": {
+            "car": 21,
+            "bus": 5,
+            "jeepney": 10,
+            "motorcycle": 8,
+            "truck": 1
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 786.7,
+      "avg_waiting_time": 6.227304420507309,
+      "avg_queue_length": 86.89666666666666,
+      "total_vehicles": 162,
+      "vehicle_types": {
+        "cars": 77,
+        "buses": 9,
+        "jeepneys": 21,
+        "motorcycles": 49,
+        "trucks": 6,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 12,
+          "total_queue": 12,
+          "avg_waiting": 19.352941176470587,
+          "vehicle_types": {
+            "car": 7,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 4,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 84,
+          "total_queue": 62,
+          "avg_waiting": 69.52631578947368,
+          "vehicle_types": {
+            "car": 43,
+            "bus": 0,
+            "jeepney": 9,
+            "motorcycle": 30,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 33,
+          "total_queue": 2,
+          "avg_waiting": 1.0,
+          "vehicle_types": {
+            "car": 20,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 13,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 46,
+    "scenario": "20250812_cycle_2",
+    "fixed_time": {
+      "passenger_throughput": 6265.819875000002,
+      "avg_waiting_time": 9.797881605115105,
+      "avg_queue_length": 81.28888888888889,
+      "total_vehicles": 415,
+      "vehicle_types": {
+        "cars": 63,
+        "motorcycles": 34,
+        "trucks": 11,
+        "tricycles": 0,
+        "jeepneys": 9,
+        "buses": 16
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 21,
+          "total_queue": 19,
+          "avg_waiting": 16.095238095238095,
+          "vehicle_types": {
+            "car": 8,
+            "bus": 2,
+            "jeepney": 2,
+            "motorcycle": 7,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 69,
+          "total_queue": 55,
+          "avg_waiting": 14.63768115942029,
+          "vehicle_types": {
+            "car": 39,
+            "bus": 4,
+            "jeepney": 5,
+            "motorcycle": 17,
+            "truck": 4
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 43,
+          "total_queue": 8,
+          "avg_waiting": 2.0232558139534884,
+          "vehicle_types": {
+            "car": 16,
+            "bus": 10,
+            "jeepney": 2,
+            "motorcycle": 10,
+            "truck": 5
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 1025.5,
+      "avg_waiting_time": 6.260800090662744,
+      "avg_queue_length": 76.93,
+      "total_vehicles": 133,
+      "vehicle_types": {
+        "cars": 58,
+        "buses": 21,
+        "jeepneys": 11,
+        "motorcycles": 34,
+        "trucks": 9,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 18,
+          "total_queue": 17,
+          "avg_waiting": 24.235294117647058,
+          "vehicle_types": {
+            "car": 9,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 8,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 47,
+          "total_queue": 30,
+          "avg_waiting": 31.263157894736842,
+          "vehicle_types": {
+            "car": 31,
+            "bus": 1,
+            "jeepney": 7,
+            "motorcycle": 6,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 35,
+          "total_queue": 4,
+          "avg_waiting": 3.2,
+          "vehicle_types": {
+            "car": 16,
+            "bus": 0,
+            "jeepney": 12,
+            "motorcycle": 7,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 47,
+    "scenario": "20250701_cycle_2",
+    "fixed_time": {
+      "passenger_throughput": 6615.855750000002,
+      "avg_waiting_time": 10.952500403866363,
+      "avg_queue_length": 92.9,
+      "total_vehicles": 416,
+      "vehicle_types": {
+        "cars": 74,
+        "motorcycles": 62,
+        "trucks": 6,
+        "tricycles": 0,
+        "jeepneys": 14,
+        "buses": 5
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 27,
+          "total_queue": 27,
+          "avg_waiting": 19.88888888888889,
+          "vehicle_types": {
+            "car": 11,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 14,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 97,
+          "total_queue": 73,
+          "avg_waiting": 21.49484536082474,
+          "vehicle_types": {
+            "car": 47,
+            "bus": 0,
+            "jeepney": 6,
+            "motorcycle": 38,
+            "truck": 6
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 37,
+          "total_queue": 3,
+          "avg_waiting": 0.10810810810810811,
+          "vehicle_types": {
+            "car": 16,
+            "bus": 5,
+            "jeepney": 6,
+            "motorcycle": 10,
+            "truck": 0
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 643.3000000000001,
+      "avg_waiting_time": 6.869092819592418,
+      "avg_queue_length": 90.65,
+      "total_vehicles": 158,
+      "vehicle_types": {
+        "cars": 69,
+        "buses": 6,
+        "jeepneys": 18,
+        "motorcycles": 59,
+        "trucks": 6,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 10,
+          "total_queue": 9,
+          "avg_waiting": 17.41176470588235,
+          "vehicle_types": {
+            "car": 4,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 2,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 102,
+          "total_queue": 72,
+          "avg_waiting": 80.6842105263158,
+          "vehicle_types": {
+            "car": 56,
+            "bus": 2,
+            "jeepney": 16,
+            "motorcycle": 26,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 40,
+          "total_queue": 1,
+          "avg_waiting": 0.26666666666666666,
+          "vehicle_types": {
+            "car": 18,
+            "bus": 0,
+            "jeepney": 12,
+            "motorcycle": 10,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 48,
+    "scenario": "20250714_cycle_1",
+    "fixed_time": {
+      "passenger_throughput": 6644.426250000009,
+      "avg_waiting_time": 11.011708233672055,
+      "avg_queue_length": 106.35555555555555,
+      "total_vehicles": 424,
+      "vehicle_types": {
+        "cars": 99,
+        "motorcycles": 52,
+        "trucks": 16,
+        "tricycles": 0,
+        "jeepneys": 12,
+        "buses": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 17,
+          "total_queue": 15,
+          "avg_waiting": 24.176470588235293,
+          "vehicle_types": {
+            "car": 9,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 7,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 117,
+          "total_queue": 94,
+          "avg_waiting": 29.846153846153847,
+          "vehicle_types": {
+            "car": 68,
+            "bus": 0,
+            "jeepney": 6,
+            "motorcycle": 39,
+            "truck": 4
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 45,
+          "total_queue": 10,
+          "avg_waiting": 3.0,
+          "vehicle_types": {
+            "car": 22,
+            "bus": 0,
+            "jeepney": 5,
+            "motorcycle": 6,
+            "truck": 12
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 406.7,
+      "avg_waiting_time": 7.643396637780584,
+      "avg_queue_length": 100.33333333333333,
+      "total_vehicles": 170,
+      "vehicle_types": {
+        "cars": 91,
+        "buses": 0,
+        "jeepneys": 14,
+        "motorcycles": 51,
+        "trucks": 14,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 13,
+          "total_queue": 13,
+          "avg_waiting": 20.235294117647058,
+          "vehicle_types": {
+            "car": 9,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 1,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 125,
+          "total_queue": 94,
+          "avg_waiting": 92.84210526315789,
+          "vehicle_types": {
+            "car": 78,
+            "bus": 3,
+            "jeepney": 8,
+            "motorcycle": 36,
+            "truck": 0
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 36,
+          "total_queue": 2,
+          "avg_waiting": 1.8,
+          "vehicle_types": {
+            "car": 18,
+            "bus": 0,
+            "jeepney": 5,
+            "motorcycle": 13,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 49,
+    "scenario": "20250701_cycle_3",
+    "fixed_time": {
+      "passenger_throughput": 6580.811999999991,
+      "avg_waiting_time": 11.576054211270032,
+      "avg_queue_length": 106.77407407407408,
+      "total_vehicles": 420,
+      "vehicle_types": {
+        "cars": 114,
+        "motorcycles": 38,
+        "trucks": 14,
+        "tricycles": 0,
+        "jeepneys": 13,
+        "buses": 4
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 16,
+          "total_queue": 16,
+          "avg_waiting": 12.8125,
+          "vehicle_types": {
+            "car": 8,
+            "bus": 2,
+            "jeepney": 2,
+            "motorcycle": 4,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 115,
+          "total_queue": 94,
+          "avg_waiting": 30.765217391304347,
+          "vehicle_types": {
+            "car": 79,
+            "bus": 2,
+            "jeepney": 6,
+            "motorcycle": 27,
+            "truck": 1
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 52,
+          "total_queue": 14,
+          "avg_waiting": 3.576923076923077,
+          "vehicle_types": {
+            "car": 27,
+            "bus": 0,
+            "jeepney": 5,
+            "motorcycle": 7,
+            "truck": 13
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 591.5,
+      "avg_waiting_time": 7.786460541374737,
+      "avg_queue_length": 99.22,
+      "total_vehicles": 174,
+      "vehicle_types": {
+        "cars": 104,
+        "buses": 5,
+        "jeepneys": 15,
+        "motorcycles": 37,
+        "trucks": 13,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 12,
+          "total_queue": 10,
+          "avg_waiting": 13.294117647058824,
+          "vehicle_types": {
+            "car": 5,
+            "bus": 0,
+            "jeepney": 5,
+            "motorcycle": 2,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 137,
+          "total_queue": 102,
+          "avg_waiting": 89.21052631578948,
+          "vehicle_types": {
+            "car": 84,
+            "bus": 0,
+            "jeepney": 7,
+            "motorcycle": 44,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 43,
+          "total_queue": 1,
+          "avg_waiting": 0.6666666666666666,
+          "vehicle_types": {
+            "car": 27,
+            "bus": 0,
+            "jeepney": 6,
+            "motorcycle": 10,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 50,
+    "scenario": "20250814_cycle_3",
+    "fixed_time": {
+      "passenger_throughput": 6406.687875000007,
+      "avg_waiting_time": 11.095859391657976,
+      "avg_queue_length": 98.31851851851852,
+      "total_vehicles": 420,
+      "vehicle_types": {
+        "cars": 82,
+        "motorcycles": 47,
+        "trucks": 6,
+        "tricycles": 0,
+        "jeepneys": 11,
+        "buses": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 21,
+          "total_queue": 17,
+          "avg_waiting": 18.047619047619047,
+          "vehicle_types": {
+            "car": 5,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 13,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 87,
+          "total_queue": 73,
+          "avg_waiting": 31.28735632183908,
+          "vehicle_types": {
+            "car": 55,
+            "bus": 0,
+            "jeepney": 5,
+            "motorcycle": 24,
+            "truck": 3
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 38,
+          "total_queue": 0,
+          "avg_waiting": 0.0,
+          "vehicle_types": {
+            "car": 22,
+            "bus": 0,
+            "jeepney": 5,
+            "motorcycle": 10,
+            "truck": 1
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 373.5,
+      "avg_waiting_time": 7.076466123925969,
+      "avg_queue_length": 88.93333333333334,
+      "total_vehicles": 146,
+      "vehicle_types": {
+        "cars": 79,
+        "buses": 0,
+        "jeepneys": 14,
+        "motorcycles": 47,
+        "trucks": 6,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 15,
+          "total_queue": 15,
+          "avg_waiting": 19.764705882352942,
+          "vehicle_types": {
+            "car": 11,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 3,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 100,
+          "total_queue": 62,
+          "avg_waiting": 69.15789473684211,
+          "vehicle_types": {
+            "car": 63,
+            "bus": 0,
+            "jeepney": 15,
+            "motorcycle": 22,
+            "truck": 0
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 51,
+          "total_queue": 2,
+          "avg_waiting": 0.4666666666666667,
+          "vehicle_types": {
+            "car": 36,
+            "bus": 0,
+            "jeepney": 3,
+            "motorcycle": 12,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 51,
+    "scenario": "20250807_cycle_1",
+    "fixed_time": {
+      "passenger_throughput": 6412.247624999996,
+      "avg_waiting_time": 11.693232825605508,
+      "avg_queue_length": 103.04814814814814,
+      "total_vehicles": 429,
+      "vehicle_types": {
+        "cars": 93,
+        "motorcycles": 52,
+        "trucks": 3,
+        "tricycles": 0,
+        "jeepneys": 12,
+        "buses": 7
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 12,
+          "total_queue": 10,
+          "avg_waiting": 19.0,
+          "vehicle_types": {
+            "car": 6,
+            "bus": 2,
+            "jeepney": 0,
+            "motorcycle": 4,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 103,
+          "total_queue": 89,
+          "avg_waiting": 31.49514563106796,
+          "vehicle_types": {
+            "car": 57,
+            "bus": 0,
+            "jeepney": 7,
+            "motorcycle": 37,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 52,
+          "total_queue": 11,
+          "avg_waiting": 0.75,
+          "vehicle_types": {
+            "car": 30,
+            "bus": 5,
+            "jeepney": 5,
+            "motorcycle": 11,
+            "truck": 1
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 701.1,
+      "avg_waiting_time": 7.334697702297745,
+      "avg_queue_length": 94.34333333333333,
+      "total_vehicles": 165,
+      "vehicle_types": {
+        "cars": 89,
+        "buses": 9,
+        "jeepneys": 14,
+        "motorcycles": 51,
+        "trucks": 2,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 17,
+          "total_queue": 15,
+          "avg_waiting": 20.41176470588235,
+          "vehicle_types": {
+            "car": 11,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 6,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 100,
+          "total_queue": 72,
+          "avg_waiting": 66.21052631578948,
+          "vehicle_types": {
+            "car": 56,
+            "bus": 3,
+            "jeepney": 5,
+            "motorcycle": 30,
+            "truck": 6
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 40,
+          "total_queue": 3,
+          "avg_waiting": 1.4,
+          "vehicle_types": {
+            "car": 21,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 18,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 52,
+    "scenario": "20250804_cycle_3",
+    "fixed_time": {
+      "passenger_throughput": 6027.4278749999985,
+      "avg_waiting_time": 11.427359724165534,
+      "avg_queue_length": 94.01851851851852,
+      "total_vehicles": 387,
+      "vehicle_types": {
+        "cars": 93,
+        "motorcycles": 41,
+        "trucks": 5,
+        "tricycles": 0,
+        "jeepneys": 2,
+        "buses": 2
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 13,
+          "total_queue": 11,
+          "avg_waiting": 23.846153846153847,
+          "vehicle_types": {
+            "car": 7,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 4,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 76,
+          "total_queue": 60,
+          "avg_waiting": 23.960526315789473,
+          "vehicle_types": {
+            "car": 50,
+            "bus": 2,
+            "jeepney": 2,
+            "motorcycle": 19,
+            "truck": 3
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 54,
+          "total_queue": 10,
+          "avg_waiting": 1.2962962962962963,
+          "vehicle_types": {
+            "car": 36,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 18,
+            "truck": 0
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 278.7,
+      "avg_waiting_time": 6.5439325390738805,
+      "avg_queue_length": 75.00666666666666,
+      "total_vehicles": 139,
+      "vehicle_types": {
+        "cars": 88,
+        "buses": 2,
+        "jeepneys": 2,
+        "motorcycles": 42,
+        "trucks": 5,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 21,
+          "total_queue": 14,
+          "avg_waiting": 20.58823529411765,
+          "vehicle_types": {
+            "car": 19,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 0,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 64,
+          "total_queue": 33,
+          "avg_waiting": 39.10526315789474,
+          "vehicle_types": {
+            "car": 37,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 21,
+            "truck": 5
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 29,
+          "total_queue": 2,
+          "avg_waiting": 0.5333333333333333,
+          "vehicle_types": {
+            "car": 18,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 10,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 53,
+    "scenario": "20250814_cycle_2",
+    "fixed_time": {
+      "passenger_throughput": 6368.378624999996,
+      "avg_waiting_time": 11.152593184305465,
+      "avg_queue_length": 92.54814814814814,
+      "total_vehicles": 414,
+      "vehicle_types": {
+        "cars": 79,
+        "motorcycles": 46,
+        "trucks": 6,
+        "tricycles": 0,
+        "jeepneys": 8,
+        "buses": 7
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 17,
+          "total_queue": 15,
+          "avg_waiting": 14.529411764705882,
+          "vehicle_types": {
+            "car": 8,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 5,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 87,
+          "total_queue": 74,
+          "avg_waiting": 24.17241379310345,
+          "vehicle_types": {
+            "car": 50,
+            "bus": 2,
+            "jeepney": 1,
+            "motorcycle": 30,
+            "truck": 4
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 42,
+          "total_queue": 13,
+          "avg_waiting": 0.5952380952380952,
+          "vehicle_types": {
+            "car": 21,
+            "bus": 5,
+            "jeepney": 5,
+            "motorcycle": 11,
+            "truck": 0
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 561.8,
+      "avg_waiting_time": 6.68298334942867,
+      "avg_queue_length": 86.21333333333334,
+      "total_vehicles": 139,
+      "vehicle_types": {
+        "cars": 71,
+        "buses": 7,
+        "jeepneys": 11,
+        "motorcycles": 45,
+        "trucks": 5,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 11,
+          "total_queue": 10,
+          "avg_waiting": 21.176470588235293,
+          "vehicle_types": {
+            "car": 6,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 2,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 90,
+          "total_queue": 54,
+          "avg_waiting": 65.78947368421052,
+          "vehicle_types": {
+            "car": 63,
+            "bus": 2,
+            "jeepney": 5,
+            "motorcycle": 20,
+            "truck": 0
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 37,
+          "total_queue": 2,
+          "avg_waiting": 0.7333333333333333,
+          "vehicle_types": {
+            "car": 10,
+            "bus": 0,
+            "jeepney": 10,
+            "motorcycle": 17,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 54,
+    "scenario": "20250714_cycle_3",
+    "fixed_time": {
+      "passenger_throughput": 6271.668375000006,
+      "avg_waiting_time": 10.03594077035101,
+      "avg_queue_length": 91.55185185185185,
+      "total_vehicles": 426,
+      "vehicle_types": {
+        "cars": 80,
+        "motorcycles": 44,
+        "trucks": 13,
+        "tricycles": 0,
+        "jeepneys": 22,
+        "buses": 11
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 20,
+          "total_queue": 17,
+          "avg_waiting": 22.4,
+          "vehicle_types": {
+            "car": 12,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 8,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 98,
+          "total_queue": 70,
+          "avg_waiting": 21.928571428571427,
+          "vehicle_types": {
+            "car": 45,
+            "bus": 6,
+            "jeepney": 16,
+            "motorcycle": 28,
+            "truck": 3
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 52,
+          "total_queue": 11,
+          "avg_waiting": 1.1923076923076923,
+          "vehicle_types": {
+            "car": 23,
+            "bus": 5,
+            "jeepney": 6,
+            "motorcycle": 8,
+            "truck": 10
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 1010.4,
+      "avg_waiting_time": 7.602039492590567,
+      "avg_queue_length": 97.52666666666667,
+      "total_vehicles": 168,
+      "vehicle_types": {
+        "cars": 72,
+        "buses": 12,
+        "jeepneys": 30,
+        "motorcycles": 42,
+        "trucks": 12,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 10,
+          "total_queue": 10,
+          "avg_waiting": 18.294117647058822,
+          "vehicle_types": {
+            "car": 2,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 2,
+            "truck": 5
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 102,
+          "total_queue": 85,
+          "avg_waiting": 77.6842105263158,
+          "vehicle_types": {
+            "car": 54,
+            "bus": 0,
+            "jeepney": 21,
+            "motorcycle": 25,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 41,
+          "total_queue": 6,
+          "avg_waiting": 2.0,
+          "vehicle_types": {
+            "car": 22,
+            "bus": 0,
+            "jeepney": 3,
+            "motorcycle": 16,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 55,
+    "scenario": "20250815_cycle_2",
+    "fixed_time": {
+      "passenger_throughput": 6526.306499999999,
+      "avg_waiting_time": 10.743092847948862,
+      "avg_queue_length": 100.56296296296296,
+      "total_vehicles": 435,
+      "vehicle_types": {
+        "cars": 80,
+        "motorcycles": 51,
+        "trucks": 4,
+        "tricycles": 0,
+        "jeepneys": 19,
+        "buses": 5
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 23,
+          "total_queue": 21,
+          "avg_waiting": 22.0,
+          "vehicle_types": {
+            "car": 10,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 11,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 93,
+          "total_queue": 76,
+          "avg_waiting": 26.93548387096774,
+          "vehicle_types": {
+            "car": 50,
+            "bus": 0,
+            "jeepney": 7,
+            "motorcycle": 33,
+            "truck": 3
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 43,
+          "total_queue": 13,
+          "avg_waiting": 2.1627906976744184,
+          "vehicle_types": {
+            "car": 20,
+            "bus": 5,
+            "jeepney": 10,
+            "motorcycle": 7,
+            "truck": 1
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 698.2,
+      "avg_waiting_time": 6.728608426944264,
+      "avg_queue_length": 90.54333333333334,
+      "total_vehicles": 159,
+      "vehicle_types": {
+        "cars": 77,
+        "buses": 5,
+        "jeepneys": 25,
+        "motorcycles": 49,
+        "trucks": 3,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 9,
+          "total_queue": 7,
+          "avg_waiting": 20.352941176470587,
+          "vehicle_types": {
+            "car": 1,
+            "bus": 2,
+            "jeepney": 2,
+            "motorcycle": 2,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 92,
+          "total_queue": 67,
+          "avg_waiting": 77.73684210526316,
+          "vehicle_types": {
+            "car": 44,
+            "bus": 0,
+            "jeepney": 9,
+            "motorcycle": 30,
+            "truck": 9
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 52,
+          "total_queue": 4,
+          "avg_waiting": 2.2666666666666666,
+          "vehicle_types": {
+            "car": 21,
+            "bus": 0,
+            "jeepney": 5,
+            "motorcycle": 26,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 56,
+    "scenario": "20250707_cycle_2",
+    "fixed_time": {
+      "passenger_throughput": 6499.96725,
+      "avg_waiting_time": 10.551242192305642,
+      "avg_queue_length": 104.0925925925926,
+      "total_vehicles": 436,
+      "vehicle_types": {
+        "cars": 96,
+        "motorcycles": 46,
+        "trucks": 8,
+        "tricycles": 0,
+        "jeepneys": 9,
+        "buses": 12
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 21,
+          "total_queue": 20,
+          "avg_waiting": 20.80952380952381,
+          "vehicle_types": {
+            "car": 11,
+            "bus": 4,
+            "jeepney": 2,
+            "motorcycle": 4,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 114,
+          "total_queue": 100,
+          "avg_waiting": 30.763157894736842,
+          "vehicle_types": {
+            "car": 69,
+            "bus": 3,
+            "jeepney": 5,
+            "motorcycle": 35,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 36,
+          "total_queue": 6,
+          "avg_waiting": 2.0,
+          "vehicle_types": {
+            "car": 16,
+            "bus": 5,
+            "jeepney": 2,
+            "motorcycle": 7,
+            "truck": 6
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 815.4,
+      "avg_waiting_time": 6.880400934595801,
+      "avg_queue_length": 91.21666666666667,
+      "total_vehicles": 162,
+      "vehicle_types": {
+        "cars": 86,
+        "buses": 14,
+        "jeepneys": 10,
+        "motorcycles": 44,
+        "trucks": 8,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 11,
+          "total_queue": 9,
+          "avg_waiting": 16.823529411764707,
+          "vehicle_types": {
+            "car": 5,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 5,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 96,
+          "total_queue": 63,
+          "avg_waiting": 70.15789473684211,
+          "vehicle_types": {
+            "car": 53,
+            "bus": 3,
+            "jeepney": 8,
+            "motorcycle": 32,
+            "truck": 0
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 38,
+          "total_queue": 6,
+          "avg_waiting": 4.266666666666667,
+          "vehicle_types": {
+            "car": 18,
+            "bus": 0,
+            "jeepney": 11,
+            "motorcycle": 9,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 57,
+    "scenario": "20250714_cycle_2",
+    "fixed_time": {
+      "passenger_throughput": 6213.141375000007,
+      "avg_waiting_time": 10.148111161546748,
+      "avg_queue_length": 92.60740740740741,
+      "total_vehicles": 412,
+      "vehicle_types": {
+        "cars": 84,
+        "motorcycles": 30,
+        "trucks": 8,
+        "tricycles": 0,
+        "jeepneys": 6,
+        "buses": 8
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 17,
+          "total_queue": 15,
+          "avg_waiting": 18.058823529411764,
+          "vehicle_types": {
+            "car": 12,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 3,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 81,
+          "total_queue": 64,
+          "avg_waiting": 26.098765432098766,
+          "vehicle_types": {
+            "car": 53,
+            "bus": 3,
+            "jeepney": 2,
+            "motorcycle": 21,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 38,
+          "total_queue": 7,
+          "avg_waiting": 0.8157894736842105,
+          "vehicle_types": {
+            "car": 19,
+            "bus": 5,
+            "jeepney": 2,
+            "motorcycle": 6,
+            "truck": 6
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 598.0,
+      "avg_waiting_time": 8.250448847502577,
+      "avg_queue_length": 98.42333333333333,
+      "total_vehicles": 129,
+      "vehicle_types": {
+        "cars": 75,
+        "buses": 10,
+        "jeepneys": 7,
+        "motorcycles": 30,
+        "trucks": 7,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 19,
+          "total_queue": 19,
+          "avg_waiting": 34.470588235294116,
+          "vehicle_types": {
+            "car": 13,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 6,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 103,
+          "total_queue": 76,
+          "avg_waiting": 89.21052631578948,
+          "vehicle_types": {
+            "car": 71,
+            "bus": 2,
+            "jeepney": 4,
+            "motorcycle": 26,
+            "truck": 0
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 26,
+          "total_queue": 6,
+          "avg_waiting": 5.266666666666667,
+          "vehicle_types": {
+            "car": 11,
+            "bus": 0,
+            "jeepney": 5,
+            "motorcycle": 10,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 58,
+    "scenario": "20250710_cycle_1",
+    "fixed_time": {
+      "passenger_throughput": 6570.905250000008,
+      "avg_waiting_time": 11.364577526100884,
+      "avg_queue_length": 105.8962962962963,
+      "total_vehicles": 448,
+      "vehicle_types": {
+        "cars": 87,
+        "motorcycles": 62,
+        "trucks": 6,
+        "tricycles": 0,
+        "jeepneys": 11,
+        "buses": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 12,
+          "total_queue": 11,
+          "avg_waiting": 23.166666666666668,
+          "vehicle_types": {
+            "car": 4,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 6,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 110,
+          "total_queue": 97,
+          "avg_waiting": 32.336363636363636,
+          "vehicle_types": {
+            "car": 65,
+            "bus": 0,
+            "jeepney": 6,
+            "motorcycle": 35,
+            "truck": 4
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 44,
+          "total_queue": 6,
+          "avg_waiting": 0.6136363636363636,
+          "vehicle_types": {
+            "car": 18,
+            "bus": 0,
+            "jeepney": 5,
+            "motorcycle": 21,
+            "truck": 0
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 384.3,
+      "avg_waiting_time": 7.992444511894619,
+      "avg_queue_length": 108.92666666666666,
+      "total_vehicles": 163,
+      "vehicle_types": {
+        "cars": 82,
+        "buses": 0,
+        "jeepneys": 13,
+        "motorcycles": 63,
+        "trucks": 5,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 15,
+          "total_queue": 15,
+          "avg_waiting": 22.88235294117647,
+          "vehicle_types": {
+            "car": 10,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 5,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 126,
+          "total_queue": 98,
+          "avg_waiting": 93.73684210526316,
+          "vehicle_types": {
+            "car": 83,
+            "bus": 0,
+            "jeepney": 9,
+            "motorcycle": 32,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 34,
+          "total_queue": 4,
+          "avg_waiting": 1.3333333333333333,
+          "vehicle_types": {
+            "car": 14,
+            "bus": 0,
+            "jeepney": 3,
+            "motorcycle": 17,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 59,
+    "scenario": "20250818_cycle_1",
+    "fixed_time": {
+      "passenger_throughput": 6478.681125000006,
+      "avg_waiting_time": 10.052355760808778,
+      "avg_queue_length": 89.94074074074074,
+      "total_vehicles": 442,
+      "vehicle_types": {
+        "cars": 70,
+        "motorcycles": 51,
+        "trucks": 6,
+        "tricycles": 0,
+        "jeepneys": 14,
+        "buses": 3
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 19,
+          "total_queue": 19,
+          "avg_waiting": 14.105263157894736,
+          "vehicle_types": {
+            "car": 10,
+            "bus": 0,
+            "jeepney": 4,
+            "motorcycle": 5,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 76,
+          "total_queue": 66,
+          "avg_waiting": 21.88157894736842,
+          "vehicle_types": {
+            "car": 35,
+            "bus": 2,
+            "jeepney": 5,
+            "motorcycle": 34,
+            "truck": 0
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 49,
+          "total_queue": 17,
+          "avg_waiting": 1.2040816326530612,
+          "vehicle_types": {
+            "car": 25,
+            "bus": 1,
+            "jeepney": 5,
+            "motorcycle": 12,
+            "truck": 6
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 505.2,
+      "avg_waiting_time": 7.265047753494961,
+      "avg_queue_length": 91.95333333333333,
+      "total_vehicles": 140,
+      "vehicle_types": {
+        "cars": 64,
+        "buses": 3,
+        "jeepneys": 17,
+        "motorcycles": 50,
+        "trucks": 6,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 9,
+          "total_queue": 9,
+          "avg_waiting": 19.0,
+          "vehicle_types": {
+            "car": 3,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 2,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 69,
+          "total_queue": 48,
+          "avg_waiting": 54.05263157894737,
+          "vehicle_types": {
+            "car": 41,
+            "bus": 0,
+            "jeepney": 5,
+            "motorcycle": 21,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 52,
+          "total_queue": 6,
+          "avg_waiting": 2.2,
+          "vehicle_types": {
+            "car": 27,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 23,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 60,
+    "scenario": "20250805_cycle_3",
+    "fixed_time": {
+      "passenger_throughput": 6241.0949999999975,
+      "avg_waiting_time": 11.508726056328731,
+      "avg_queue_length": 94.28148148148148,
+      "total_vehicles": 400,
+      "vehicle_types": {
+        "cars": 84,
+        "motorcycles": 23,
+        "trucks": 18,
+        "tricycles": 0,
+        "jeepneys": 1,
+        "buses": 5
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 15,
+          "total_queue": 15,
+          "avg_waiting": 18.6,
+          "vehicle_types": {
+            "car": 8,
+            "bus": 4,
+            "jeepney": 0,
+            "motorcycle": 3,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 80,
+          "total_queue": 67,
+          "avg_waiting": 30.2625,
+          "vehicle_types": {
+            "car": 57,
+            "bus": 1,
+            "jeepney": 1,
+            "motorcycle": 14,
+            "truck": 7
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 36,
+          "total_queue": 1,
+          "avg_waiting": 0.1111111111111111,
+          "vehicle_types": {
+            "car": 19,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 6,
+            "truck": 11
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 380.2,
+      "avg_waiting_time": 6.967799321968214,
+      "avg_queue_length": 87.94,
+      "total_vehicles": 123,
+      "vehicle_types": {
+        "cars": 78,
+        "buses": 6,
+        "jeepneys": 1,
+        "motorcycles": 22,
+        "trucks": 16,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 16,
+          "total_queue": 16,
+          "avg_waiting": 26.41176470588235,
+          "vehicle_types": {
+            "car": 3,
+            "bus": 0,
+            "jeepney": 4,
+            "motorcycle": 9,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 83,
+          "total_queue": 45,
+          "avg_waiting": 52.89473684210526,
+          "vehicle_types": {
+            "car": 56,
+            "bus": 0,
+            "jeepney": 4,
+            "motorcycle": 21,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 45,
+          "total_queue": 5,
+          "avg_waiting": 3.6,
+          "vehicle_types": {
+            "car": 28,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 15,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 61,
+    "scenario": "20250710_cycle_3",
+    "fixed_time": {
+      "passenger_throughput": 6523.710375000002,
+      "avg_waiting_time": 10.94708482214622,
+      "avg_queue_length": 99.31481481481481,
+      "total_vehicles": 443,
+      "vehicle_types": {
+        "cars": 85,
+        "motorcycles": 41,
+        "trucks": 15,
+        "tricycles": 0,
+        "jeepneys": 7,
+        "buses": 8
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 18,
+          "total_queue": 15,
+          "avg_waiting": 16.72222222222222,
+          "vehicle_types": {
+            "car": 8,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 4,
+            "truck": 4
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 100,
+          "total_queue": 87,
+          "avg_waiting": 28.3,
+          "vehicle_types": {
+            "car": 58,
+            "bus": 3,
+            "jeepney": 5,
+            "motorcycle": 29,
+            "truck": 5
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 38,
+          "total_queue": 6,
+          "avg_waiting": 1.3421052631578947,
+          "vehicle_types": {
+            "car": 19,
+            "bus": 5,
+            "jeepney": 0,
+            "motorcycle": 8,
+            "truck": 6
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 605.5,
+      "avg_waiting_time": 7.628975441500827,
+      "avg_queue_length": 96.87,
+      "total_vehicles": 149,
+      "vehicle_types": {
+        "cars": 77,
+        "buses": 9,
+        "jeepneys": 8,
+        "motorcycles": 41,
+        "trucks": 14,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 9,
+          "total_queue": 9,
+          "avg_waiting": 16.176470588235293,
+          "vehicle_types": {
+            "car": 5,
+            "bus": 0,
+            "jeepney": 3,
+            "motorcycle": 1,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 98,
+          "total_queue": 78,
+          "avg_waiting": 77.05263157894737,
+          "vehicle_types": {
+            "car": 55,
+            "bus": 0,
+            "jeepney": 9,
+            "motorcycle": 32,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 42,
+          "total_queue": 7,
+          "avg_waiting": 4.4,
+          "vehicle_types": {
+            "car": 17,
+            "bus": 0,
+            "jeepney": 11,
+            "motorcycle": 14,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 62,
+    "scenario": "20250819_cycle_1",
+    "fixed_time": {
+      "passenger_throughput": 6228.030374999995,
+      "avg_waiting_time": 10.7268946712188,
+      "avg_queue_length": 94.28148148148148,
+      "total_vehicles": 417,
+      "vehicle_types": {
+        "cars": 90,
+        "motorcycles": 37,
+        "trucks": 8,
+        "tricycles": 0,
+        "jeepneys": 2,
+        "buses": 15
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 21,
+          "total_queue": 21,
+          "avg_waiting": 14.904761904761905,
+          "vehicle_types": {
+            "car": 14,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 7,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 82,
+          "total_queue": 72,
+          "avg_waiting": 28.073170731707318,
+          "vehicle_types": {
+            "car": 56,
+            "bus": 5,
+            "jeepney": 2,
+            "motorcycle": 16,
+            "truck": 3
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 49,
+          "total_queue": 17,
+          "avg_waiting": 3.2653061224489797,
+          "vehicle_types": {
+            "car": 20,
+            "bus": 10,
+            "jeepney": 0,
+            "motorcycle": 14,
+            "truck": 5
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 798.5999999999999,
+      "avg_waiting_time": 6.866370208292594,
+      "avg_queue_length": 85.41,
+      "total_vehicles": 150,
+      "vehicle_types": {
+        "cars": 86,
+        "buses": 17,
+        "jeepneys": 2,
+        "motorcycles": 37,
+        "trucks": 8,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 16,
+          "total_queue": 15,
+          "avg_waiting": 24.058823529411764,
+          "vehicle_types": {
+            "car": 9,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 3,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 83,
+          "total_queue": 52,
+          "avg_waiting": 53.421052631578945,
+          "vehicle_types": {
+            "car": 59,
+            "bus": 0,
+            "jeepney": 7,
+            "motorcycle": 17,
+            "truck": 0
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 44,
+          "total_queue": 4,
+          "avg_waiting": 1.2,
+          "vehicle_types": {
+            "car": 15,
+            "bus": 0,
+            "jeepney": 5,
+            "motorcycle": 19,
+            "truck": 5
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 63,
+    "scenario": "20250704_cycle_2",
+    "fixed_time": {
+      "passenger_throughput": 6337.225125000003,
+      "avg_waiting_time": 10.970272797111411,
+      "avg_queue_length": 85.23333333333333,
+      "total_vehicles": 409,
+      "vehicle_types": {
+        "cars": 61,
+        "motorcycles": 36,
+        "trucks": 15,
+        "tricycles": 0,
+        "jeepneys": 10,
+        "buses": 10
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 15,
+          "total_queue": 8,
+          "avg_waiting": 14.333333333333334,
+          "vehicle_types": {
+            "car": 10,
+            "bus": 2,
+            "jeepney": 1,
+            "motorcycle": 2,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 77,
+          "total_queue": 52,
+          "avg_waiting": 20.22077922077922,
+          "vehicle_types": {
+            "car": 32,
+            "bus": 7,
+            "jeepney": 6,
+            "motorcycle": 27,
+            "truck": 5
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 40,
+          "total_queue": 9,
+          "avg_waiting": 1.1,
+          "vehicle_types": {
+            "car": 19,
+            "bus": 1,
+            "jeepney": 3,
+            "motorcycle": 7,
+            "truck": 10
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 737.6999999999999,
+      "avg_waiting_time": 6.15994471803603,
+      "avg_queue_length": 76.86,
+      "total_vehicles": 134,
+      "vehicle_types": {
+        "cars": 58,
+        "buses": 12,
+        "jeepneys": 12,
+        "motorcycles": 37,
+        "trucks": 15,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 12,
+          "total_queue": 12,
+          "avg_waiting": 28.41176470588235,
+          "vehicle_types": {
+            "car": 4,
+            "bus": 0,
+            "jeepney": 4,
+            "motorcycle": 2,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 73,
+          "total_queue": 45,
+          "avg_waiting": 50.31578947368421,
+          "vehicle_types": {
+            "car": 38,
+            "bus": 3,
+            "jeepney": 6,
+            "motorcycle": 24,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 42,
+          "total_queue": 4,
+          "avg_waiting": 3.466666666666667,
+          "vehicle_types": {
+            "car": 24,
+            "bus": 0,
+            "jeepney": 10,
+            "motorcycle": 8,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 64,
+    "scenario": "20250809_cycle_1",
+    "fixed_time": {
+      "passenger_throughput": 6543.179999999994,
+      "avg_waiting_time": 10.754620510362477,
+      "avg_queue_length": 105.08888888888889,
+      "total_vehicles": 432,
+      "vehicle_types": {
+        "cars": 99,
+        "motorcycles": 52,
+        "trucks": 16,
+        "tricycles": 0,
+        "jeepneys": 9,
+        "buses": 5
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 22,
+          "total_queue": 20,
+          "avg_waiting": 13.5,
+          "vehicle_types": {
+            "car": 10,
+            "bus": 0,
+            "jeepney": 2,
+            "motorcycle": 8,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 106,
+          "total_queue": 88,
+          "avg_waiting": 27.367924528301888,
+          "vehicle_types": {
+            "car": 61,
+            "bus": 0,
+            "jeepney": 5,
+            "motorcycle": 38,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 53,
+          "total_queue": 16,
+          "avg_waiting": 2.3773584905660377,
+          "vehicle_types": {
+            "car": 28,
+            "bus": 5,
+            "jeepney": 2,
+            "motorcycle": 6,
+            "truck": 12
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 580.0999999999999,
+      "avg_waiting_time": 7.397231735163509,
+      "avg_queue_length": 94.89333333333333,
+      "total_vehicles": 177,
+      "vehicle_types": {
+        "cars": 93,
+        "buses": 6,
+        "jeepneys": 11,
+        "motorcycles": 53,
+        "trucks": 14,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 14,
+          "total_queue": 14,
+          "avg_waiting": 22.11764705882353,
+          "vehicle_types": {
+            "car": 4,
+            "bus": 0,
+            "jeepney": 5,
+            "motorcycle": 3,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 104,
+          "total_queue": 78,
+          "avg_waiting": 77.3157894736842,
+          "vehicle_types": {
+            "car": 56,
+            "bus": 0,
+            "jeepney": 17,
+            "motorcycle": 31,
+            "truck": 0
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 46,
+          "total_queue": 5,
+          "avg_waiting": 1.9333333333333333,
+          "vehicle_types": {
+            "car": 20,
+            "bus": 0,
+            "jeepney": 12,
+            "motorcycle": 14,
+            "truck": 0
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 65,
+    "scenario": "20250708_cycle_3",
+    "fixed_time": {
+      "passenger_throughput": 6004.193999999999,
+      "avg_waiting_time": 10.645372342398845,
+      "avg_queue_length": 86.28148148148148,
+      "total_vehicles": 406,
+      "vehicle_types": {
+        "cars": 71,
+        "motorcycles": 41,
+        "trucks": 14,
+        "tricycles": 0,
+        "jeepneys": 6,
+        "buses": 8
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 19,
+          "total_queue": 18,
+          "avg_waiting": 19.894736842105264,
+          "vehicle_types": {
+            "car": 9,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 9,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 66,
+          "total_queue": 56,
+          "avg_waiting": 23.045454545454547,
+          "vehicle_types": {
+            "car": 35,
+            "bus": 8,
+            "jeepney": 0,
+            "motorcycle": 20,
+            "truck": 3
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 55,
+          "total_queue": 16,
+          "avg_waiting": 3.018181818181818,
+          "vehicle_types": {
+            "car": 27,
+            "bus": 0,
+            "jeepney": 5,
+            "motorcycle": 12,
+            "truck": 11
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 644.3,
+      "avg_waiting_time": 6.568707863458294,
+      "avg_queue_length": 73.40333333333334,
+      "total_vehicles": 137,
+      "vehicle_types": {
+        "cars": 66,
+        "buses": 11,
+        "jeepneys": 7,
+        "motorcycles": 40,
+        "trucks": 13,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 8,
+          "total_queue": 8,
+          "avg_waiting": 15.294117647058824,
+          "vehicle_types": {
+            "car": 4,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 0,
+            "truck": 3
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 58,
+          "total_queue": 29,
+          "avg_waiting": 34.36842105263158,
+          "vehicle_types": {
+            "car": 24,
+            "bus": 0,
+            "jeepney": 5,
+            "motorcycle": 27,
+            "truck": 2
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 39,
+          "total_queue": 4,
+          "avg_waiting": 2.6,
+          "vehicle_types": {
+            "car": 20,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 14,
+            "truck": 5
+          }
+        }
+      }
+    }
+  },
+  {
+    "episode": 66,
+    "scenario": "20250814_cycle_1",
+    "fixed_time": {
+      "passenger_throughput": 6022.359000000004,
+      "avg_waiting_time": 10.50128223399125,
+      "avg_queue_length": 90.02592592592593,
+      "total_vehicles": 407,
+      "vehicle_types": {
+        "cars": 63,
+        "motorcycles": 44,
+        "trucks": 14,
+        "tricycles": 0,
+        "jeepneys": 2,
+        "buses": 13
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 25,
+          "total_queue": 25,
+          "avg_waiting": 19.64,
+          "vehicle_types": {
+            "car": 12,
+            "bus": 0,
+            "jeepney": 0,
+            "motorcycle": 13,
+            "truck": 0
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 81,
+          "total_queue": 67,
+          "avg_waiting": 24.876543209876544,
+          "vehicle_types": {
+            "car": 43,
+            "bus": 8,
+            "jeepney": 2,
+            "motorcycle": 25,
+            "truck": 3
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 30,
+          "total_queue": 2,
+          "avg_waiting": 0.26666666666666666,
+          "vehicle_types": {
+            "car": 8,
+            "bus": 5,
+            "jeepney": 0,
+            "motorcycle": 6,
+            "truck": 11
+          }
+        }
+      }
+    },
+    "d3qn": {
+      "passenger_throughput": 706.8000000000001,
+      "avg_waiting_time": 8.145065537927657,
+      "avg_queue_length": 94.45666666666666,
+      "total_vehicles": 130,
+      "vehicle_types": {
+        "cars": 57,
+        "buses": 15,
+        "jeepneys": 2,
+        "motorcycles": 43,
+        "trucks": 13,
+        "tricycles": 0
+      },
+      "intersections": {
+        "Ecoland_TrafficSignal": {
+          "total_vehicles": 17,
+          "total_queue": 15,
+          "avg_waiting": 24.705882352941178,
+          "vehicle_types": {
+            "car": 5,
+            "bus": 0,
+            "jeepney": 1,
+            "motorcycle": 9,
+            "truck": 2
+          }
+        },
+        "JohnPaul_TrafficSignal": {
+          "total_vehicles": 103,
+          "total_queue": 64,
+          "avg_waiting": 69.94736842105263,
+          "vehicle_types": {
+            "car": 58,
+            "bus": 0,
+            "jeepney": 4,
+            "motorcycle": 35,
+            "truck": 6
+          }
+        },
+        "Sandawa_TrafficSignal": {
+          "total_vehicles": 40,
+          "total_queue": 4,
+          "avg_waiting": 1.4,
+          "vehicle_types": {
+            "car": 25,
+            "bus": 0,
+            "jeepney": 5,
+            "motorcycle": 5,
+            "truck": 5
+          }
+        }
+      }
+    }
+  }
+]

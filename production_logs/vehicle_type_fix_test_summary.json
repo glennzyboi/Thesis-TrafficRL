@@ -1,0 +1,24 @@
+{
+  "experiment_id": "vehicle_type_fix_test",
+  "session_id": "386463e3-289f-42e2-b621-353535df8ce0",
+  "timestamp": "2025-10-16T10:13:19.522776",
+  "total_episodes": 2,
+  "performance_metrics": {
+    "avg_reward": -1.2631733840371169,
+    "best_reward": -1.146294877721089,
+    "reward_improvement": 0.0,
+    "avg_passenger_throughput": 8181.818181818182,
+    "avg_vehicles_served": 500.0,
+    "avg_pt_throughput": 0.0
+  },
+  "learning_metrics": {
+    "convergence_episode": -1,
+    "stability_score": 0.0,
+    "exploration_rate": 1.7753189342072102
+  },
+  "config": {
+    "log_interval": 30,
+    "buffer_size": 100,
+    "total_steps": 598
+  }
+}

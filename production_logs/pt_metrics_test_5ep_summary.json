@@ -1,0 +1,24 @@
+{
+  "experiment_id": "pt_metrics_test_5ep",
+  "session_id": "728b462f-20a1-4786-9cf4-6783166cc2f6",
+  "timestamp": "2025-10-16T16:26:25.112978",
+  "total_episodes": 5,
+  "performance_metrics": {
+    "avg_reward": -1.1438601774187012,
+    "best_reward": -0.9467506270272071,
+    "reward_improvement": 0.0,
+    "avg_passenger_throughput": 8067.272727272728,
+    "avg_vehicles_served": 493.0,
+    "avg_pt_throughput": 0.0
+  },
+  "learning_metrics": {
+    "convergence_episode": -1,
+    "stability_score": 0.0,
+    "exploration_rate": 1.6290333315903127
+  },
+  "config": {
+    "log_interval": 30,
+    "buffer_size": 100,
+    "total_steps": 1495
+  }
+}
